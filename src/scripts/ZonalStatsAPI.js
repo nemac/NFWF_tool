@@ -34,7 +34,7 @@ export class ZonalStatsAPI {
 
     try {
       const response = await post(this.url, postdata, axiosConfig);
-      return response.data.features[0].mean;
+      return response.data;
     } catch (err) {
       return { err };
     }

@@ -1,6 +1,7 @@
 // dependencies
 import L from 'leaflet';
 import { Draw } from 'leaflet-draw';
+import buffer from '@turf/buffer';
 
 // default map template
 import exploreTemplate from '../templates/explore.html';
@@ -30,6 +31,12 @@ export class Explore extends Component {
     const { mapComponent, mapInfoComponent } = props;
     this.mapComponent = mapComponent;
     this.drawAreaGroup = L.featureGroup().addTo(mapComponent.map);
+
+    // defualt buffer style
+    this.bufferedoptions = {
+      fillColor: '#99c3ff',
+      color: '#99c3ff'
+    };
 
     // handler for when drawing is completed
     this.addDrawVertexCreatedHandler(mapComponent, mapInfoComponent);
@@ -65,7 +72,8 @@ export class Explore extends Component {
 
   static zonalStatsHandler() {
     const clearAreaElement = document.getElementById('details-holder');
-    const zonalstatsjson = store.getStateItem('zonalstatsjson');
+    const zonalstatsgeojson = store.getStateItem('zonalstatsjson');
+    const zonalstatsjson = zonalstatsgeojson.features[0].mean;
 
     if (clearAreaElement) {
       let html = '';
@@ -97,7 +105,7 @@ export class Explore extends Component {
     store.removeStateItem('zonalstatsjson');
 
     // get geoJSON to send to zonal stats lambda function
-    const rawpostdata = store.getStateItem('userarea');
+    const rawpostdata = store.getStateItem('userarea_buffered');
     let postdata = '';
 
     // some Geojson is not a feature collection lambda function expects a
@@ -115,6 +123,7 @@ export class Explore extends Component {
     // send request to api
     const ZonalStatsJson = await this.ZonalStatsAPI.getZonalStatsSummary(postdata);
     store.setStoreItem('zonalstatsjson', ZonalStatsJson);
+
     spinnerOff();
 
     // add event to map for a listner that zonal stats have been calculated
@@ -123,7 +132,11 @@ export class Explore extends Component {
   }
 
   // retreive a saved geojson data from s3
+  // assume the buffer has NOT been applied
   async retreiveS3GeojsonFile(projectfile = 'projected_4326_62155.geojson') {
+    // remove existing Area
+    this.removeExistingArea();
+
     const SaveGeoJSON = await this.StoreShapesAPI.getSavedGeoJSON(projectfile);
 
     // draw poly on map
@@ -155,12 +168,20 @@ export class Explore extends Component {
       // convert geoJson to leaflet layer
       const layer = L.geoJson(SaveGeoJSON);
 
+      // buffer the geoJSON by 1 kilometer
+      const bufferedGeoJSON = buffer(SaveGeoJSON, 1, { units: 'kilometers' });
+      store.setStoreItem('userarea_buffered', bufferedGeoJSON);
+
+      // convert geoJson to leaflet layer
+      const bufferedLayer = L.geoJson(bufferedGeoJSON, this.bufferedoptions);
+
       // add layer to the leaflet map
       this.drawAreaGroup.addLayer(layer);
+      this.drawAreaGroup.addLayer(bufferedLayer);
 
       // force map to bounds
       if (checkValidObject(this.mapComponent)) {
-        this.mapComponent.map.fitBounds(layer.getBounds());
+        this.mapComponent.map.fitBounds(bufferedLayer.getBounds());
         this.mapComponent.saveZoomAndMapPosition();
         store.saveAction('addsavedgeojson');
       }
@@ -173,16 +194,22 @@ export class Explore extends Component {
   // draw the user area on the map
   drawUserArea() {
     const userarea = store.getStateItem('userarea');
+    const userareaBuffered = store.getStateItem('userarea_buffered');
+
+
     // console.log(' drawUserArea', userarea)
     // ensure the user area object is valid (actuall has a value)
-    if (checkValidObject(userarea)) {
+    if (checkValidObject(userarea) && checkValidObject(userareaBuffered)) {
       // convert geoJson to leaflet layer
       const layer = L.geoJson(userarea);
+      const userareaBufferedLayer = L.geoJson(userareaBuffered, this.bufferedoptions);
 
       // add layer to the leaflet map
+      this.drawAreaGroup.addLayer(userareaBufferedLayer);
       this.drawAreaGroup.addLayer(layer);
+
       this.getZonal();
-      return layer;
+      return userareaBufferedLayer;
     }
     return null;
   }
@@ -224,6 +251,8 @@ export class Explore extends Component {
   removeExistingArea() {
     this.drawAreaGroup.clearLayers();
     store.removeStateItem('userarea');
+    store.removeStateItem('userarea_buffered');
+    store.removeStateItem('zonalstatsjson');
     store.removeStateItem('projectfile');
     const clearAreaElement = document.getElementById('details-holder');
     if (clearAreaElement) {
@@ -329,10 +358,18 @@ export class Explore extends Component {
     // Assumming you have a Leaflet map accessible
     mapComponent.map.on('draw:created', (e) => {
       const { layer } = e;
+
+      // buffer the geoJSON by 1 kilometer
+      const bufferedGeoJSON = buffer(layer.toGeoJSON(), 1, { units: 'kilometers' });
+
+      // convert geoJson to leaflet layer
+      const bufferedLayer = L.geoJson(bufferedGeoJSON, this.bufferedoptions);
+      this.drawAreaGroup.addLayer(bufferedLayer);
       this.drawAreaGroup.addLayer(layer);
 
       // start adding the user draw shape to the map
-      layer.addTo(mapComponent.map);
+      // this.drawAreaGroup.addTo(mapComponent.map);
+      // layer.addTo(mapComponent.map);
 
       // must click the i button to do this action we will have to remove this
       // if we want users to always be able to click the map and do mapinfo
@@ -344,6 +381,9 @@ export class Explore extends Component {
       // update store
       store.setStoreItem('lastaction', 'draw area');
       store.setStoreItem('userarea', layer.toGeoJSON());
+      store.setStoreItem('userarea_buffered', bufferedLayer.toGeoJSON());
+
+
       this.getZonal();
     });
   }
