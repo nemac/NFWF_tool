@@ -1,6 +1,10 @@
 import ZonalWrapper from '../templates/zonal_wrapper.html';
 import identifyConfig from '../config/identifyConfig';
 
+function checkNoData(val) {
+  return Number.isNaN(Number.parseFloat(val)) || Number.parseInt(val, 10) === 255;
+}
+
 function makeDiv() {
   return document.createElement('div');
 }
@@ -113,7 +117,7 @@ function makeOutHubBox() {
 }
 
 function makeHubBox(inHub) {
-  return Number.isNaN(inHub) ? makeOutHubBox() : makeInHubBox();
+  return checkNoData(inHub) ? makeOutHubBox() : makeInHubBox();
 }
 
 function makeShortZonalStatsInterior(data) {
