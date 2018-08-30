@@ -158,7 +158,7 @@ export class Explore extends Component {
     const ZonalStatsJson = await this.ZonalStatsAPI.getZonalStatsSummary(postdata);
     store.setStoreItem('zonalstatsjson', ZonalStatsJson);
     store.setStoreItem('working_zonalstats', false);
-    drawShortZonalStatsFromAPI(ZonalStatsJson.features[0].mean);
+    drawShortZonalStatsFromAPI(ZonalStatsJson.features[0].properties.mean);
     spinnerOff('getZonal done');
 
     // add event to map for a listner that zonal stats have been calculated
