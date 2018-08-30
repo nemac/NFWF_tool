@@ -124,6 +124,106 @@ div.zonal-hub-wrapper {
   text-align: center;
 }
 
+.zonal-long-table-exposure {
+  position: relative;
+  display: inline-block;
+  font-size: 12px;
+}
+
+.zonal-long-table-item {
+  display: inline-block;
+  width: 56px;
+  height: 56px;
+  text-align: center;
+  line-height: 56px;
+  vertical-align: top;
+  margin: 2px 1px 2px 0px;
+}
+
+.zonal-long-table-header {
+  position: relative;
+
+  &:after {
+    position: absolute;
+    content: "";
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    bottom: 2px;
+    left: 20px;
+    border-radius: 50%;
+  }
+
+  &-low:after {
+    content: "1";
+  }
+
+  &-med:after {
+    content: "2";
+  }
+
+  &-high:after {
+    content: "3";
+  }
+
+  &-threat:after {
+    background-color: #d4182b;
+  }
+
+  &-asset {
+      line-height: 40px;
+
+      &:after {
+          bottom: 10px;
+          background-color: #68ace7;
+      }
+  }
+}
+
+.zonal-long-table-cell {
+  &-lowest {
+    background-color: #568b93;
+  }
+
+  &-low {
+    background-color: #7db0a3;
+  }
+
+  &-mediumlow {
+    color: #000;
+    background-color: #d4e5ba;
+  }
+
+  &-medium {
+    color: #000;
+    background-color: #ecd79c;
+  }
+
+  &-high {
+    background-color: #c38e59;
+  }
+
+  &-highest {
+    background-color: #9b5526;
+  }
+}
+
+.zonal-long-table-bar-threat {
+  position: absolute;
+  height: 75%;
+  width: 3px;
+  top: 25%;
+  background-color: #d4182b;
+}
+
+.zonal-long-table-bar-asset {
+  position: absolute;
+  height: 3px;
+  width: 75%;
+  left: 25%;
+  background-color: #68ace7;
+}
+
 .hidden {
   position: absolute !important;
   clip: rect(1px, 1px, 1px, 1px);
