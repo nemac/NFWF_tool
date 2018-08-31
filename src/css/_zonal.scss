@@ -1,3 +1,14 @@
+$fish-1: #cce2e8;
+$fish-2: #8fc8d6;
+$fish-3: #5ea4ba;
+$fish-4: #047e91;
+$fish-5: #095a62;
+$wildlife-1: #ffe9c4;
+$wildlife-2: #e0c879;
+$wildlife-3: #76974e;
+$wildlife-4: #385b24;
+$wildlife-5: #004908;
+
 #zonal-area-wrapper {
   width: 100%;
 }
@@ -243,27 +254,51 @@ div.zonal-hub-wrapper {
     background-color: #9b5526;
   }
 
-  &-fw {
+  &-fish {
     &-lowest {
+      background-color: $fish-1;
       color: #000;
-      background-color: #cccbb2;
     }
 
     &-low {
+      background-color: $fish-2;
       color: #000;
-      background-color: #b0c0a7;
     }
 
     &-medium {
-      background-color: #8db2aa;
+      background-color: $fish-3;
     }
 
     &-high {
-      background-color: #6fa7ae;
+      background-color: $fish-4;
     }
 
     &-highest {
-      background-color: #6095ab;
+      background-color: $fish-5;
+    }
+  }
+
+  &-wildlife {
+    &-lowest {
+      background-color: $wildlife-1;
+      color: #000;
+    }
+
+    &-low {
+      background-color: $wildlife-2;
+      color: #000;
+    }
+
+    &-medium {
+      background-color: $wildlife-3;
+    }
+
+    &-high {
+      background-color: $wildlife-4;
+    }
+
+    &-highest {
+      background-color: $wildlife-5;
     }
   }
 }
