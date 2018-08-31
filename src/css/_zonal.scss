@@ -124,6 +124,26 @@ div.zonal-hub-wrapper {
   text-align: center;
 }
 
+.zonal-long-exposure-wrapper {
+  h5, h6 {
+    margin-bottom: 0;
+  }
+}
+
+.zonal-long-asset-threat {
+  margin-top: 20px;
+}
+
+.zonal-long-table-index {
+  display: inline-block;
+  margin-right: 30px;
+  margin-top: 20px;
+
+  h6 {
+    text-align: center;
+  }
+}
+
 .zonal-long-table {
   position: relative;
   display: inline-block;

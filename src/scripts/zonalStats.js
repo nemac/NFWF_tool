@@ -148,7 +148,7 @@ function drawShortZonalStats(data) {
 // @param scale - int. Either 0, 1 or 2.
 function getValuePosition(val, min, max, scale) {
   let position = (val - min) / (max - min); // [0,1]
-  position = position + scale; // [0,3]
+  position += scale; // [0,3]
   position = (position / 3) * 100; // [0, 100]
   return position;
 }
@@ -194,11 +194,11 @@ function drawExposure(wrapper, asset, threat) {
   const assetPosition = getAssetPosition(asset);
   const threatPosition = getThreatPosition(threat);
 
-  wrapper.querySelector(".zonal-long-table-exposure .zonal-long-table-bar-asset").style.bottom = formatTablePosition(assetPosition);
-  wrapper.querySelector(".zonal-long-table-exposure .zonal-long-table-bar-threat").style.left = formatTablePosition(threatPosition);
+  wrapper.querySelector('.zonal-long-table-exposure .zonal-long-table-bar-asset').style.bottom = formatTablePosition(assetPosition);
+  wrapper.querySelector('.zonal-long-table-exposure .zonal-long-table-bar-threat').style.left = formatTablePosition(threatPosition);
 
-  wrapper.querySelector(".zonal-long-table-bar-asset-asset").style.left = formatTablePosition(assetPosition);
-  wrapper.querySelector(".zonal-long-table-bar-threat-threat").style.left = formatTablePosition(threatPosition);
+  wrapper.querySelector('.zonal-long-table-bar-asset-asset').style.left = formatTablePosition(assetPosition);
+  wrapper.querySelector('.zonal-long-table-bar-threat-threat').style.left = formatTablePosition(threatPosition);
 }
 
 function drawLongZonalStats(data) {
