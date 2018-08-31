@@ -145,11 +145,11 @@ function drawShortZonalStats(data) {
 // @param val - float
 // @param min - int
 // @param max - int
-// @param scale - int. Either 0, 1 or 2.
-function getValuePosition(val, min, max, scale) {
-  let position = (val - min) / (max - min); // [0,1]
-  position += scale; // [0,3]
-  position = (position / 3) * 100; // [0, 100]
+// @param scale - int. [0,scaleMax]
+function getValuePosition(val, rangeMin, rangeMax, scale, scaleGroups) {
+  let position = (val - rangeMin) / (rangeMax - rangeMin); // [0,1]
+  position += scale; // [0,scaleGroups]
+  position = (position / scaleGroups) * 100; // [0, 100]
   return position;
 }
 
@@ -158,16 +158,17 @@ function getExposurePosition(val, low, med, high) {
   const LOW_SCALE = 0;
   const MED_SCALE = 1;
   const HIGH_SCALE = 2;
+  const SCALE_GROUPS = 3;
 
   if (val < low) {
-    return getValuePosition(val, BOTTOM_RANGE, low, LOW_SCALE);
+    return getValuePosition(val, BOTTOM_RANGE, low, LOW_SCALE, SCALE_GROUPS);
   }
 
   if (val < med) {
-    return getValuePosition(val, low, med, MED_SCALE);
+    return getValuePosition(val, low, med, MED_SCALE, SCALE_GROUPS);
   }
 
-  return getValuePosition(val, med, high, HIGH_SCALE);
+  return getValuePosition(val, med, high, HIGH_SCALE, SCALE_GROUPS);
 }
 
 function getAssetPosition(asset) {
@@ -178,16 +179,34 @@ function getAssetPosition(asset) {
   return getExposurePosition(asset, LOW_ASSET, MED_ASSET, HIGH_ASSET);
 }
 
-function formatTablePosition(position) {
-  return `${position}%`;
-}
-
 function getThreatPosition(threat) {
   const LOW_THREAT = 7.5;
   const MED_THREAT = 11.5;
   const HIGH_THREAT = 29;
 
   return getExposurePosition(threat, LOW_THREAT, MED_THREAT, HIGH_THREAT);
+}
+
+function getFishPosition(fish) {
+  const LOW_RANGE = 1;
+  const HIGH_RANGE = 5;
+  const SCALE = 0;
+  const SCALE_GROUPS = 1;
+
+  return getValuePosition(fish, LOW_RANGE, HIGH_RANGE, SCALE, SCALE_GROUPS);
+}
+
+function getWildlifePosition(wildlife) {
+  const LOW_RANGE = 1;
+  const HIGH_RANGE = 5;
+  const SCALE = 0;
+  const SCALE_GROUPS = 1;
+
+  return getValuePosition(wildlife, LOW_RANGE, HIGH_RANGE, SCALE, SCALE_GROUPS);
+}
+
+function formatTablePosition(position) {
+  return `${position}%`;
 }
 
 function drawExposure(wrapper, asset, threat) {
@@ -201,10 +220,21 @@ function drawExposure(wrapper, asset, threat) {
   wrapper.querySelector('.zonal-long-table-bar-threat-threat').style.left = formatTablePosition(threatPosition);
 }
 
+function drawFishWildlife(wrapper, fish, wildlife) {
+  const fishPosition = getFishPosition(fish);
+  const wildlifePosition = getWildlifePosition(wildlife);
+
+  wrapper.querySelector('.zonal-long-table-bar-fish').style.left = formatTablePosition(fishPosition);
+  wrapper.querySelector('.zonal-long-table-bar-wildlife').style.left = formatTablePosition(wildlifePosition);
+
+}
+
 function drawLongZonalStats(data) {
+  console.log(data);
   const wrapper = makeDiv();
   wrapper.innerHTML = ZonalLong;
   drawExposure(wrapper, data.asset, data.threat);
+  drawFishWildlife(wrapper, data.aquatic, data.terrestrial);
   document.getElementById('zonal-content').appendChild(wrapper);
 }
 
