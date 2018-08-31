@@ -124,13 +124,13 @@ div.zonal-hub-wrapper {
   text-align: center;
 }
 
-.zonal-long-exposure-wrapper {
+.zonal-long-exposure-wrapper, .zonal-long-fish-wildlife-wrapper {
   h5, h6 {
     margin-bottom: 0;
   }
 }
 
-.zonal-long-asset-threat {
+.zonal-long-asset-threat, .zonal-long-fish-wildlife-wrapper {
   margin-top: 20px;
 }
 
@@ -150,6 +150,11 @@ div.zonal-hub-wrapper {
   font-size: 12px;
 }
 
+.zonal-long-table-row-header {
+  position: relative;
+  height: 30px;
+}
+
 .zonal-long-table-item {
   display: inline-block;
   width: 56px;
@@ -158,6 +163,14 @@ div.zonal-hub-wrapper {
   line-height: 56px;
   vertical-align: top;
   margin: 2px 1px 2px 0px;
+
+  &-fw {
+    width: 32px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
 }
 
 .zonal-long-table-header {
@@ -229,6 +242,43 @@ div.zonal-hub-wrapper {
   &-highest {
     background-color: #9b5526;
   }
+
+  &-fw {
+    &-lowest {
+      color: #000;
+      background-color: #cccbb2;
+    }
+
+    &-low {
+      color: #000;
+      background-color: #b0c0a7;
+    }
+
+    &-medium {
+      background-color: #8db2aa;
+    }
+
+    &-high {
+      background-color: #6fa7ae;
+    }
+
+    &-highest {
+      background-color: #6095ab;
+    }
+  }
+}
+
+.zonal-long-table-header-fish-wildlife {
+  position: absolute;
+  bottom: 0;
+
+  &-low {
+    left: 0;
+  }
+
+  &-high {
+      right: 0;
+  }
 }
 
 .zonal-long-table-bar-wrapper {
@@ -246,6 +296,13 @@ div.zonal-hub-wrapper {
     top: 50%;
     width: 100%;
     height: 50%;
+  }
+
+  &-fish, &-wildlife {
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
   }
 }
 
@@ -273,7 +330,15 @@ div.zonal-hub-wrapper {
     }
   }
 
-  &-asset-asset, &-threat-threat {
+  &-fish {
+    background-color: #f00;
+  }
+
+  &-wildlife {
+    background-color: #0f0;
+  }
+
+  &-asset-asset, &-threat-threat, &-fish, &-wildlife {
     width: 3px;
     height: 100%;
     top: 0;
