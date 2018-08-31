@@ -208,20 +208,31 @@ div.zonal-hub-wrapper {
   }
 }
 
-.zonal-long-table-bar-threat {
+.zonal-long-table-bar-wrapper {
   position: absolute;
-  height: 75%;
-  width: 3px;
+  left: 25%;
   top: 25%;
-  background-color: #d4182b;
+  width: 75%;
+  height: 75%;
 }
 
-.zonal-long-table-bar-asset {
+.zonal-long-table-bar {
   position: absolute;
-  height: 3px;
-  width: 75%;
-  left: 25%;
-  background-color: #68ace7;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, .4);
+
+  &-threat {
+    height: 100%;
+    width: 3px;
+    top: 0;
+    background-color: #d4182b;
+  }
+
+  &-asset {
+    height: 3px;
+    width: 100%;
+    left: 0;
+    background-color: #68ace7;
+  }
 }
 
 .hidden {

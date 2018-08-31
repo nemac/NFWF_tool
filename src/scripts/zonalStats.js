@@ -153,27 +153,21 @@ function getValuePosition(val, min, max, scale) {
   return position;
 }
 
-// Scales a value from [0,100] to [0,75] since the table has an extra row and column of headers that
-// otherwise would throw off the position
-function getTablePosition(val) {
-  return (val * 75) / 100;
-}
-
 function getExposurePosition(val, low, med, high) {
   const BOTTOM_RANGE = 0;
   const LOW_SCALE = 0;
   const MED_SCALE = 1;
   const HIGH_SCALE = 2;
 
-  if (asset < low) {
-    return getValuePosition(asset, BOTTOM_RANGE, low, LOW_SCALE);
+  if (val < low) {
+    return getValuePosition(val, BOTTOM_RANGE, low, LOW_SCALE);
   }
 
-  if (asset < med) {
-    return getValuePosition(asset, low, med, MED_SCALE);
+  if (val < med) {
+    return getValuePosition(val, low, med, MED_SCALE);
   }
 
-  return getValuePosition(asset, med, high, HIGH_SCALE);
+  return getValuePosition(val, med, high, HIGH_SCALE);
 }
 
 function getAssetPosition(asset) {
@@ -184,18 +178,30 @@ function getAssetPosition(asset) {
   return getExposurePosition(asset, LOW_ASSET, MED_ASSET, HIGH_ASSET);
 }
 
+function formatTablePosition(position) {
+  return `${position}%`;
+}
+
 function getThreatPosition(threat) {
   const LOW_THREAT = 7.5;
   const MED_THREAT = 11.5;
   const HIGH_THREAT = 29;
 
-  return getExposurePosition(asset, LOW_THREAT, MED_THREAT, HIGH_THREAT);
+  return getExposurePosition(threat, LOW_THREAT, MED_THREAT, HIGH_THREAT);
+}
+
+function drawExposure(wrapper, asset, threat) {
+  const assetPosition = getAssetPosition(asset);
+  const threatPosition = getThreatPosition(threat);
+
+  wrapper.querySelector(".zonal-long-table-bar-asset").style.bottom = formatTablePosition(assetPosition);
+  wrapper.querySelector(".zonal-long-table-bar-threat").style.left = formatTablePosition(threatPosition);
 }
 
 function drawLongZonalStats(data) {
-  console.log(data);
   const wrapper = makeDiv();
   wrapper.innerHTML = ZonalLong;
+  drawExposure(wrapper, data.asset, data.threat);
   document.getElementById('zonal-content').appendChild(wrapper);
 }
 
