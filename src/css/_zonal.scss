@@ -3,11 +3,21 @@ $fish-2: #8fc8d6;
 $fish-3: #5ea4ba;
 $fish-4: #047e91;
 $fish-5: #095a62;
+$fish-bar: #f00;
 $wildlife-1: #ffe9c4;
 $wildlife-2: #e0c879;
 $wildlife-3: #76974e;
 $wildlife-4: #385b24;
 $wildlife-5: #004908;
+$wildlife-bar: #0f0;
+$exposure-1: #568b93;
+$exposure-2: #7db0a3;
+$exposure-3: #d4e5ba;
+$exposure-4: #ecd79c;
+$exposure-6: #c38e59;
+$exposure-9: #9b5526;
+$asset-bar: #68ace7;
+$threat-bar: #d4182b;
 
 #zonal-area-wrapper {
   width: 100%;
@@ -167,11 +177,12 @@ div.zonal-hub-wrapper {
 }
 
 .zonal-long-table-item {
+  $box-dimensions: 56px;
   display: inline-block;
-  width: 56px;
-  height: 56px;
+  width: $box-dimensions;
+  height: $box-dimensions;
   text-align: center;
-  line-height: 56px;
+  line-height: $box-dimensions;
   vertical-align: top;
   margin: 2px 1px 2px 0px;
 
@@ -188,11 +199,13 @@ div.zonal-hub-wrapper {
   position: relative;
 
   &:after {
+    $circle-dimensions: 16px;
+
     position: absolute;
     content: "";
-    width: 16px;
-    height: 16px;
-    line-height: 16px;
+    width: $circle-dimensions;
+    height: $circle-dimensions;
+    line-height: $circle-dimensions;
     bottom: 2px;
     left: 20px;
     border-radius: 50%;
@@ -211,11 +224,11 @@ div.zonal-hub-wrapper {
   }
 
   &-threat:after {
-    background-color: #d4182b;
+    background-color: $threat-bar;
   }
 
   &-asset:after {
-    background-color: #68ace7;
+    background-color: $asset-bar;
   }
 }
 
@@ -229,29 +242,29 @@ div.zonal-hub-wrapper {
 
 .zonal-long-table-cell {
   &-lowest {
-    background-color: #568b93;
+    background-color: $exposure-1;
   }
 
   &-low {
-    background-color: #7db0a3;
+    background-color: $exposure-2;
   }
 
   &-mediumlow {
+    background-color: $exposure-3;
     color: #000;
-    background-color: #d4e5ba;
   }
 
   &-medium {
+    background-color: $exposure-4;
     color: #000;
-    background-color: #ecd79c;
   }
 
   &-high {
-    background-color: #c38e59;
+    background-color: $exposure-6;
   }
 
   &-highest {
-    background-color: #9b5526;
+    background-color: $exposure-9;
   }
 
   &-fish {
@@ -342,39 +355,41 @@ div.zonal-hub-wrapper {
 }
 
 .zonal-long-table-bar {
+  $bar-width: 3px;
+
   position: absolute;
   box-shadow: 0px 0px 2px rgba(0, 0, 0, .4);
 
   &-threat {
-    background-color: #d4182b;
+    background-color: $threat-bar;
 
     &-exposure {
-        width: 3px;
+        width: $bar-width;
         height: 100%;
         top: 0;
     }
   }
 
   &-asset {
-    background-color: #68ace7;
+    background-color: $asset-bar;
 
     &-exposure {
       width: 100%;
-      height: 3px;
+      height: $bar-width;
       left: 0;
     }
   }
 
   &-fish {
-    background-color: #f00;
+    background-color: $fish-bar;
   }
 
   &-wildlife {
-    background-color: #0f0;
+    background-color: $wildlife-bar;
   }
 
   &-asset-asset, &-threat-threat, &-fish, &-wildlife {
-    width: 3px;
+    width: $bar-width;
     height: 100%;
     top: 0;
   }
