@@ -139,13 +139,14 @@ function drawShortZonalStats(data) {
 }
 
 // This function finds the scaled position of a value from [0,100]
-// It does the addition of scale and division by 3 since the value falls into one of three ranges
-// and so it needs to put the scaled value into the correct area.
+// It does the addition of scale and division by scaleGroups since the value falls into one of
+//  multiple ranges and so it needs to put the scaled value into the correct area.
 //
 // @param val - float
-// @param min - int
-// @param max - int
-// @param scale - int. [0,scaleMax]
+// @param rangeMin - int
+// @param rangeMax - int
+// @param scale - int. [0,scaleGroups - 1]
+// @param scaleGroups - int. Number of groups the value could be scaled for. [1,]
 function getValuePosition(val, rangeMin, rangeMax, scale, scaleGroups) {
   let position = (val - rangeMin) / (rangeMax - rangeMin); // [0,1]
   position += scale; // [0,scaleGroups]
@@ -226,7 +227,6 @@ function drawFishWildlife(wrapper, fish, wildlife) {
 
   wrapper.querySelector('.zonal-long-table-bar-fish').style.left = formatTablePosition(fishPosition);
   wrapper.querySelector('.zonal-long-table-bar-wildlife').style.left = formatTablePosition(wildlifePosition);
-
 }
 
 function drawLongZonalStats(data) {
