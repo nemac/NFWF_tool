@@ -124,7 +124,7 @@ div.zonal-hub-wrapper {
   text-align: center;
 }
 
-.zonal-long-table-exposure {
+.zonal-long-table {
   position: relative;
   display: inline-block;
   font-size: 12px;
@@ -170,13 +170,16 @@ div.zonal-hub-wrapper {
     background-color: #d4182b;
   }
 
-  &-asset {
-      line-height: 40px;
+  &-asset:after {
+    background-color: #68ace7;
+  }
+}
 
-      &:after {
-          bottom: 10px;
-          background-color: #68ace7;
-      }
+.zonal-long-table-exposure .zonal-long-table-header-asset {
+  line-height: 40px;
+
+  &:after {
+    bottom: 10px;
   }
 }
 
@@ -210,10 +213,20 @@ div.zonal-hub-wrapper {
 
 .zonal-long-table-bar-wrapper {
   position: absolute;
-  left: 25%;
-  top: 25%;
-  width: 75%;
-  height: 75%;
+
+  &-exposure {
+    left: 25%;
+    top: 25%;
+    width: 75%;
+    height: 75%;
+  }
+
+  &-asset, &-threat {
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 50%;
+  }
 }
 
 .zonal-long-table-bar {
@@ -221,17 +234,29 @@ div.zonal-hub-wrapper {
   box-shadow: 0px 0px 2px rgba(0, 0, 0, .4);
 
   &-threat {
-    height: 100%;
-    width: 3px;
-    top: 0;
     background-color: #d4182b;
+
+    &-exposure {
+        width: 3px;
+        height: 100%;
+        top: 0;
+    }
   }
 
   &-asset {
-    height: 3px;
-    width: 100%;
-    left: 0;
     background-color: #68ace7;
+
+    &-exposure {
+      width: 100%;
+      height: 3px;
+      left: 0;
+    }
+  }
+
+  &-asset-asset, &-threat-threat {
+    width: 3px;
+    height: 100%;
+    top: 0;
   }
 }
 

@@ -194,8 +194,11 @@ function drawExposure(wrapper, asset, threat) {
   const assetPosition = getAssetPosition(asset);
   const threatPosition = getThreatPosition(threat);
 
-  wrapper.querySelector(".zonal-long-table-bar-asset").style.bottom = formatTablePosition(assetPosition);
-  wrapper.querySelector(".zonal-long-table-bar-threat").style.left = formatTablePosition(threatPosition);
+  wrapper.querySelector(".zonal-long-table-exposure .zonal-long-table-bar-asset").style.bottom = formatTablePosition(assetPosition);
+  wrapper.querySelector(".zonal-long-table-exposure .zonal-long-table-bar-threat").style.left = formatTablePosition(threatPosition);
+
+  wrapper.querySelector(".zonal-long-table-bar-asset-asset").style.left = formatTablePosition(assetPosition);
+  wrapper.querySelector(".zonal-long-table-bar-threat-threat").style.left = formatTablePosition(threatPosition);
 }
 
 function drawLongZonalStats(data) {
