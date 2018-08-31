@@ -206,6 +206,15 @@ function getWildlifePosition(wildlife) {
   return getValuePosition(wildlife, LOW_RANGE, HIGH_RANGE, SCALE, SCALE_GROUPS);
 }
 
+function getHubPosition(hub) {
+  const LOW_RANGE = 1;
+  const HIGH_RANGE = 7;
+  const SCALE = 0;
+  const SCALE_GROUPS = 1;
+
+  return getValuePosition(hub, LOW_RANGE, HIGH_RANGE, SCALE, SCALE_GROUPS);
+}
+
 function formatTablePosition(position) {
   return `${position}%`;
 }
@@ -229,12 +238,19 @@ function drawFishWildlife(wrapper, fish, wildlife) {
   wrapper.querySelector('.zonal-long-table-bar-wildlife').style.left = formatTablePosition(wildlifePosition);
 }
 
+function drawHub(wrapper, hub) {
+  const hubPosition = getHubPosition(hub);
+
+  wrapper.querySelector('.zonal-long-table-bar-hub').style.left = formatTablePosition(hubPosition);
+}
+
 function drawLongZonalStats(data) {
   console.log(data);
   const wrapper = makeDiv();
   wrapper.innerHTML = ZonalLong;
   drawExposure(wrapper, data.asset, data.threat);
   drawFishWildlife(wrapper, data.aquatic, data.terrestrial);
+  drawHub(wrapper, data.hubs);
   document.getElementById('zonal-content').appendChild(wrapper);
 }
 

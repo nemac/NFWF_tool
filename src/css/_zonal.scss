@@ -4,12 +4,23 @@ $fish-3: #5ea4ba;
 $fish-4: #047e91;
 $fish-5: #095a62;
 $fish-bar: #f00;
+
 $wildlife-1: #ffe9c4;
 $wildlife-2: #e0c879;
 $wildlife-3: #76974e;
 $wildlife-4: #385b24;
 $wildlife-5: #004908;
 $wildlife-bar: #0f0;
+
+$hub-1: #edf8e9;
+$hub-2: #c5ddca;
+$hub-3: #9ec3ac;
+$hub-4: #76a98d;
+$hub-5: #4f8e6f;
+$hub-6: #277450;
+$hub-7: #005a32;
+$hub-bar: #0ff;
+
 $exposure-1: #568b93;
 $exposure-2: #7db0a3;
 $exposure-3: #d4e5ba;
@@ -145,20 +156,20 @@ div.zonal-hub-wrapper {
   text-align: center;
 }
 
-.zonal-long-exposure-wrapper, .zonal-long-fish-wildlife-wrapper {
+.zonal-long-exposure-wrapper, .zonal-long-fish-wildlife-wrapper, .zonal-long-hub-wrapper {
   h5, h6 {
     margin-bottom: 0;
   }
 }
 
-.zonal-long-asset-threat, .zonal-long-fish-wildlife-wrapper {
-  margin-top: 20px;
+.zonal-long-asset-threat, .zonal-long-fish-wildlife-wrapper, .zonal-long-hub-wrapper {
+  margin-top: 40px;
 }
 
 .zonal-long-table-index {
   display: inline-block;
   margin-right: 30px;
-  margin-top: 20px;
+  margin-top: 15px;
 
   h6 {
     text-align: center;
@@ -171,7 +182,7 @@ div.zonal-hub-wrapper {
   font-size: 12px;
 }
 
-.zonal-long-table-row-header {
+.zonal-long-table-row-header-simple {
   position: relative;
   height: 30px;
 }
@@ -188,6 +199,14 @@ div.zonal-hub-wrapper {
 
   &-fw {
     width: 32px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  &-hub {
+    width: 21px;
 
     &:last-child {
       margin-right: 0;
@@ -314,9 +333,42 @@ div.zonal-hub-wrapper {
       background-color: $wildlife-5;
     }
   }
+
+  &-hub {
+    &-lowest {
+      background-color: $hub-1;
+      color: #000;
+    }
+
+    &-low {
+      background-color: $hub-2;
+      color: #000;
+    }
+
+    &-mediumlow{
+      background-color: $hub-3;
+      color: #000;
+    }
+
+    &-medium {
+      background-color: $hub-4;
+    }
+
+    &-mediumhigh {
+      background-color: $hub-5;
+    }
+
+    &-high {
+      background-color: $hub-6;
+    }
+
+    &-highest {
+      background-color: $hub-7;
+    }
+  }
 }
 
-.zonal-long-table-header-fish-wildlife {
+.zonal-long-table-header-simple {
   position: absolute;
   bottom: 0;
 
@@ -331,6 +383,10 @@ div.zonal-hub-wrapper {
 
 .zonal-long-table-bar-wrapper {
   position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
 
   &-exposure {
     left: 25%;
@@ -338,36 +394,19 @@ div.zonal-hub-wrapper {
     width: 75%;
     height: 75%;
   }
-
-  &-asset, &-threat {
-    left: 0;
-    top: 50%;
-    width: 100%;
-    height: 50%;
-  }
-
-  &-fish, &-wildlife {
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 60px;
-  }
 }
 
 .zonal-long-table-bar {
   $bar-width: 3px;
 
   position: absolute;
-  box-shadow: 0px 0px 2px rgba(0, 0, 0, .4);
+  width: $bar-width;
+  height: 100%;
+  top: 0;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, .5);
 
   &-threat {
     background-color: $threat-bar;
-
-    &-exposure {
-        width: $bar-width;
-        height: 100%;
-        top: 0;
-    }
   }
 
   &-asset {
@@ -376,6 +415,7 @@ div.zonal-hub-wrapper {
     &-exposure {
       width: 100%;
       height: $bar-width;
+      top: auto;
       left: 0;
     }
   }
@@ -388,10 +428,8 @@ div.zonal-hub-wrapper {
     background-color: $wildlife-bar;
   }
 
-  &-asset-asset, &-threat-threat, &-fish, &-wildlife {
-    width: $bar-width;
-    height: 100%;
-    top: 0;
+  &-hub {
+    background-color: $hub-bar;
   }
 }
 
