@@ -43,34 +43,6 @@ $threat-bar: #d4182b;
   }
 }
 
-.zonal-hub {
-  background-color: white;
-  border-radius: 50%;
-  position: relative;
-  width: 25px;
-  height: 25px;
-  left: 50%;
-  margin-left: -7px;
-}
-
-.zonal-hub-in:after {
-  content: '\2713';
-  position: absolute;
-  top: -1px;
-  left: 5px;
-  color: green;
-  font-size: 20px;
-}
-
-.zonal-hub-out:after {
-  content: '\274C';
-  position: absolute;
-  top: 6px;
-  left: 6px;
-  color: red;
-  font-size: 10px;
-}
-
 .zonal-expand-button {
   position: relative;
   width: 25px;
@@ -88,6 +60,7 @@ $threat-bar: #d4182b;
 .zonal-box {
   display: inline-block;
   width: 45%;
+  min-width: 56px;
   height: 25px;
   line-height: 25px;
   font-size: 14px;
@@ -146,14 +119,14 @@ div.zonal-asset {
   width: 15%;
 }
 
-div.zonal-hub-wrapper {
-  width: 15%;
-  margin-right: 12px;
-}
-
 .zonal-item {
   width: 33%;
   text-align: center;
+
+  &-hub {
+    width: 15%;
+    margin-right: 12px;
+  }
 }
 
 .zonal-long-exposure-wrapper, .zonal-long-fish-wildlife-wrapper, .zonal-long-hub-wrapper {

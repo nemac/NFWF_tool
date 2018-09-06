@@ -69,6 +69,17 @@ function makeZonalBox(type, rank) {
   return zonalBox;
 }
 
+function makeInHubBox(rank) {
+  return makeZonalBox('hubs', rank);
+}
+
+function makeHubBox(hubs) {
+  const hubWrapper = makeBoxWrapper();
+  hubWrapper.classList.add("zonal-item-hub");
+  hubWrapper.appendChild(makeInHubBox(checkNoData(hubs) ? 255 : hubs));
+  return hubWrapper;
+}
+
 function makeAssetBox(rank) {
   return makeZonalBox('asset', rank);
 }
@@ -97,28 +108,6 @@ function makeExposureBox(asset, threat) {
   exposureWrapper.appendChild(makeAssetBox(asset));
   exposureWrapper.appendChild(makeThreatBox(threat));
   return exposureWrapper;
-}
-
-function makeHubBoxElem(hubText, hubStatus) {
-  const hubWrapper = makeDiv();
-  hubWrapper.className = 'zonal-hub-wrapper zonal-item';
-  const hubElem = makeDiv();
-  hubElem.className = `zonal-hub zonal-hub-${hubStatus} noselect`;
-  hubElem.appendChild(makeScreenReaderText(hubText));
-  hubWrapper.appendChild(hubElem);
-  return hubWrapper;
-}
-
-function makeInHubBox() {
-  return makeHubBoxElem('The Zone is in at least one Hub', 'in');
-}
-
-function makeOutHubBox() {
-  return makeHubBoxElem('The Zone is not in at least one Hub', 'out');
-}
-
-function makeHubBox(inHub) {
-  return checkNoData(inHub) ? makeOutHubBox() : makeInHubBox();
 }
 
 function makeShortZonalStatsInterior(data) {
