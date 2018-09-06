@@ -119,12 +119,23 @@ function makeShortZonalStatsInterior(data) {
   ];
 }
 
+function viewLongZonalStats(shortElem) {
+  shortElem.nextElementSibling.classList.add('active');
+}
+
+function shortZonalClickHandler(e) {
+  e.preventDefault();
+  viewLongZonalStats(this);
+}
+
 function drawShortZonalStats(data) {
   const wrapper = makeZonalWrapper();
   makeShortZonalStatsInterior(data).forEach((elem) => {
     wrapper.appendChild(elem);
   });
-  document.getElementById('zonal-content').appendChild(wrapper);
+  wrapper.addEventListener('click', shortZonalClickHandler);
+  return wrapper;
+//  document.getElementById('zonal-content').appendChild(wrapper);
 }
 
 // This function finds the scaled position of a value from [0,100]
@@ -233,22 +244,36 @@ function drawHub(wrapper, hub) {
   wrapper.querySelector('.zonal-long-table-bar-hub').style.left = formatTablePosition(hubPosition);
 }
 
+function dismissLongZonalStats(elem) {
+  elem.parentElement.parentElement.classList.remove('active');
+}
+
+function dismissZonalClickHandler(e) {
+  e.preventDefault();
+  dismissLongZonalStats(this);
+}
+
 function drawLongZonalStats(data) {
   console.log(data);
   const wrapper = makeDiv();
+  wrapper.classList.add('zonal-long-wrapper');
   wrapper.innerHTML = ZonalLong;
   drawExposure(wrapper, data.asset, data.threat);
   drawFishWildlife(wrapper, data.aquatic, data.terrestrial);
   drawHub(wrapper, data.hubs);
-  document.getElementById('zonal-content').appendChild(wrapper);
+  wrapper.querySelector('.zonal-long-dismiss').addEventListener('click', dismissZonalClickHandler);
+  return wrapper;
 }
 
 function drawShortZonalStatsFromAPI(data) {
   if (!document.getElementById('zonal-header')) {
     document.getElementById('zonal-area-wrapper').innerHTML = ZonalWrapper;
   }
-  drawShortZonalStats(data);
-  drawLongZonalStats(data);
+  const wrapper = makeDiv();
+  wrapper.classList.add('zonal-stats-wrapper');
+  wrapper.appendChild(drawShortZonalStats(data));
+  wrapper.appendChild(drawLongZonalStats(data));
+  document.getElementById('zonal-content').appendChild(wrapper);
 }
 
 export { drawShortZonalStatsFromAPI };
