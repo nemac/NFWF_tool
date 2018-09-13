@@ -248,36 +248,107 @@ function getAssetDrivers(data) {
   return [
     {
       label: 'Population Density',
+      key: 'population-density',
       value: data.pop_density
     },
     {
-      label: 'SOVI',
+      label: 'Social Vulnerability',
+      key: 'social-vulnerability',
       value: data.social_vuln
     },
     {
       label: 'Critical Facilities',
+      key: 'critical-facilities',
       value: data.crit_facilities
     },
     {
       label: 'Critical Infrastructure',
+      key: 'critical-infrastructure',
       value: data.crit_infra
     }
   ];
 }
 
-function makeDriverHtml(driver) {
-  return {
-//    label: makeDriverLabel(driver.)
-  };
+function getThreatDrivers(data) {
+  return [
+    {
+      label: 'Drainage',
+      key: 'drainage',
+      value: data.drainage
+    },
+    {
+      label: 'Erosion',
+      key: 'erosion',
+      value: data.erosion
+    },
+    {
+      label: 'Flood Prone',
+      key: 'floodprone-areas',
+      value: data.floodprone_areas
+    },
+    {
+      label: 'Sea Level Rise',
+      key: 'sea-level-rise',
+      value: data.sea_level_rise
+    },
+    {
+      label: 'Storm Surge',
+      key: 'storm-surge',
+      value: data.storm_surge
+    },
+    {
+      label: 'Subsidence Shift',
+      key: 'geostress',
+      value: data.geostress
+    },
+    {
+      label: 'Slope',
+      key: 'slope',
+      value: data.slope
+    }
+  ];
 }
 
-function insertDrivers(graph, driver) {
-    
+function getDriverHeight(driver) {
+  const LOW_RANGE = 0;
+  const HIGH_RANGE = 5;
+  const SCALE = 0;
+  const SCALE_GROUPS = 1;
+
+  return getValuePosition(driver, LOW_RANGE, HIGH_RANGE, SCALE, SCALE_GROUPS);
+}
+
+function getDriverColor(driver) {
+  if (driver <= 20) {
+    return 'green';
+  }
+  if (driver <= 40) {
+    return 'blue';
+  }
+  if (driver <= 60) {
+    return 'yellow';
+  }
+  if (driver <= 80) {
+    return 'orange';
+  }
+  return 'red';
+}
+
+function drawDriver(graph, driver) {
+  const height = getDriverHeight(driver.value);
+  let bar = graph.querySelector(`.zonal-long-graph-bar-${driver.key}`);
+  bar.style.height = formatTablePosition(height);
+  bar.style.backgroundColor = getDriverColor(height);
 }
 
 function drawAssetDrivers(wrapper, drivers) {
   const assetGraph = wrapper.querySelector('.zonal-long-graph-wrapper-asset .zonal-long-graph');
-//  drivers.map(makeDriverHtml).forEach(elem => { insertDrivers(assetGraph, elem); });
+  drivers.forEach(drawDriver.bind(null, assetGraph));
+}
+
+function drawThreatDrivers(wrapper, drivers) {
+  const threatGraph = wrapper.querySelector('.zonal-long-graph-wrapper-threat .zonal-long-graph');
+  drivers.forEach(drawDriver.bind(null, threatGraph));
 }
 
 function dismissLongZonalStats(elem) {
@@ -296,6 +367,7 @@ function drawLongZonalStats(data) {
   wrapper.innerHTML = ZonalLong;
   drawExposure(wrapper, data.asset, data.threat);
   drawAssetDrivers(wrapper, getAssetDrivers(data));
+  drawThreatDrivers(wrapper, getThreatDrivers(data));
   drawFishWildlife(wrapper, data.aquatic, data.terrestrial);
   drawHub(wrapper, data.hubs);
   wrapper.querySelector('.zonal-long-dismiss').addEventListener('click', dismissZonalClickHandler);
