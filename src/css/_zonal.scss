@@ -449,9 +449,19 @@ div.zonal-asset {
   }
 }
 
+.zonal-long-graph-wrapper {
+  width: 320px;
+  margin-top: 25px;
+
+  h6 {
+    text-align: center;
+    padding-left: 40px;
+  }
+}
+
 .zonal-long-graph {
   display: inline-block;
-  width: 207px;
+  width: 100%;
   padding-left: 40px;
   font-size: 12px;
 }
@@ -534,7 +544,7 @@ div.zonal-asset {
 
   &-text {
     position: absolute;
-    left: -25%;
+    left: 0%;
     text-align: center;
   }
 }
@@ -547,6 +557,17 @@ div.zonal-asset {
   .zonal-long-graph-bar-wrapper {
     margin: 0 5%;
     width: 15%;
+  }
+}
+
+.zonal-long-graph-wrapper-threat {
+  .zonal-long-graph-label {
+    width: 14.28%;
+  }
+
+  .zonal-long-graph-bar-wrapper {
+    margin: 0 2.14%;
+    width: 10%;
   }
 }
 
