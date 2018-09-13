@@ -361,7 +361,6 @@ function dismissZonalClickHandler(e) {
 }
 
 function drawLongZonalStats(data) {
-  console.log(data);
   const wrapper = makeDiv();
   wrapper.classList.add('zonal-long-wrapper');
   wrapper.innerHTML = ZonalLong;
