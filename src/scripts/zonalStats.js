@@ -75,7 +75,7 @@ function makeInHubBox(rank) {
 
 function makeHubBox(hubs) {
   const hubWrapper = makeBoxWrapper();
-  hubWrapper.classList.add("zonal-item-hub");
+  hubWrapper.classList.add('zonal-item-hub');
   hubWrapper.appendChild(makeInHubBox(checkNoData(hubs) ? 255 : hubs));
   return hubWrapper;
 }
@@ -336,7 +336,7 @@ function getDriverColor(driver) {
 
 function drawDriver(graph, driver) {
   const height = getDriverHeight(driver.value);
-  let bar = graph.querySelector(`.zonal-long-graph-bar-${driver.key}`);
+  const bar = graph.querySelector(`.zonal-long-graph-bar-${driver.key}`);
   bar.style.height = formatTablePosition(height);
   bar.style.backgroundColor = getDriverColor(height);
 }
