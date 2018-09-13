@@ -244,6 +244,42 @@ function drawHub(wrapper, hub) {
   wrapper.querySelector('.zonal-long-table-bar-hub').style.left = formatTablePosition(hubPosition);
 }
 
+function getAssetDrivers(data) {
+  return [
+    {
+      label: 'Population Density',
+      value: data.pop_density
+    },
+    {
+      label: 'SOVI',
+      value: data.social_vuln
+    },
+    {
+      label: 'Critical Facilities',
+      value: data.crit_facilities
+    },
+    {
+      label: 'Critical Infrastructure',
+      value: data.crit_infra
+    }
+  ];
+}
+
+function makeDriverHtml(driver) {
+  return {
+//    label: makeDriverLabel(driver.)
+  };
+}
+
+function insertDrivers(graph, driver) {
+    
+}
+
+function drawAssetDrivers(wrapper, drivers) {
+  const assetGraph = wrapper.querySelector('.zonal-long-graph-wrapper-asset .zonal-long-graph');
+//  drivers.map(makeDriverHtml).forEach(elem => { insertDrivers(assetGraph, elem); });
+}
+
 function dismissLongZonalStats(elem) {
   elem.parentElement.parentElement.classList.remove('active');
 }
@@ -259,6 +295,7 @@ function drawLongZonalStats(data) {
   wrapper.classList.add('zonal-long-wrapper');
   wrapper.innerHTML = ZonalLong;
   drawExposure(wrapper, data.asset, data.threat);
+  drawAssetDrivers(wrapper, getAssetDrivers(data));
   drawFishWildlife(wrapper, data.aquatic, data.terrestrial);
   drawHub(wrapper, data.hubs);
   wrapper.querySelector('.zonal-long-dismiss').addEventListener('click', dismissZonalClickHandler);
