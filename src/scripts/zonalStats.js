@@ -499,6 +499,7 @@ function drawShortZonalStats(data, name, mapComponent) {
 
   const wrapper = makeDiv();
   wrapper.classList.add('zonal-short-wrapper');
+  wrapper.classList.add('active');
   wrapper.classList.add('row');
   wrapper.setAttribute('id', `name-`);
 
