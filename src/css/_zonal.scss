@@ -109,9 +109,9 @@ $body-color: $gray-200;
   }
 
   margin-bottom: 0px;
-  left: 150%;
-  top: -150px;
-  position: absolute;
+  left: -100000px;
+  top: -100000px;
+  position: relative;
   height: 0px;
 
   &.active {
