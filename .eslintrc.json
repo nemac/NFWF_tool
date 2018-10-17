@@ -9,6 +9,7 @@
     "no-underscore-dangle": ["off"],
     "no-unused-vars": ["error", { "args": "none" }],
     "operator-linebreak": ["error", "after"],
-    "import/prefer-default-export": 0
+    "import/prefer-default-export": 0,
+    "no-await-in-loop": ["off"]
   }
 }

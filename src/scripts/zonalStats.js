@@ -112,6 +112,16 @@ function removeUserareaByName(name) {
   });
 
   store.setStoreItem('userareas', currentshapes);
+
+  const savedshapes = store.getStateItem('savedshapes');
+  Object.keys(savedshapes).map((key) => {
+    if (savedshapes[key][0].name === name) {
+      delete savedshapes[key];
+    }
+    return savedshapes;
+  });
+
+  store.setStoreItem('savedshapes', savedshapes);
 }
 
 function dispatchRemoveEnd() {
@@ -1065,11 +1075,15 @@ function drawRawValues(wrapper, data) {
 }
 
 function displayRawValues(wrapper) {
-  wrapper.classList.add('active-table');
+  if (wrapper) {
+    wrapper.classList.add('active-table');
+  }
 }
 
 function displayGraphs(wrapper) {
-  wrapper.classList.remove('active-table');
+  if (wrapper) {
+    wrapper.classList.remove('active-table');
+  }
 }
 
 function displayZonalTableHandler(e) {
@@ -1139,21 +1153,24 @@ function restoreGraphState() {
     switch (activestate) {
       case 'graph':
         displayGraphs(elem);
-        elem.classList.add('active');
-        document.getElementById('zonal-header').classList.add('d-none');
+        if (elem) {
+          elem.classList.add('active');
+          document.getElementById('zonal-header').classList.add('d-none');
 
-        togglePermHighLightsOn(path);
-        ZonalWrapperActiveRemove();
+          togglePermHighLightsOn(path);
+          ZonalWrapperActiveRemove();
+        }
 
         break;
       case 'table':
-        elem.classList.add('active');
-        elem.classList.add('active-table');
-        document.getElementById('zonal-header').classList.add('d-none');
+        if (elem) {
+          elem.classList.add('active');
+          elem.classList.add('active-table');
+          document.getElementById('zonal-header').classList.add('d-none');
 
-        togglePermHighLightsOn(path);
-        ZonalWrapperActiveRemove();
-
+          togglePermHighLightsOn(path);
+          ZonalWrapperActiveRemove();
+        }
         break;
       default:
         return null;
@@ -1178,9 +1195,11 @@ function drawZonalStatsFromAPI(data, name, mapComponent) {
   wrapper.appendChild(drawLongZonalStats(data, name));
   document.getElementById('zonal-content').appendChild(wrapper);
 
-  // const iconelem = document.getElementById('btn-details-icon');
-  // iconelem.addEventListener('mouseover', zonalLabelMouseOverHandler);
-  // iconelem.addEventListener('mouseout', zonalLabelMouseOutHandler);
+  const iconelem = document.getElementById('btn-details-icon');
+  iconelem.addEventListener('mouseover', zonalLabelMouseOverHandler);
+  iconelem.addEventListener('mouseout', zonalLabelMouseOutHandler);
+
+  restoreGraphState();
 }
 
 export {

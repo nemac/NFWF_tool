@@ -16,6 +16,7 @@ import { NavBar } from './navBar';
 import { About } from './about';
 import { Explore } from './explore';
 import { MapInfo } from './mapinfo';
+import { ShareUrl } from './shareurl';
 import { SearchLocations } from './searchlocations';
 
 // import html templates
@@ -28,7 +29,10 @@ import { restoreGraphState } from './zonalStats';
 // const aboutnavBarComponent = new AboutNavBar('about-nav-holder');
 const navBarComponent = new NavBar('nav-holder');
 
-new URL();
+const urlParams = new URLSearchParams(window.location.search);
+const hasShareURL = urlParams.get('shareurl');
+
+const URLCls = new URL();
 
 library.add(fas, far);
 
@@ -41,6 +45,7 @@ let exploreComponent;
 let mapInfoComponent;
 let searchLocationsComponent;
 let aboutComponent;
+let shareurl;
 
 const store = new Store({});
 
@@ -88,6 +93,9 @@ function setworkingstates() {
   store.setStoreItem('working_mapinfo', false);
   store.setStoreItem('working_zonalstats', false);
   store.setStoreItem('working_search', false);
+  store.setStoreItem('working_s3retreive', false);
+  store.setStoreItem('working_s3save', false);
+  store.setStoreItem('working_drawlayers', false);
 }
 
 // Creates the entire map component
@@ -99,8 +107,18 @@ function initMapComponent() {
     maplayersComponent = initMapLayerList(mapComponent, 'maplayers_list-holder');
     mapInfoComponent = new MapInfo('', { mapComponent });
     setworkingstates();
-    exploreComponent = new Explore('explore-holder', { mapComponent, mapInfoComponent });
-    searchLocationsComponent = new SearchLocations('', { mapComponent, mapInfoComponent, exploreComponent });
+    exploreComponent = new Explore('explore-holder', {
+      mapComponent,
+      mapInfoComponent,
+      hasShareURL
+    });
+    searchLocationsComponent = new SearchLocations('', {
+      mapComponent,
+      mapInfoComponent,
+      exploreComponent,
+      hasShareURL
+    });
+    shareurl = new ShareUrl('', { mapComponent, URLCls });
   }
 
   // restore only if first render

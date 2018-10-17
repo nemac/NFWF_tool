@@ -58,6 +58,7 @@ export class StorageAPI {
   // @param value | string
   setStateAsString(value = '') {
     this.setItem(STATE_KEY, value);
+    // console.log('setStateAsString', STATE_KEY, value)
   }
 
   // Sets a new state object state

@@ -45,10 +45,17 @@ export class Explore extends Component {
   constructor(placeholderId, props) {
     super(placeholderId, props, exploreTemplate);
 
-    const { mapComponent, mapInfoComponent } = props;
-    this.mapComponent = mapComponent;
+    const {
+      mapComponent,
+      mapInfoComponent,
+      URLCls,
+      hasShareURL
+    } = props;
 
+    this.mapComponent = mapComponent;
+    this.URL = URLCls;
     this.drawAreaGroup = L.featureGroup().addTo(mapComponent.map);
+    this.hasShareURL = hasShareURL;
 
     // defualt buffer style
     this.bufferedoptions = {
@@ -63,6 +70,7 @@ export class Explore extends Component {
       clickable: false,
       permanent: true
     };
+
 
     this.defaultAreaName = 'Area ';
 
@@ -87,7 +95,9 @@ export class Explore extends Component {
     this.ZonalStatsAPI = new ZonalStatsAPI();
 
     // draw the user area on the map
-    this.drawUserAreaFromUsereas();
+    if (!this.hasShareURL) {
+      this.drawUserAreaFromUsereas();
+    }
 
     this.addUploadShapeHandler();
 
@@ -99,18 +109,46 @@ export class Explore extends Component {
       Explore.zonalStatsHandler();
     });
 
+    this.mapComponent.map.addEventListener('retreives3end', (e) => {
+      spinnerOff();
+    });
+
+    this.mapComponent.map.addEventListener('retreives3start', (e) => {
+      spinnerOn();
+    });
+
     window.addEventListener('removeuserareend', (e) => {
       this.clearLayersAndDetails();
       this.drawUserAreaFromUsereas();
     });
 
+    Explore.windowListnersToStopRoqueSpinner();
     // uncomment this if we want to add the draw area button to leaflet
     // control
     // this.addDrawButtons(mapComponent);
   }
 
+  static windowListnersToStopRoqueSpinner() {
+    // ensure spinener stops after working us complete...
+    window.addEventListener('mouseover', (e) => {
+      spinnerOff();
+    });
+
+    window.addEventListener('click', (e) => {
+      spinnerOff();
+    });
+
+    window.addEventListener('touchmove', (e) => {
+      spinnerOff();
+    });
+
+    window.addEventListener('touchstart', (e) => {
+      spinnerOff();
+    });
+  }
+
+  // user clickss path should navigate into zonal stats details
   static clickShape(e) {
-    const path = e.target;
     const pathclass = e.target.options.className;
     const name = pathclass.replace('path--USERAREA-', '');
     viewLongZonalStatsFromShape(name);
@@ -132,7 +170,7 @@ export class Explore extends Component {
     }
 
     const HTMLName = makeHTMLName(name);
-    this.bufferedoptions['className'] = `path-${HTMLName}`;
+    this.bufferedoptions.className = `path-${HTMLName}`;
 
     // convert geoJson to leaflet layer
     const bufferedLayer = L.geoJson(bufferedGeoJSON, this.bufferedoptions);
@@ -214,6 +252,7 @@ export class Explore extends Component {
 
   // update zonal stats for all user ares in the state store
   async updateZonal() {
+    store.setStoreItem('working_zonalstats', true);
     spinnerOn();
     // this temp remove of stats so we can recalulate.
     const zonalAreaWrapper = document.getElementById('zonal-area-wrapper');
@@ -277,6 +316,7 @@ export class Explore extends Component {
 
     // update as complete
     store.setStoreItem('userareas', currentshapes);
+    store.setStoreItem('working_zonalstats', false);
     spinnerOff('getZonal done');
     return null;
   }
@@ -312,6 +352,8 @@ export class Explore extends Component {
     const ZonalStatsJson = await this.ZonalStatsAPI.getZonalStatsSummary(postdata);
     store.setStoreItem('zonalstatsjson', ZonalStatsJson);
     const name = this.storeShapes();
+    this.saveUserShapesToS3();
+
     store.setStoreItem('working_zonalstats', false);
     if (checkValidObject(ZonalStatsJson.features)) {
       drawZonalStatsFromAPI(ZonalStatsJson.features[0].properties.mean,
@@ -319,11 +361,10 @@ export class Explore extends Component {
         this.mapComponent.map);
     }
 
+    this.mapComponent.map.fireEvent('zonalstatsend');
+    store.setStoreItem('working_zonalstats', false);
     spinnerOff('getZonal done');
 
-    // add event to map for a listner that zonal stats have been calculated
-    //  add timeout for write of more complex data to complete
-    setTimeout(() => { this.mapComponent.map.fireEvent('zonalstatsend'); }, 10);
     return ZonalStatsJson;
   }
 
@@ -338,7 +379,7 @@ export class Explore extends Component {
       this.removeExistingArea();
       store.setStoreItem('projectfile', projectfile);
       store.setStoreItem('userarea', geojson);
-      this.drawSavedGeoJson(geojson);
+      // this.drawSavedGeoJson(geojson);
     } else {
       // add failed to get file from s3 code
 
@@ -346,16 +387,22 @@ export class Explore extends Component {
     return geojson;
   }
 
+  // get geojson from s3
   restoreSavedGeoJson() {
-    const projectfile = store.getStateItem('projectfile');
-    if (checkValidObject(projectfile)) {
-      // now that we have a user area and buffer remove the projectfile
-      // it's no longer needed.
-      this.removeExistingArea();
-      this.retreiveS3GeojsonFile(projectfile);
+    store.setStoreItem('working_s3retreive', true);
+    spinnerOn();
+    // if their is a query string paramter for shareurl=trye restore the shapes.
+    if (this.hasShareURL === 'true') {
+      // restore users shapes from s3 when there is a share UTL
+      // const userareas = store.getStateItem('savedshapes');
+      this.getShapesFromS3();
     }
+
+    store.setStoreItem('working_s3retreive', false);
+    spinnerOff();
   }
 
+  // think this is no longer used...
   drawSavedGeoJson(geojson) {
     if (checkValidObject(geojson)) {
       const layer = L.geoJson(geojson);
@@ -370,7 +417,7 @@ export class Explore extends Component {
         this.mapComponent.map.fitBounds(bufferedLayer.getBounds());
         this.mapComponent.saveZoomAndMapPosition();
         store.saveAction('addsavedgeojson');
-        this.getZonal();
+        // this.getZonal();
       }
       return layer;
     }
@@ -395,9 +442,103 @@ export class Explore extends Component {
     return null;
   }
 
+  // get shapes that we saved on s3.  In order to create a share URL - a web URL
+  // we can send to another users we need to be able to pass large geospatial datasets
+  // we are using a lambda function/api to store the the files on s3 this will retreive this.
+  //  the only thing in the url is the s3 bucket and file name
+  async getShapesFromS3() {
+    // start the working function so we have spinner active - informs
+    // users the website is doing something
+    store.setStoreItem('working_s3retreive', true);
+    this.mapComponent.map.fireEvent('retreives3start');
 
+    spinnerOn();
+    // get the saved shapes state item - holds the s3 bucket and file name
+    const currentshapes = store.getStateItem('savedshapes');
+    const userareacount = store.getStateItem('userareacount');
+
+    // remove old shapes so they are not duplicated.  also want to make sure make
+    // sure we are replicating the shared map.
+    this.removeExistingArea();
+
+    let newshapes = {};
+    let count = 0;
+    const checkobj = {}.hasOwnProperty;
+
+    // using for loop because it allows await functionality with
+    // async calls to zonal stats api.  this will ensure we wait for the promise to
+    // resolve and is added to the store before we progress on. using a check for hasOwnProperty
+    // to deal with all the prototpe entries
+    for (const key in currentshapes) {
+      if (checkobj.call(currentshapes, key)) {
+        const nameSaved = currentshapes[key][0].name;
+
+        // get bucket and file names for the user area, buffered user area, and zonal stats
+        const userareaSaved = currentshapes[key][1].savedshape_userarea;
+        const bufferedSaved = currentshapes[key][2].savedshape_userarea_buffered;
+        const zonalSaved = currentshapes[key][3].savedshape_zonalstatsjson;
+
+        let usershape = {};
+        let bufferedshape = {};
+        let zonalshape = {};
+
+        // make sure each area is actuall object then retreive
+        // the actual geospatial data from s3. no api required.
+        // just a http get of data
+        if (checkValidObject(userareaSaved)) {
+          usershape = await this.StoreShapesAPI.httpGetSavedGeoJSON(userareaSaved.bucket,
+            userareaSaved.key);
+        }
+        if (checkValidObject(bufferedSaved)) {
+          bufferedshape = await this.StoreShapesAPI.httpGetSavedGeoJSON(bufferedSaved.bucket,
+            bufferedSaved.key);
+        }
+        if (checkValidObject(zonalSaved)) {
+          zonalshape = await this.StoreShapesAPI.httpGetSavedGeoJSON(zonalSaved.bucket,
+            zonalSaved.key);
+        }
+
+        // counter for naming JSON object
+        count += 1;
+
+        // new geospatial data object for inserting into the userareas state item.
+        // this items has the shapes we render on the map and has the zonal statiscs information
+        // for the dashboard
+        const newshape = {
+          [`userarea${count}`]: [
+            { name: nameSaved },
+            { userarea: usershape },
+            { userarea_buffered: bufferedshape },
+            { zonalstatsjson: zonalshape }
+          ]
+        };
+
+        // update the state item with new useras object
+        const userareas = store.getStateItem('userareas');
+
+        newshapes = { ...userareas, ...newshape };
+        store.setStoreItem('userareas', newshapes);
+        store.setStoreItem('savedshapes', currentshapes);
+        store.setStoreItem('userareacount', userareacount);
+      }
+    }
+
+    //  set the state items and turn of the site is working
+    store.setStoreItem('userareas', newshapes);
+    this.drawUserAreaFromUsereas();
+
+    store.setStoreItem('working_s3retreive', false);
+    this.mapComponent.map.fireEvent('retreives3end');
+    spinnerOff();
+
+    return null;
+  }
+
+
+  // renders the shapes from the user areas state object
   drawUserAreaFromUsereas() {
-    // const userarea = store.getStateItem('userarea');
+    store.setStoreItem('working_drawlayers', true);
+    spinnerOn();
 
     const currentshapes = store.getStateItem('userareas');
     Object.keys(currentshapes).forEach((key) => {
@@ -411,10 +552,11 @@ export class Explore extends Component {
         const layer = L.geoJson(userarea);
 
         const HTMLName = makeHTMLName(name);
-        this.bufferedoptions['className'] = `path-${HTMLName}`;
+        this.bufferedoptions.className = `path-${HTMLName}`;
 
         const bufferedLayer = L.geoJson(buffered, this.bufferedoptions);
 
+        // add mouserovers for the shapes.
         bufferedLayer.on({
           mouseover: (e) => {
             if (!isGraphActivetate()) {
@@ -463,8 +605,13 @@ export class Explore extends Component {
 
         return layer;
       }
+
       return null;
     });
+
+    store.setStoreItem('working_drawlayers', false);
+    spinnerOff();
+
     return null;
   }
 
@@ -503,7 +650,7 @@ export class Explore extends Component {
   }
 
   // clear zonalstats
-  clearDetails() {
+  static clearDetails() {
     // this temp remove of stats while we work on multiple shapes.
     const zonalAreaWrapper = document.getElementById('zonal-area-wrapper');
     if (zonalAreaWrapper) {
@@ -514,7 +661,7 @@ export class Explore extends Component {
   // clear Details
   clearLayersAndDetails() {
     this.drawAreaGroup.clearLayers();
-    this.clearDetails();
+    Explore.clearDetails();
   }
 
   // remove the existing area
@@ -522,6 +669,8 @@ export class Explore extends Component {
     this.drawAreaGroup.clearLayers();
     store.removeStateItem('userarea');
     store.removeStateItem('userareas');
+    store.removeStateItem('savedshapes');
+    store.removeStateItem('savedshape');
     Explore.resetshapescounter();
     store.removeStateItem('userarea_buffered');
     store.removeStateItem('projectfile');
@@ -540,7 +689,7 @@ export class Explore extends Component {
       this.removeExistingArea();
 
       // this temp remove of stats while we work on multiple shapes.
-      this.clearDetails();
+      Explore.clearDetails();
     });
   }
 
@@ -640,8 +789,10 @@ export class Explore extends Component {
       newname = `${this.defaultAreaName}${shapecount}`;
     }
 
-    setTimeout(() => { layer.bindTooltip(newname, this.labelOptions).openTooltip(); }, 10);
+    // labels nees a sec so it's placed on the correct location
+    setTimeout(() => { layer.bindTooltip(newname, this.labelOptions).openTooltip(); }, 50);
   }
+
 
   // handler for when drawing is complete on the map
   // adding not as hanlder callback so I can use this (class) calls
@@ -713,6 +864,37 @@ export class Explore extends Component {
     store.setStoreItem('userareas', newshapes);
     return name;
   }
+
+  // saves shape to s3 and creates object in state.
+  async saveUserShapesToS3() {
+    const currentSavedShapes = store.getStateItem('savedshapes');
+
+    // get the current users shapes
+    const userarea = store.getStateItem('userarea');
+    const buffered = store.getStateItem('userarea_buffered');
+    const zonal = store.getStateItem('zonalstatsjson');
+    const shapecount = store.getStateItem('userareacount');
+
+    const savedUserarea = await this.StoreShapesAPI.saveShape(userarea);
+    const savedUserareaBuffered = await this.StoreShapesAPI.saveShape(buffered);
+    const savedZonalStatsJSON = await this.StoreShapesAPI.saveShape(zonal);
+
+    const name = `${this.defaultAreaName}${shapecount}`;
+
+    const newSavedShape = {
+      [`savedshape${shapecount}`]: [
+        { name },
+        { savedshape_userarea: savedUserarea },
+        { savedshape_userarea_buffered: savedUserareaBuffered },
+        { savedshape_zonalstatsjson: savedZonalStatsJSON }
+      ]
+    };
+
+    const newshapes = { ...currentSavedShapes, ...newSavedShape };
+    store.setStoreItem('savedshapes', newshapes);
+    return name;
+  }
+
 
   addUpdateStatisticsHandler() {
     const UpdateZonalStatsBtn = document.getElementById('btn-update-zonal-stats');
