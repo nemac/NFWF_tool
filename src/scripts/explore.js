@@ -187,6 +187,10 @@ export class Explore extends Component {
           const labelzElem = document.getElementById(labelzname);
           toggleLabelHighLightsOn(labelzElem);
 
+          const shotChartsLabels = path.options.className.replace('path-', 'short-chart-');
+          const shotChartsLabelsElem = document.getElementById(shotChartsLabels);
+          toggleLabelHighLightsOn(shotChartsLabelsElem);
+
           const pathelem = document.querySelector(`.${path.options.className}`);
           toggleMouseHighLightsOn(pathelem);
         }
@@ -200,6 +204,10 @@ export class Explore extends Component {
           const labelzname = path.options.className.replace('path-', 'zonal-wrapper-');
           const labelzElem = document.getElementById(labelzname);
           toggleLabelHighLightsOff(labelzElem);
+
+          const shotChartsLabels = path.options.className.replace('path-', 'short-chart-');
+          const shotChartsLabelsElem = document.getElementById(shotChartsLabels);
+          toggleLabelHighLightsOff(shotChartsLabelsElem);
 
           const pathelem = document.querySelector(`.${path.options.className}`);
           toggleMouseHighLightsOff(pathelem);
@@ -568,6 +576,10 @@ export class Explore extends Component {
               const labelzElem = document.getElementById(labelzname);
               toggleLabelHighLightsOn(labelzElem);
 
+              const shotChartsLabels = path.options.className.replace('path-', 'short-chart-');
+              const shotChartsLabelsElem = document.getElementById(shotChartsLabels);
+              toggleLabelHighLightsOn(shotChartsLabelsElem);
+
               const pathelem = document.querySelector(`.${path.options.className}`);
               togglePermHighLightsAllOff(pathelem);
               toggleMouseHighLightsOn(pathelem);
@@ -582,6 +594,10 @@ export class Explore extends Component {
               const labelzname = path.options.className.replace('path-', 'zonal-wrapper-');
               const labelzElem = document.getElementById(labelzname);
               toggleLabelHighLightsOff(labelzElem);
+
+              const shotChartsLabels = path.options.className.replace('path-', 'short-chart-');
+              const shotChartsLabelsElem = document.getElementById(shotChartsLabels);
+              toggleLabelHighLightsOff(shotChartsLabelsElem);
 
               const pathelem = document.querySelector(`.${path.options.className}`);
               toggleMouseHighLightsOff(pathelem);
