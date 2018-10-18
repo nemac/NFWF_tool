@@ -95,7 +95,11 @@ $body-color: $gray-200;
   position: relative;
 }
 
-.zonal-wrapper {
+.zonal-short-wrapper {
+  margin-left: 0px;
+}
+
+.zonal-wrapper, .zonal-short-wrapper{
 
   cursor: pointer;
 
@@ -361,6 +365,7 @@ div.zonal-asset {
 
 .btn-details {
   height: 30px;
+  margin-top: 50px !important;
 }
 
 
@@ -1284,6 +1289,21 @@ $graph-tick-height-short: 5px;
     position: absolute;
     left: 0%;
     text-align: center;
+  }
+}
+
+
+.zonal-long-graph-wrapper-short-chart {
+  $asset-bar-wrapper-width: 100% / 6;
+  .zonal-long-graph-label {
+    width: $asset-bar-wrapper-width;
+  }
+
+  .zonal-long-graph-bar-wrapper {
+    $asset-bar-width: 12%;
+    $asset-bar-margin: ($asset-bar-wrapper-width - $asset-bar-width) / 2;
+    width: $asset-bar-width;
+    margin: 0 $asset-bar-margin;
   }
 }
 
