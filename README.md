@@ -2,11 +2,16 @@
 ## First iteration of basic viewer
 
 To install
-```npm install```
-
+```
+npm install
+```
 
 To Build dist package
-```npm run build```
+```
+npm run build
+```
 
 To run dev server
-```npm start```
+```
+npm start
+```
