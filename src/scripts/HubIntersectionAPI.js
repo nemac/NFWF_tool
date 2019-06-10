@@ -75,19 +75,18 @@ export class HubIntersectionApi {
       const esriGeom = Terraformer.ArcGIS.convert(feature.geometry);
       const esriGeomStr = JSON.stringify(esriGeom);
 
-      const queryParams = {
-        geometry: esriGeomStr,
-        spatialRel: 'esriSpatialRelIntersects',
-        geometryType: 'esriGeometryPolygon',
-        outFields: this.agolOutFields.join(),
-        f: 'json',
-        inSR: 4326,
-        outSR: 4326
-      };
+      // create post form data
+      const postBody = new URLSearchParams();
+      postBody.append('f', 'json');
+      postBody.append('inS', '4326');
+      postBody.append('outSR', '4326');
+      postBody.append('outFields', this.agolOutFields.join());
+      postBody.append('geometryType', 'esriGeometryPolygon');
+      postBody.append('spatialRel', 'esriSpatialRelIntersects');
+      postBody.append('geometry', esriGeomStr);
 
-      const response = await axios.get(this.queryUrl, {
-        params: queryParams
-      });
+      const response = await axios.post(this.queryUrl, postBody);
+
       if (Object.prototype.hasOwnProperty.call(response.data, 'error')) {
         throw response.data.message;
       }

@@ -832,7 +832,7 @@ export class Explore extends Component {
     // async calls to zonal stats api.  this will ensure we wait for the promise to
     // resolve and is added to the store before we progress on. using a check for hasOwnProperty
     // to deal with all the prototpe entries
-    for (const key in currentshapes) {
+    for (const key in currentshapes) {  // eslint-disable-line
       if (checkobj.call(currentshapes, key)) {
         const rawpostdata = currentshapes[key][2].userarea_buffered;
         const { name } = currentshapes[key][0];
@@ -968,7 +968,7 @@ export class Explore extends Component {
     // async calls to zonal stats api.  this will ensure we wait for the promise to
     // resolve and is added to the store before we progress on. using a check for hasOwnProperty
     // to deal with all the prototpe entries
-    for (const key in hubs) {
+    for (const key in hubs) {  // eslint-disable-line
       if (checkobj.call(hubs, key)) {
         const fid = hubs[key].properties.mean.TARGET_FID.toString().trim();
         const savedhub = { key: `${hubBucketfolders}${fid}.geojson`, bucket: hubBucket };
@@ -988,7 +988,6 @@ export class Explore extends Component {
     }
   }
 
-
   static async storeHubsOnS3(hubs) {
     const checkobj = {}.hasOwnProperty;
     const hubBucketfolders = 'prod/hubs/';
@@ -998,7 +997,7 @@ export class Explore extends Component {
     // async calls to zonal stats api.  this will ensure we wait for the promise to
     // resolve and is added to the store before we progress on. using a check for hasOwnProperty
     // to deal with all the prototpe entries
-    for (const key in hubs) {
+    for (const key in hubs) {  // eslint-disable-line
       if (checkobj.call(hubs, key)) {
         const fid = hubs[key].properties.mean.TARGET_FID.toString().trim();
         const savedhub = { key: `${hubBucketfolders}${fid}.geojson`, bucket: hubBucket };
@@ -1422,7 +1421,7 @@ export class Explore extends Component {
     // async calls to zonal stats api.  this will ensure we wait for the promise to
     // resolve and is added to the store before we progress on. using a check for hasOwnProperty
     // to deal with all the prototpe entries
-    for (const key in currentshapes) {
+    for (const key in currentshapes) {  // eslint-disable-line
       if (checkobj.call(currentshapes, key)) {
         const nameSaved = currentshapes[key][0].name;
 
@@ -1527,7 +1526,7 @@ export class Explore extends Component {
     // async calls to zonal stats api.  this will ensure we wait for the promise to
     // resolve and is added to the store before we progress on. using a check for hasOwnProperty
     // to deal with all the prototpe entries
-    for (const key in savedhubs) {
+    for (const key in savedhubs) {  // eslint-disable-line
       if (checkobj.call(savedhubs, key)) {
         let hubsZonalshape = {};
         let simplifiedHubsZonalshape = {};
@@ -1582,7 +1581,7 @@ export class Explore extends Component {
     // async calls to zonal stats api.  this will ensure we wait for the promise to
     // resolve and is added to the store before we progress on. using a check for hasOwnProperty
     // to deal with all the prototpe entries
-    for (const key in savedhubs) {
+    for (const key in savedhubs) {  // eslint-disable-line
       if (checkobj.call(savedhubs, key)) {
         let NatureServeHubsZonalshape = {};
         let simplifiedNatureServeHubsZonalshape = {};

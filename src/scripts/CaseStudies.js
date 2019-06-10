@@ -2,7 +2,7 @@
 import { yaml } from 'js-yaml';
 import L from 'leaflet';
 
-import caseStudyConfig from 'js-yaml-loader!../config/caseStudyConfig.yml';
+import caseStudyConfig from 'js-yaml-loader!../config/caseStudyConfig.yml';  // eslint-disable-line
 import caseStudiesTemplate from '../templates/case_studies.html';
 import { mapConfig } from '../config/mapConfig';
 
