@@ -1,5 +1,6 @@
 
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const webpack = require('webpack')
 const path = require('path');
@@ -59,6 +60,10 @@ module.exports = {
           test: /\.html$/,
           loader: 'html-loader'
         },
+        {
+          test: /\.css$/,
+          use:  [  'style-loader', MiniCssExtractPlugin.loader, 'css-loader']
+        },
         urlLoader = {
             test: /.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$/,
             use: "url-loader?limit=100000"
@@ -69,44 +74,23 @@ module.exports = {
           loader: 'worker'
         },
         {
-        test: /\.(scss)$/,
-        use: [
-          {
-            // Adds CSS to the DOM by injecting a `<style>` tag
-            loader: 'style-loader'
-          },
-          {
-            // Interprets `@import` and `url()` like `import/require()` and will resolve them
-            loader: 'css-loader'
-          },
-          {
-            // Loader for webpack to process CSS with PostCSS
-            loader: 'postcss-loader',
-            options: {
-              plugins: function () {
-                return [
-                  require('autoprefixer')
-                ];
-              }
-            }
-          },
-          {
-            // Loads a SASS/SCSS file and compiles it to CSS
-            loader: 'sass-loader'
-          }
-        ]
-      }
+          test: /\.scss$/,
+          use: [ 'style-loader', MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader']
+        }
       ]
     },
     plugins: [
+      new MiniCssExtractPlugin({
+        filename: 'style.[contenthash].css',
+      }),
         //index - map
-        new HtmlWebpackPlugin({
-            hash: true,
-            template: path.join(paths.SRC_HTML, 'index.html'),
-            filename: path.join(paths.DIST, 'index.html'),
-            excludeChunks: ['download','about']
-        }),
-        new webpack.HotModuleReplacementPlugin(),
+      new HtmlWebpackPlugin({
+          hash: true,
+          template: path.join(paths.SRC_HTML, 'index.html'),
+          filename: path.join(paths.DIST, 'index.html'),
+          excludeChunks: ['download','about']
+      }),
+      new webpack.HotModuleReplacementPlugin(),
    ]
 
 }
