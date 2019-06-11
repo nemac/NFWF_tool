@@ -1535,8 +1535,9 @@ export class Explore extends Component {
           hubsZonalshape = await this.StoreShapesAPI.httpGetSavedGeoJSON(hubobj.bucket,
             hubobj.key);
 
-          // adds TARGET_FID to mean array
-          hubsZonalshape.properties.mean.TARGET_FID = hubsZonalshape.properties.OBJECTID;
+          // move properties to mean object
+          hubsZonalshape.properties['mean'] = Object.assign({}, hubsZonalshape.properties);  // eslint-disable-line
+
           // simplifies shape geometry
           simplifiedHubsZonalshape = HubIntersectionApi.simplifyshape(hubsZonalshape);
 
