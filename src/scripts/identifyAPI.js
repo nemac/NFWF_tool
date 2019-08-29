@@ -4,12 +4,11 @@ import { Store } from './store';
 import { identifyConfig } from '../config/identifyConfig';
 
 const store = new Store({});
-// const apiEndpoint = 'https://lg0njzoglg.execute-api.us-east-1.amazonaws.com/';
-const apiEndpoint = 'https://ktj0thaws0.execute-api.us-east-1.amazonaws.com/';
-const identifyPath = 'Dev/';
+// const apiEndpoint = 'https://ktj0thaws0.execute-api.us-east-1.amazonaws.com/';
+// const identifyPath = 'Dev/';
 
-// https://xi4lrz17r8.execute-api.us-east-1.amazonaws.com/Prod/identify/proxy?x=1745727&y=451980
-// const identifyPath = 'Prod/';
+const apiEndpoint = 'https://lg0njzoglg.execute-api.us-east-1.amazonaws.com/';
+const identifyPath = 'Prod/';
 
 /** API Wrapper Service Class
 * this wrapps the lambda service into axios js calls

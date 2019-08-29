@@ -3,11 +3,11 @@ import { CancelToken, post } from 'axios';
 import { checkValidObject } from './utilitys';
 
 // prod api is having issues some I am switching ot the dev version until its resolved
-// const apiEndpoint = 'https://lg0njzoglg.execute-api.us-east-1.amazonaws.com/';
-// const zonalStatsPath = 'Prod/zonal_stats';
-const apiEndpoint = 'https://ktj0thaws0.execute-api.us-east-1.amazonaws.com/';
-const zonalStatsPath = 'Dev/zonal_stats';
+const apiEndpoint = 'https://lg0njzoglg.execute-api.us-east-1.amazonaws.com/';
+const zonalStatsPath = 'Prod/zonal_stats';
 
+// const apiEndpoint = 'https://ktj0thaws0.execute-api.us-east-1.amazonaws.com/';
+// const zonalStatsPath = 'Dev/zonal_stats';
 
 const maxAttempts = 3;
 
