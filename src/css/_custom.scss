@@ -1,14 +1,21 @@
 // Your variable overrides
-$body-main-bar-bg-color: #2A2E33;
-$body-bg:    $gray-800;
+$body-main-bar-bg-color: #101012;
+// #0F0F0F;
+// #2A2E33; //#0f1110
+$body-bg: lighten(#101012,5) ;
+// #3e3e3e; //#151417
+// $gray-800;
+// #040807
 $body-list-border:    $gray-600;
 $body-color: $gray-200;
-$aboutbackground: #494c50; //2F3235
+$aboutbackground: #0f1110;
+//#494c50; //2F3235
 
 $btn-color-prinary: $gray-100;
 $btn-color-secondary: $gray-300;
 
-$box-shadow-default: 0 2.5px 5px rgba(0,0,0,0.19), 0 1.5px 1.5px rgba(0,0,0,0.23);
+$box-shadow-default: 0 2.5px 5px #000, 0 1.5px 1.5px #333;
+// 0 2.5px 5px rgba(0,0,0,0.19), 0 1.5px 1.5px rgba(0,0,0,0.23);
 $box-shadow-small: 0 2px 5px rgba(0,0,0,0.19), 0 1.25px 1.25px rgba(0,0,0,0.23);
 
 $body-color-visited: $gray-400;
@@ -25,6 +32,139 @@ $padding15: 15px;
 $body-bg-semiTransparent:    rgba(53, 59, 65, .8); // $gray-800
 $body-bg-semiTransparent9:    rgba(53, 59, 65, .9); // $gray-800
 $body-bg-FullTransparent:    rgba(53, 59, 65, 0.0); // $gray-800
+$newbg: #151417;
+
+@mixin hovcol($color){
+  // @content;
+@if(lightness($color) > 50){
+  background-color: mix($color,gray,25) !important;
+}@else {
+background-color: mix(white,$color,25) !important;
+ }
+
+}
+
+// @mixin size1700{
+//   @media screen and (max-width: 1700px) {
+//     @content;
+//   }
+// }
+// @mixin size1600{
+//   @media screen and (max-width: 1600px) {
+//     @content;
+//   }
+// }
+//@mixin size1500{
+//   @media screen and (max-width: 1500px) {
+// @content;  }
+// }
+//@mixin size1427{
+// @media screen and (max-width: 1427px) {
+// @content;
+// }
+//}
+  //@mixin size1280{
+// @media screen and (max-width: 1280px) {
+// @content;
+// }
+//}
+// @mixin size1200{
+//   @media screen and (max-width: 1200px) {
+// @content;  }
+// }
+// @mixin size1100{
+//   @media screen and (max-width: 1100px) {
+// @content;  }
+// }
+// @mixin size1024{
+// @media screen and (max-width: 1024px) {
+// @content;
+// }
+// }
+@mixin size1000{
+@media screen and (max-width: 1000px) {
+@content;
+  }
+}
+// @mixin size993{
+// @media screen and (min-width: 993px) {
+// @content;
+//   }
+// }
+@mixin size992{
+@media screen and (max-width: 992px) {
+  @content;
+  }
+}
+//  @mixin size900{
+//   @media screen and (max-width: 900px) {
+// @content;  }
+//}
+
+@mixin size768{
+
+  @media screen and (max-width: 768px) {
+      @content;
+  }
+}
+//@mixin size640{
+// @media screen and (max-width: 640px) {
+// @content;
+//    }
+// }
+// @mixin size500{
+// @media screen and (max-width: 500px) {
+// @content;
+//  }
+// }
+// @mixin size414{
+// @media screen and (max-width: 414px) {
+// @content;
+//   }
+// }
+// @mixin size400{
+// @media screen and (max-width: 400px) {
+//   @content;
+// }
+// }
+// @mixin size375{
+// @media screen and (max-width: 375px) {
+// @content;
+//   }
+// }
+// @mixin size360{
+// @media screen and (max-width: 360px) {
+// @content;
+//   }
+// }
+// @mixin size325{
+// @media screen and (max-width: 325px) {
+//   @content;
+//   }
+// }
+// @mixin size320{
+// @media screen and (max-width: 320px) {
+// @content;
+//     }
+// }
+// @mixin size324{
+// @media screen and (max-width: 324px) {
+// @content;
+//       }
+// }
+ //  "phone":        400px,
+ // "phone-wide":   480px,
+ // "phablet":      560px,
+ // "tablet-small": 640px,
+ // "tablet":       768px,
+ // "tablet-wide":  1024px,
+ // "desktop":      1248px,
+ // "desktop-wide": 1440px
+// }
+
+
+
+
 
 // general page styles
 
@@ -65,7 +205,7 @@ hr {
 }
 
 a.nav-link.active {
-  color: $body-color;
+  color: $body-color !important;
   border-bottom: 3px solid $gray-200;
   margin-bottom: $margin;
   margin-left: $margin;
@@ -74,12 +214,16 @@ a.nav-link.active {
 }
 
 a.nav-link {
-  color: rgba(255, 255, 255, 0.5);
+  color: #babcbf !important; //new
+  // color: rgba(255, 255, 255, 0.5);
   border-bottom: 1px solid $gray-200;
   margin-bottom: $margin;
   margin-left: $margin;
   margin-right: $margin;
   padding-bottom: 5px;
+  &:hover{
+  color: #ecedef !important; //new
+  }
 }
 
 .about-footer {
@@ -502,7 +646,9 @@ a.nav-link {
 .about-nav {
   font-size: .9rem !important;
   &.active {
-    background-color: $aboutbackground;
+    background-color: grayscale(#0f1110);
+    // $aboutbackground;
+    color: #FFF !important; //new
   }
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
@@ -511,6 +657,8 @@ a.nav-link {
   -moz-border-radius-topleft: 4px !important;
   -moz-border-radius-topright: 4px !important;
   box-shadow: $box-shadow-small;
+  // color: #32fcea !important;
+  // #d1d4d7 !important; //new
 }
 
 .about-nav {
@@ -533,7 +681,8 @@ a.nav-link {
     max-width: 80px !important;
     font-size: .8em !important;
   }
-  @media screen and (max-width: 768px) {
+@include size768 {
+
     max-width: 100% !important;
     font-size: .9em !important;
   }
@@ -549,7 +698,7 @@ a.about-nav.active::after {
 }
 
 a.about-nav.active::before {
-  background-color: $aboutbackground
+  background-color: $aboutbackground;
 }
 
 #about-nav-holder {
@@ -599,7 +748,7 @@ a.about-nav.active::before {
     margin-top: $margin15;
   }
 }
-
+//end of about styles
 
 // making of styles
 
@@ -618,7 +767,7 @@ a.about-nav.active::before {
     font-size: .9em;
     font-weight: 300;
     max-width: 1024px !important;
-    @media screen and (max-width: 768px) {
+  @include size768 {
       padding-left: 5px;
       padding-right: 5px;
     }
@@ -636,7 +785,8 @@ a.about-nav.active::before {
     font-size: 18px !important;
     font-weight: 800;
     border: 1px solid $gray-100;
-    background: $gray-600;
+    background: $newbg;
+     // $gray-600;
     box-shadow: $box-shadow-default;
     padding: 10px;
     margin: 0px 5px 10px 0px;
@@ -710,7 +860,7 @@ a.about-nav.active::before {
     vertical-align: middle;
   }
 }
-
+//end of making of styles
 
 // download styles
 
@@ -744,10 +894,11 @@ a.about-nav.active::before {
   }
 }
 
-.data-source-list {
-  // padding-left: 25px;
-}
+// .data-source-list {
+//   // padding-left: 25px;
+// }
 
+//landing page styles
 .landingpage-header {
   width: 100%;
   background-image: url('../images/Hubs_Tool.jpg'); /* The image used */
@@ -758,17 +909,20 @@ a.about-nav.active::before {
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover; /* Resize the background image to cover the entire container */
 }
+
 #tab-main-nav-landingpage, #landingpage-holder{
-  background-color: $body-color;
+  background-color: #232227; //new
+  // $body-color;
   color: $body-bg;
   margin-left: unset !important;
   margin-right: unset !important;
 }
+
 .whatcando-row {
   margin-left: unset !important;
   margin-right: unset !important;
 }
-.whatcando-container {
+.whatcando-container { //scrollable on landing page
   .row {
     margin-left: unset !important;
     margin-right: unset !important;
@@ -782,8 +936,8 @@ a.about-nav.active::before {
   header {
     text-align: center;
   }
-  .section-header {
-  }
+  // .section-header {
+  // }
   .whatcando-heading {
     margin-top: 15px;
     font-size: 30px;
@@ -818,18 +972,21 @@ a.about-nav.active::before {
     box-shadow: $box-shadow-default !important;
     -moz-box-shadow: $box-shadow-default !important;
   }
-  .whatcando-btn {
+  .whatcando-btn { //buttons on scrollable landing page
     width: 330px !important;
     height: 50px !important;
     line-height: 40px !important;
     border-radius: 25px  !important;
-    background-color: #6c757d !important;
+    background-color: $newbg !important;
+     // #6c757d !important; //$newbg
     border: 1px solid #e9ecef !important;
     color: #e9ecef !important;
     font-size: 14px !important;
   }
   .whatcando-btn:hover {
-    background-color: #565d64 !important;
+    @include hovcol ($newbg);
+    // background-color:  #333534 !important;
+    // #4f5251 !important; //new #565d64 lighten($newbg,25)
   }
   .whatcando-btn:focus {
     background-color: #565d64 !important;
@@ -857,6 +1014,7 @@ a.about-nav.active::before {
   }
 }
 
+//end of landing page styles
 .download-group {
   padding: 15px;
 }
@@ -872,16 +1030,40 @@ a.about-nav.active::before {
   padding: 0px;
 }
 
-.btn-download {
+.btn-download { //download page buttons
   width: 100%;
   height: 30px;
-  background-color: $gray-300 !important;
+  background-color: $gray-300 !important; //new
+
+  &:hover {
+@include hovcol($gray-300);
+  // background-color: mix($gray-300,gray,25) !important;
+    // #949596 !important;
+  }
+@include size992 {
+    &:enabled {
+      background: #32363a !important;
+    }
+
+    &:hover {
+    // background-color: mix(white,#32363a,25) !important;
+        @include hovcol(#32363a);
+      // scale-color(#545b62, $lightness: 50%)
+   //#32363a
+    }
+  }
 }
 
 .download-collapser {
+      padding-bottom: 6px;
   .icon-right {
+
     float: right;
   }
+}
+
+.download-collapse{
+      padding-bottom: 6px;
 }
 
 .download-notes-description {
@@ -940,7 +1122,8 @@ a.about-nav.active::before {
 
 .zoomLinks-collapser {
   cursor: pointer;
-  background-color: $body-bg !important;
+  background-color: $newbg !important;
+  // $body-bg !important;
   border-width: 1px !important;;
   border-radius: 0.25rem !important;
   -webkit-border-radius: 0.25rem !important;
@@ -993,7 +1176,7 @@ a.about-nav.active::before {
   }
 
   .zoomLinks-collapser-header:hover {
-    background-color: $gray-600 !important;
+  @include hovcol(#060b18);
     color: $body-color !important;
   }
 
@@ -1034,9 +1217,9 @@ a.about-nav.active::before {
   width: 100%;
 }
 
-#main-content,{
-  // padding: $padding15;
-}
+// #main-content,{
+//   // padding: $padding15;
+// }
 
 .nfwf-header {
   box-shadow: $box-shadow-default;
@@ -1060,9 +1243,9 @@ a.about-nav.active::before {
   margin-bottom: $margin15;
 }
 
-#main-content {
-  // margin-top: 10px !important;
-}
+// #main-content {
+//   // margin-top: 10px !important;
+// }
 
 #about-main {
   margin-left: 15px;
@@ -1081,11 +1264,17 @@ a.about-nav.active::before {
 
 #primary-shape-holder {
   margin-left: 0px !important;
-  @media screen and (max-width: 768px) {
+  background:$body-bg; //fix 32fcea
+@include size768 {
     margin-left: 25px !important;
   }
-}
 
+
+}
+.bg-dark,.zonal-long-wrapper,.zonal-stats-button-holder, #zonal-stats-button-holder, .zonal-long-name, .zonal-long-button-wrapper{
+  //new removes boxes around certain user areas (descriptions of area)
+background-color: $body-bg !important;
+}
 #user-shape {
   margin-left: 0px !important;
 }
@@ -1097,6 +1286,9 @@ a.about-nav.active::before {
 
 #upload-shapefile-btn, #draw-area-btn, .whatcando-btn {
   width: 100% !important;
+&:hover{
+  background: #adaeaf !important;
+  }
 }
 
 // button styles
@@ -1106,11 +1298,11 @@ a.about-nav.active::before {
   width: 100% !important;
 }
 
-.btn-download {
-  width: 100%;
-  height: 30px;
-  background-color: $gray-300 !important;
-}
+// .btn-download {
+//   width: 100%;
+//   height: 30px;
+//   background-color: $gray-300 !important;
+// }
 
 .btn-secondary {
   width: 50px !important;
@@ -1362,7 +1554,7 @@ a.about-nav.active::before {
    border-radius: 4px;
    -webkit-border-radius: 4px;
    -moz-border-radius: 4px;
-   background-color: $body-color
+   background-color: $body-color;
  }
 
 #explore-holder::-webkit-scrollbar-corner{
@@ -1486,6 +1678,10 @@ p.not-found {
   #btn-clear-area, #btn-reset, #btn-update-zonal-stats, #btn-download-all-zonal-stats {
     margin-top: $margin;
     width: 100% !important;
+    background-color: #434548 !important; //newbg
+    &:hover{
+      @include hovcol(#434548);
+    }
   }
 }
 @media screen and (min-width: 993px) {
@@ -1496,7 +1692,8 @@ p.not-found {
     background-color: $btn-color-secondary !important;
 
     &:hover {
-      background-color: $gray-400 !important;
+      @include hovcol($btn-color-secondary);
+      // background-color: #adaeaf !important; //new
     }
 
     &:focus {
@@ -1509,7 +1706,7 @@ p.not-found {
     margin-top: $margin;
     width: 100% !important;
     background-color: $btn-color-secondary !important;
-  }
+  } //unnecessary????
 
   .brand-maplist-holder {
     position: fixed !important;
@@ -1583,7 +1780,7 @@ p.not-found {
       -moz-border-radius: 4px !important;
       box-shadow: $box-shadow-small;
       // margin-top: 5px;
-
+      background: $newbg !important;
       &:hover {
         background-color: $gray-600;
       }
@@ -1606,7 +1803,8 @@ p.not-found {
     }
 
     #mapListToggle {
-      background-color: $body-bg !important;
+      background-color: $newbg !important;
+      // $body-bg !important;
       border-color:  $body-list-border !important;
       border-width:  0px 1px 1px 1px !important;
       border-style: solid !important;
@@ -1621,7 +1819,8 @@ p.not-found {
     }
 
     #ToggleLayerList {
-      background-color: $body-bg !important;
+      background-color: $newbg  !important;
+       // $body-bg !important;
       margin: 15px;
       height: 100%;
       width: 100% !important;
@@ -1708,6 +1907,18 @@ p.not-found {
   $btn-color-secondary: $gray-800;
   $btn-color-prinary: $gray-700;
 
+
+//mobile size
+  #upload-shapefile-btn, #draw-area-btn, .whatcando-btn {
+    width: 100% !important;
+    background-color: #54575b !important; //newbg
+    &:hover{
+    @include hovcol(black);
+      // background: #323436 !important;
+    }
+  }
+
+
   .btn-secondary:active {
     background-color: $gray-800 !important;
     background-size: 100% !important;
@@ -1763,7 +1974,7 @@ p.not-found {
     padding: $padding;
   }
 
-  .btn-details {
+  .btn-details { //get details
       background-color: $body-bg  !important;
       color: $body-color !important;
       border: 1px solid $body-color !important;
@@ -1776,11 +1987,12 @@ p.not-found {
     color: $body-color !important;
     padding-left: 0px;
     padding-right: 0px;
+    background-color: $newbg !important;
   }
 
   .navbar-explore-shapes {
     padding-left: 0px;
-    padding-right: 0px
+    padding-right: 0px;
   }
   .navbar-brand-exlore-title, .navbar-brand-secondary-directions  {
     font-size: 1.5rem !important;
@@ -1892,6 +2104,7 @@ p.not-found {
   .bnt-main-navbar-toggle {
     height: 30px !important;
     font-size: 1rem !important;
+
     .navbar-toggler-icon {
       width: 1.0em;
       height: 1.0em;
@@ -2119,7 +2332,7 @@ p.not-found {
       margin-left: -1px !important;
     }
 
-}
+} //end media screen 768
 
 // responive explore buttons
 @media screen and (max-width: 640px) {
@@ -2184,14 +2397,14 @@ p.not-found {
      .bnt-primary {
        height: 50px !important;
      }
-}
+} //end media screen 640
 
 @media screen and (max-width: 640px) {
   #btn-clear-area, #btn-reset, #btn-update-zonal-stats, #btn-download-all-zonal-stats {
     margin-top: $margin;
     width: 100% !important;
   }
-}
+} //end media 640
 @media screen and (max-width: 500px) {
   .leaflet-draw.active {
     position: fixed;
@@ -2254,7 +2467,7 @@ p.not-found {
       min-width:400px;
     }
   }
-}
+} //end media screen 414
 @media screen and (max-width: 414px) {
   .maplayers_list {
     top: 70px !important;
@@ -2274,7 +2487,7 @@ p.not-found {
       min-width: 350px;
     }
   }
-}
+} //end media screen 400
 @media screen and (max-width: 375px) {
   .navbar-brand-exlore-title, .navbar-brand-secondary-directions  {
     font-size: .842rem !important;
@@ -2284,12 +2497,12 @@ p.not-found {
     font-size: .742rem !important;
     margin-right: 5px !important;
   }
-}
+} //end media screen 375
 @media screen and (max-width: 375px) {
   .leaflet-draw-tooltip-top {
       font-size: 1.1em !important;
   }
-}
+} //end media screen 375
 @media screen and (max-width: 320px) {
   .navbar-brand-exlore-title, .navbar-brand-secondary-directions  {
     font-size: .642rem !important;
@@ -2299,14 +2512,14 @@ p.not-found {
     font-size: .685rem !important;
     margin-right: 5px !important;
   }
-}
+} //end media screen 320
 @media screen and (max-width: 324px) {
   .making-of-examples {
     .row {
       min-width: 300px;
     }
   }
-}
+} //end media screen 324
 
 
 // misc styles
@@ -2388,7 +2601,7 @@ p.not-found {
     padding-right: 5px !important;
     padding-bottom: 15px !important;
 
-    @media screen and (max-width: 768px) {
+  @include size768 {
       padding-left: 0px !important;
       padding-right: 0px !important;
       padding-bottom: 10px !important;
@@ -2400,7 +2613,7 @@ p.not-found {
     margin-left: 0px;
     margin-bottom: 15px;
 
-    @media screen and (max-width: 768px) {
+  @include size768 {
       margin-bottom: 5px;
     }
     .position {
@@ -2409,7 +2622,7 @@ p.not-found {
       width: 20px;
       margin: 5px;
 
-      @media screen and (max-width: 768px) {
+    @include size768 {
         height: 24px;
         width: 12px;
       }
@@ -2421,20 +2634,22 @@ p.not-found {
 
   }
 
-  .figure-caption {
-    background-color: $body-bg;
-    color: #e9ecef;
+  .figure-caption { //case studies descript
+    background-color: $newbg; //new
+    // $body-bg;
+    color: #e9ecef; //default white
     padding: 15px;
     border: 1px solid #e9ecef;
     z-index: 1000;
 
-    @media screen and (max-width: 768px) {
+  @include size768 {
       padding: 5px;
     }
 
-    &.title-caption {
+    &.title-caption { //case studies
       font-size: 18px !important;
-      background-color: $gray-600;
+      background-color:$newbg;
+       // $gray-600;// default bootstrap gray
       border-top-left-radius: 4px !important;
       border-top-right-radius: 4px !important;
       -webkit-border-top-left-radius: 4px !important;
@@ -2453,7 +2668,8 @@ p.not-found {
     }
 
     &.title-caption:hover {
-      background: $gray-700 radial-gradient(circle, transparent 1%, $gray-700 1%) center/15000% !important;
+      @include hovcol($newbg);
+      // background: $gray-700 radial-gradient(circle, transparent 1%, $gray-700 1%) center/15000% !important;
     }
 
     .icon-right {
@@ -2466,7 +2682,7 @@ p.not-found {
     #name {
       font-size: 18px;
       font-weight: 800;
-      @media screen and (max-width: 768px) {
+    @include size768 {
         font-size: 1rem;
       }
     }
@@ -2477,7 +2693,7 @@ p.not-found {
       width: 100% !important;
     }
 
-    @media screen and (max-width: 768px) {
+  @include size768 {
       .narrative-main.steps-active {
         display: none;
       }
@@ -2493,7 +2709,7 @@ p.not-found {
       border-left: 1px solid $gray-700;
       padding: 15px;
 
-      @media screen and (max-width: 768px) {
+    @include size768 {
         padding: 10px;
       }
 
@@ -2504,7 +2720,7 @@ p.not-found {
 
       .case-study-step {
         .col {
-          @media screen and (max-width: 768px) {
+        @include size768 {
             padding-right: 5px;
             padding-left: 5px;
           }
@@ -2513,7 +2729,7 @@ p.not-found {
         &.last-step {
           #narrative {
             min-height: 80px !important;
-            @media screen and (max-width: 768px) {
+          @include size768 {
               font-size: .8rem !important;
               min-height: 30px !important;
             }
@@ -2525,7 +2741,7 @@ p.not-found {
           padding-right: 0px !important;
           min-height: 130px !important;
 
-          @media screen and (max-width: 768px) {
+        @include size768 {
             font-size: .7rem !important;
             min-height: 80px !important;
             padding: 0px !important;
@@ -2533,20 +2749,21 @@ p.not-found {
         }
       }
 
-      .btn-casestudies-action:hover {
-        background: $gray-700 radial-gradient(circle, transparent 1%, $gray-700 1%) center/15000% !important;
-      }
+      // .btn-casestudies-action:hover {
+      //   background:$gray-700 radial-gradient(circle, transparent 1%, $gray-700 1%) center/15000% !important;
+      // }
+      //
+      // .btn-casestudies-action {
+      //   background-color: #32fcea  !important;
+      //   border: 1px solid $body-color !important;
+      //   color: $body-color !important;
+      //   white-space: normal !important;
+      //
 
-      .btn-casestudies-action {
-        background-color: $body-bg  !important;
-        border: 1px solid $body-color !important;
-        color: $body-color !important;
-        white-space: normal !important;
-
-        @media screen and (max-width: 768px) {
-          border: 1px solid $gray-700 !important;
-        }
-      }
+      // @include size768 {
+      //     border: 1px solid $gray-700 !important;
+      //   }
+      // }
 
       .btn-casestudies-action-arrow {
         background-color: $body-bg  !important;
@@ -2562,7 +2779,7 @@ p.not-found {
           max-width: 45%;
         }
 
-        @media screen and (max-width: 768px) {
+      @include size768 {
           font-size: 2rem;
         }
       }
@@ -2578,7 +2795,7 @@ p.not-found {
       #name {
         font-size: 1.1rem;
         font-weight: 800;
-        @media screen and (max-width: 768px) {
+        @include size768{
           font-size: 1rem;
         }
       }
@@ -2588,7 +2805,7 @@ p.not-found {
         padding: 15px;
         width: 100% !important;
 
-        @media screen and (max-width: 768px) {
+      @include size768 {
           padding: 10px;
         }
 
@@ -2656,7 +2873,7 @@ p.not-found {
           max-width: 600px !important;
         }
 
-        @media screen and (max-width: 768px) {
+      @include size768 {
           max-width: 320px !important;
           font-size: .68rem;
         }
@@ -2774,7 +2991,7 @@ p.not-found {
 
 .tooltip.download-layer-description {
   max-width: 500px !important;
-  padding-top: 5px !important;
+  padding-top: px !important;
   text-align: left !important;
   opacity: 1.0 !important;
   font-size: 14px !important;
@@ -2840,7 +3057,7 @@ p.not-found {
   -moz-border-radius: 4px !important;
   cursor: pointer;
   box-shadow: $box-shadow-small;
-  color: #999595;
+  // color: #999595; //?
   float: right !important;
 }
 
@@ -2850,7 +3067,7 @@ p.not-found {
   }
 }
 
-.download-data-group-notes {
+.download-data-group-notes { //targetwatershed help btn
   background-color: $body-bg !important;
   height: 25px !important;
   width: 25px !important;
@@ -2866,7 +3083,7 @@ p.not-found {
   -moz-border-radius: 4px !important;
   cursor: pointer;
   box-shadow: $box-shadow-small;
-  color: #999595;
+  // color: #999595;
   margin-left: 40px;
   svg {
     margin-bottom: 5px;
@@ -2943,7 +3160,7 @@ p.not-found {
   font-weight: 700;
   background-color:  rgba(0,0,0,0);
   border-width: 0px;
-  box-shadow:  0 0px 0px rgba(0,0,0,0)
+  box-shadow:  0 0px 0px rgba(0,0,0,0);
 }
 
 .path-highlight {
@@ -2996,6 +3213,18 @@ p.not-found {
   height: 50px;
   margin: 5px;
   font-size: .9rem;
+
+    &:hover{//get details
+
+      @include hovcol(#54575b);
+      //background:  #adaeaf;
+    }
+    @include size1000 { //new
+
+      &:hover{
+      background: #333 !important;
+      }
+    }
 }
 
 .upload-all {
