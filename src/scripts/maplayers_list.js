@@ -5,38 +5,13 @@ import { Component } from './components';
 import { mapConfig } from '../config/mapConfig';
 import { Store } from './store';
 
-// Legend Templates
-import ColorRampHub from '../templates/colorramp_hub.html';
-import ColorRampAquatic from '../templates/colorramp_aquatic.html';
-import ColorRampTerrestrial from '../templates/colorramp_terrestrial.html';
-import ColorRampExposure from '../templates/colorramp_exposure.html';
-import ColorRampAsset from '../templates/colorramp_asset.html';
-import ColorRampThreat from '../templates/colorramp_threat.html';
-import ColorRampPopDensity from '../templates/colorramp_popdensity.html';
-import ColorRampSocVuln from '../templates/colorramp_socvuln.html';
-import ColorRampCritFac from '../templates/colorramp_critfac.html';
-import ColorRampCritInfra from '../templates/colorramp_critinfra.html';
-import ColorRampDrainage from '../templates/colorramp_drainage.html';
-import ColorRampErosion from '../templates/colorramp_erosion.html';
-import ColorRampFloodProne from '../templates/colorramp_floodprone.html';
-import ColorRampSLR from '../templates/colorramp_slr.html';
-import ColorRampStormSurge from '../templates/colorramp_stormsurge.html';
-import ColorRampGeoStress from '../templates/colorramp_geostress.html';
-import ColorRampSlopefrom from '../templates/colorramp_slope.html';
-import ColorRampDriverAsset from '../templates/colorramp_driver_asset.html';
-import ColorRampDriverThreat from '../templates/colorramp_driver_threat.html';
-import ColorRampDriverNSHub from '../templates/colorramp_targetedwatershed_hub.html';
-import ColorRampDriverNSExposure from '../templates/colorramp_targetedwatershed_exposure.html';
-import ColorRampDriverNSAsset from '../templates/colorramp_targetedwatershed_asset.html';
-import ColorRampDriverNSThreat from '../templates/colorramp_targetedwatershed_threat.html';
-import ColorRampDriverNSFishAndWildlife from '../templates/colorramp_targetedwatershed_fishandwildlife.html';
-
-
 // scss
 import '../css/maplayers_list.scss';
 
 import {
-  googleAnalyticsEvent
+  googleAnalyticsEvent,
+  numberToWord,
+  getLegendHtml
 } from './utilitys';
 
 const store = new Store({});
@@ -46,10 +21,6 @@ window.$ = require('jquery');
 window.Popper = require('popper.js');
 
 window.jQuery = window.$;
-
-
-// templates
-// import layer_checkboxTemplate from '../templates/layer_checkbox.html'
 
 /**
  * MapLayersList Component
@@ -61,8 +32,8 @@ export class MapLayersList extends Component {
 
     const { WMSLayers } = mapConfig;
     const { TMSLayers } = mapConfig;
+    const { zoomRegions } = mapConfig;
 
-    // MapLayersList.addOpenMapLayerListener();
     MapLayersList.addToggleMapLayerListener();
 
     // Add a toggle button for each layer
@@ -75,53 +46,53 @@ export class MapLayersList extends Component {
     MapLayersList.mapListToggleToggle();
 
     MapLayersList.addBaseMapListeners(props.mapComponent);
+    MapLayersList.addZoomregionListeners(props.mapComponent, zoomRegions);
+    MapLayersList.zoomRegionQuickLinkListener(props.mapComponent, zoomRegions);
+
     MapLayersList.addLegendListeners();
 
-    this.LayerDescriptionTemplate = '<div class="tooltip layerlist" role="tooltip">' +
+    this.LayerDescriptionTemplate = '<div class="tooltip layerlist" role="popover">' +
               '  <div class="arrow"></div><div class="tooltip-inner"></div>' +
               '  <div class="close-layerlist"><i class="fa fa-times" aria-hidden="true"></i></div>' +
               '</div>';
 
-    this.addToolTipListners();
+    MapLayersList.addToolTipListners();
     MapLayersList.resizeMapList();
     window.addEventListener('resize', MapLayersList.resizeMapList);
 
     window.addEventListener('aboutNavChange', (e) => {
       const activeNav = store.getStateItem('activeNav');
       const defaultLayerList = document.getElementById('defaultLayerList');
-      const nsLayerList = document.getElementById('NSLayerList');
+      const nsLayerList = document.getElementById('NS_LayerList');
+      const btnZoomRegion = document.getElementById('btn-zoomregion');
 
       if (activeNav === 'main-nav-map-searchNShubs') {
         defaultLayerList.classList.add('d-none');
         nsLayerList.classList.remove('d-none');
+        btnZoomRegion.classList.add('d-none');
       } else {
         defaultLayerList.classList.remove('d-none');
         nsLayerList.classList.add('d-none');
+        btnZoomRegion.classList.remove('d-none');
       }
     });
+
+    // change region is state changes
+    window.addEventListener('regionChanged', (e) => {
+      MapLayersList.toggleRegionLayerList();
+      MapLayersList.toggleRegionsLayers(props.mapComponent);
+    });
+
+    // run at startup to capture region in current state
+    MapLayersList.toggleRegionLayerList();
   }
 
   // tooltip and popover require javascript side modification to enable them (new in Bootstrap 4)
   // use tooltip and popover components everywhere
   // initalize new tooltips
-  addToolTipListners() {
+  static addToolTipListners() {
     $(() => {
-      $('#maplayers_list [data-toggle="tooltip"]').tooltip({
-        trigger: 'hover click focus',
-        template: this.LayerDescriptionTemplate
-      });
-
-      $('#maplayers_list [data-toggle="tooltip"]').on('shown.bs.tooltip', () => {
-        const elems = document.querySelectorAll('.tooltip.layerlist .close-layerlist');
-        elems.forEach((elem) => {
-          if (elem) {
-            elem.addEventListener('click', (e) => {
-              const toolTipElem = MapLayersList.ParentTooltip(e.target, 'tooltip');
-              $(toolTipElem).tooltip('hide');
-            });
-          }
-        });
-      });
+      $('#maplayers_list [data-toggle="popover"]').popover();
     });
   }
 
@@ -134,7 +105,7 @@ export class MapLayersList extends Component {
   }
 
   static resizeMapList() {
-    const offset = 275;
+    const offset = 220;
     if (window.innerHeight < 1024) {
       document.querySelector('#maplayers_list-holder').style.maxHeight = `${window.innerHeight - offset}px`;
       document.querySelector('#maplayers_list-holder').style.height = `${window.innerHeight - offset}px`;
@@ -149,6 +120,164 @@ export class MapLayersList extends Component {
 
     document.querySelector('#maplayers_list-holder').style.maxHeight = `${window.innerHeight - offset}px`;
     document.querySelector('#maplayers_list').style.maxHeight = `${window.innerHeight - offset}px`;
+  }
+
+  static toggleRegionsLayers(mapComponent) {
+    // get the region
+    const region = store.getStateItem('region');
+    const activeNav = store.getStateItem('activeNav');
+
+    // make sure region list are not displaying when targetedwatershed Nature Server data
+    // nav is current location
+    if (activeNav === 'main-nav-map-searchNShubs') {
+      return null;
+    }
+
+    // get the layer list from the config file
+    const { TMSLayers } = mapConfig;
+    const layers = store.getStateItem('mapLayerDisplayStatus');
+
+    // filter the layers based on current source
+    Object.keys(layers).forEach((layer) => {
+      const asource = TMSLayers.filter(TMSlayer => (
+        TMSlayer.id === layer && TMSlayer.region === region
+      ));
+
+      // layer is on and not part of the tabs data so it needs to be off
+      if (layers[layer] && asource.length === 0) {
+        mapComponent.toggleVisLayerOff(layer);
+      }
+
+      // layer is on IS part of the tabs data os it needs to be on
+      if (layers[layer] && asource.length > 0) {
+        mapComponent.toggleVisLayerOn(layer);
+      }
+    });
+
+    return null;
+  }
+
+  static zoomRegionQuickLinkListener(mapComponent, zoomRegions) {
+    window.addEventListener('zoomRegionQuikLink', (e) => {
+      const region = store.getStateItem('region');
+      const regionInfo = zoomRegions.filter(regions => regions.region === region);
+      MapLayersList.zoomToRegion(mapComponent, regionInfo[0]);
+    });
+  }
+
+  static addZoomregionListeners(mapComponent, zoomRegions) {
+    const btnzoomregionElem = document.getElementById('btn-zoomregion');
+    if (btnzoomregionElem) {
+      btnzoomregionElem.addEventListener('click', (e) => { MapLayersList.zoomRegionListToggle(e); });
+    }
+
+    const btnzoomregionList = document.getElementById('zoomregionlist');
+    if (btnzoomregionList) {
+      btnzoomregionList.addEventListener('click', (e) => { MapLayersList.zoomRegionListToggle(e); });
+    }
+
+    document.getElementById('zoomregion-cus').addEventListener('click', (e) => {
+      const region = zoomRegions.filter(regions => regions.region === 'continental_us');
+      MapLayersList.zoomToRegion(mapComponent, region[0]);
+      MapLayersList.updateZoomRegionLabel('Contiental U.S.');
+
+      // set region to conus
+      store.setStoreItem('region', 'continental_us');
+      const navChangeEvent = new CustomEvent('regionChanged');
+      window.dispatchEvent(navChangeEvent);
+
+      // ga event action, category, label
+      googleAnalyticsEvent('click', 'zoomregion', 'continental_us');
+    });
+
+    document.getElementById('zoomregion-pr').addEventListener('click', (e) => {
+      const region = zoomRegions.filter(regions => regions.region === 'puerto_rico');
+      MapLayersList.zoomToRegion(mapComponent, region[0]);
+      MapLayersList.updateZoomRegionLabel('Puerto Rico');
+
+      // set region to puerto_rico
+      store.setStoreItem('region', 'puerto_rico');
+      const navChangeEvent = new CustomEvent('regionChanged');
+      window.dispatchEvent(navChangeEvent);
+
+      // ga event action, category, label
+      googleAnalyticsEvent('click', 'zoomregion', 'puerto_rico');
+    });
+
+    document.getElementById('zoomregion-uvi').addEventListener('click', (e) => {
+      const region = zoomRegions.filter(regions => regions.region === 'us_virgin_islands');
+      MapLayersList.zoomToRegion(mapComponent, region[0]);
+      MapLayersList.updateZoomRegionLabel('US Virgin Islands');
+
+      // set region to US Virgin Islands
+      store.setStoreItem('region', 'us_virgin_islands');
+      const navChangeEvent = new CustomEvent('regionChanged');
+      window.dispatchEvent(navChangeEvent);
+
+      // ga event action, category, label
+      googleAnalyticsEvent('click', 'zoomregion', 'us_virgin_islands');
+    });
+
+    document.getElementById('zoomregion-cmni').addEventListener('click', (e) => {
+      const region = zoomRegions.filter(regions => regions.region === 'northern_mariana_islands');
+      MapLayersList.zoomToRegion(mapComponent, region[0]);
+      MapLayersList.updateZoomRegionLabel('Northern Mariana Islands');
+
+      // set region to US Northern Mariana Islands
+      store.setStoreItem('region', 'northern_mariana_islands');
+      const navChangeEvent = new CustomEvent('regionChanged');
+      window.dispatchEvent(navChangeEvent);
+
+      // ga event action, category, label
+      googleAnalyticsEvent('click', 'zoomregion', 'northern_mariana_islands');
+    });
+
+    // document.getElementById('zoomregion-guam').addEventListener('click', (e) => {
+    //   const region = zoomRegions.filter(regions => regions.region === 'guam');
+    //   MapLayersList.zoomToRegion(mapComponent, region[0]);
+    //   MapLayersList.updateZoomRegionLabel('Guam');
+    //   const navChangeEvent = new CustomEvent('regionChanged');
+    //    window.dispatchEvent(navChangeEvent);
+    //
+    //   // set region to US Guam
+    //   store.setStoreItem('region', 'guam');
+    //
+    //   // ga event action, category, label
+    //   googleAnalyticsEvent('click', 'zoomregion', 'guam');
+    // });
+
+    // document.getElementById('zoomregion-alaska').addEventListener('click', (e) => {
+    //   const region = zoomRegions.filter(regions => regions.region === 'alaska');
+    //   MapLayersList.zoomToRegion(mapComponent, region[0]);
+    //   MapLayersList.updateZoomRegionLabel('alaska');
+    //   const navChangeEvent = new CustomEvent('regionChanged');
+    //    window.dispatchEvent(navChangeEvent);
+    //
+    // set region to alaska
+    // store.setStoreItem('region', 'alaska');
+    //
+    //   // ga event action, category, label
+    //   googleAnalyticsEvent('click', 'zoomregion', 'alaska');
+    // });
+    //
+    // document.getElementById('zoomregion-hawaii').addEventListener('click', (e) => {
+    //   const region = zoomRegions.filter(regions => regions.region === 'hawaii');
+    //   MapLayersList.zoomToRegion(mapComponent, region[0]);
+    //   MapLayersList.updateZoomRegionLabel('hawaii');
+    //   const navChangeEvent = new CustomEvent('regionChanged');
+    //    window.dispatchEvent(navChangeEvent);
+    //
+    // set region to hawaii
+    // store.setStoreItem('region', 'hawaii');
+    //
+    //   // ga event action, category, label
+    //   googleAnalyticsEvent('click', 'zoomregion', 'hawaii');
+    // });
+  }
+
+  // zppm to region
+  static zoomToRegion(mapComponent, region) {
+    mapComponent.map.setView({ lat: region.center[0], lng: region.center[1] }, region.zoom);
   }
 
   static addBaseMapListeners(mapComponent) {
@@ -191,8 +320,81 @@ export class MapLayersList extends Component {
     }
   }
 
+  // toggle layer list for regions conus, pr, usvi, cmni, alaska...
+  static toggleRegionLayerList() {
+    // get region state
+    const region = store.getStateItem('region');
+    const activeNav = store.getStateItem('activeNav');
+    const defaultLayerList = document.getElementById('defaultLayerList');
+    const puertoRicoLayerList = document.getElementById('puertoRicoLayerList');
+    const usVirginIslandsLayerList = document.getElementById('usVirginIslandsLayerList');
+    const northernMarianaIslandsLayerList = document.getElementById('northernMarianaIslandsLayerList');
+
+    // make sure region list are not displaying when targetedwatershed Nature Server data
+    // nav is current location
+    if (activeNav === 'main-nav-map-searchNShubs') {
+      defaultLayerList.classList.add('d-none');
+      puertoRicoLayerList.classList.add('d-none');
+      usVirginIslandsLayerList.classList.add('d-none');
+      northernMarianaIslandsLayerList.classList.add('d-none');
+      return null;
+    }
+
+    switch (region) {
+      case 'continental_us':
+        defaultLayerList.classList.remove('d-none');
+        puertoRicoLayerList.classList.add('d-none');
+        usVirginIslandsLayerList.classList.add('d-none');
+        northernMarianaIslandsLayerList.classList.add('d-none');
+        MapLayersList.updateZoomRegionLabel('Contiental U.S.');
+        break;
+      case 'puerto_rico':
+        defaultLayerList.classList.add('d-none');
+        puertoRicoLayerList.classList.remove('d-none');
+        usVirginIslandsLayerList.classList.add('d-none');
+        northernMarianaIslandsLayerList.classList.add('d-none');
+        MapLayersList.updateZoomRegionLabel('Puerto Rico');
+        break;
+      case 'northern_mariana_islands':
+        defaultLayerList.classList.add('d-none');
+        puertoRicoLayerList.classList.add('d-none');
+        usVirginIslandsLayerList.classList.add('d-none');
+        northernMarianaIslandsLayerList.classList.remove('d-none');
+        MapLayersList.updateZoomRegionLabel('Northern Mariana Islands');
+        break;
+      case 'us_virgin_islands':
+        defaultLayerList.classList.add('d-none');
+        puertoRicoLayerList.classList.add('d-none');
+        usVirginIslandsLayerList.classList.remove('d-none');
+        northernMarianaIslandsLayerList.classList.add('d-none');
+        MapLayersList.updateZoomRegionLabel('US Virgin Islands');
+        break;
+      case 'alaska':
+        MapLayersList.updateZoomRegionLabel('Alaska');
+        break;
+      case 'hawaii':
+        MapLayersList.updateZoomRegionLabel('Hawaii');
+        break;
+      case 'guam':
+        MapLayersList.updateZoomRegionLabel('Guam');
+        break;
+      default:
+        MapLayersList.updateZoomRegionLabel('Contiental U.S.');
+        break;
+    }
+
+    return null;
+  }
+
   static updateBaseMapLabel(basemapname) {
     const labelElem = document.getElementById('btn-basemap-label');
+    if (labelElem) {
+      labelElem.innerHTML = basemapname;
+    }
+  }
+
+  static updateZoomRegionLabel(basemapname) {
+    const labelElem = document.getElementById('btn-zoomregion-label');
     if (labelElem) {
       labelElem.innerHTML = basemapname;
     }
@@ -211,6 +413,23 @@ export class MapLayersList extends Component {
       // baseMapListElem.classList.remove('active');
     } else {
       baseMapListElem.classList.add('closed');
+      // baseMapListElem.classList.add('active');
+    }
+  }
+
+  // toggle zoom region list on
+  static zoomRegionListToggle(e) {
+    // ga event action, category, label
+    googleAnalyticsEvent('click', 'button', 'zoomregionlist');
+
+    const zoomRegionListElem = document.getElementById('zoomregionlist');
+    const iszoomRegionListVissible = zoomRegionListElem.classList.contains('closed');
+
+    if (iszoomRegionListVissible) {
+      zoomRegionListElem.classList.remove('closed');
+      // baseMapListElem.classList.remove('active');
+    } else {
+      zoomRegionListElem.classList.add('closed');
       // baseMapListElem.classList.add('active');
     }
   }
@@ -295,7 +514,7 @@ export class MapLayersList extends Component {
   /** Create and append new layer button DIV */
   updateMapLayer(layerProps) {
     // add listener
-    this.addLayerListListener(layerProps.id);
+    this.addLayerListListener(layerProps.id, layerProps.label);
 
     // update label
     MapLayersList.updateLayerListName(layerProps.id, layerProps.label);
@@ -333,65 +552,6 @@ export class MapLayersList extends Component {
   // @return DOM Element
   static getLegendWrapper(elem) {
     return elem.querySelector('.layer-legend');
-  }
-
-  // Returns the HTML for a specified legend type
-  //
-  // @param type | String
-  // @return String
-  static getLegendHtml(type) {
-    switch (type) {
-      case 'hub':
-        return ColorRampHub;
-      case 'asset':
-        return ColorRampAsset;
-      case 'threat':
-        return ColorRampThreat;
-      case 'exposure':
-        return ColorRampExposure;
-      case 'terrestrial':
-        return ColorRampTerrestrial;
-      case 'aquatic':
-        return ColorRampAquatic;
-      case 'driver-asset':
-        return ColorRampDriverAsset;
-      case 'popdensity':
-        return ColorRampPopDensity;
-      case 'socvuln':
-        return ColorRampSocVuln;
-      case 'critfac':
-        return ColorRampCritFac;
-      case 'critinfra':
-        return ColorRampCritInfra;
-      case 'drainage':
-        return ColorRampDrainage;
-      case 'erosion':
-        return ColorRampErosion;
-      case 'floodprone':
-        return ColorRampFloodProne;
-      case 'slr':
-        return ColorRampSLR;
-      case 'stormsurge':
-        return ColorRampStormSurge;
-      case 'geostress':
-        return ColorRampGeoStress;
-      case 'slope':
-        return ColorRampSlopefrom;
-      case 'driver-threat':
-        return ColorRampDriverThreat;
-      case 'ns-hub':
-        return ColorRampDriverNSHub;
-      case 'ns-exposure':
-        return ColorRampDriverNSExposure;
-      case 'ns-asset':
-        return ColorRampDriverNSAsset;
-      case 'ns-threat':
-        return ColorRampDriverNSThreat;
-      case 'ns-fishandwildlife':
-        return ColorRampDriverNSFishAndWildlife;
-      default:
-        return '';
-    }
   }
 
   // Gets the HTML wrapper of a layers description
@@ -454,11 +614,67 @@ export class MapLayersList extends Component {
   // @param layerProps | Object
   static addLegendHTML(layerProps) {
     const layerElem = MapLayersList.getLayerWrapper(layerProps.id);
+
     if (layerElem) {
+      // get the legend html based on the number of breaks supports 1-10 breaks
       MapLayersList.getLegendWrapper(layerElem).innerHTML =
-          MapLayersList.getLegendHtml(layerProps.legend);
-      MapLayersList.getDescriptionWrapper(layerElem).setAttribute('title', layerProps.description);
-      MapLayersList.setInitialLegendStatus(layerElem.getElementsByClassName('layer-legend-toggler')[0]);
+          getLegendHtml(layerProps.chartLegendValues);
+
+      // get the color palette for layer, each layer can have its own
+      const colorPalette = layerProps.chartCSSColor;
+
+      // iterate the color palette for layer so we can assing apporaite css color to element
+      Object.keys(colorPalette).forEach((color) => {
+        // convert the color number to number word 2 - two
+        // this is how html elments are named.
+        const colorlueWord = numberToWord(Number(color));
+
+        // get the element based on the color word
+        const valueELem = layerElem.querySelector(`.value-${colorlueWord}`);
+
+        // if the element exists add css color values
+        if (valueELem) {
+          // set background based on mapconfig values
+          valueELem.style.background = colorPalette[color];
+
+          // set font color
+          valueELem.style.color = '#000';
+
+          // // last color tends to be to dark for dark font
+          // if (parseInt(color) >= layerProps.chartLegendValues ) {
+          //   valueELem.style.color = '#fff';
+          // }
+          // hide legend numbers for now will anyone notice?
+          valueELem.style.color = 'transparent';
+
+          // add classes for region, chartCSSSelector, and source in case we want to find it later
+          valueELem.classList.add(layerProps.chartCSSSelector);
+          valueELem.classList.add(layerProps.region);
+          valueELem.classList.add(layerProps.source);
+        }
+
+        // set attributes for popups
+        MapLayersList.getDescriptionWrapper(layerElem).setAttribute('data-content', layerProps.description);
+        MapLayersList.getDescriptionWrapper(layerElem).setAttribute('title', layerProps.label);
+        MapLayersList.setInitialLegendStatus(layerElem.getElementsByClassName('layer-legend-toggler')[0]);
+      });
+    }
+    const legendElem = document.getElementById(`legend-${layerProps.id}`);
+    if (legendElem) {
+      legendElem.setAttribute('title', `Legend for ${layerProps.label}`);
+      legendElem.setAttribute('aria-label', `Legend for ${layerProps.label}`);
+    }
+
+    const legendShowElem = document.getElementById(`show-legend-${layerProps.id}`);
+    if (legendShowElem) {
+      legendShowElem.setAttribute('title', `Show legend for ${layerProps.label}`);
+      legendShowElem.setAttribute('aria-label', `Show legend for ${layerProps.label}`);
+    }
+
+    const legendHideElem = document.getElementById(`hide-legend-${layerProps.id}`);
+    if (legendHideElem) {
+      legendHideElem.setAttribute('title', `Hide legend for ${layerProps.label}`);
+      legendHideElem.setAttribute('aria-label', `Hide legend for ${layerProps.label}`);
     }
   }
 
@@ -495,6 +711,8 @@ export class MapLayersList extends Component {
       if (label != null) {
         // update the label
         label.textContent = layerName;
+        label.setAttribute('title', `Toggles the layer ${layerName} on or off`);
+        label.setAttribute('aria-label', `Toggles the layer ${layerName} on or off`);
       }
     }
   }
@@ -505,12 +723,16 @@ export class MapLayersList extends Component {
    *  @param { string }  layer id.
    *
    */
-  addLayerListListener(layerId) {
+  addLayerListListener(layerId, layerName) {
     // get and update the layer's checkbox
     const checkBox = document.getElementById(`${layerId}-toggle`);
+
     // ensure the html dom element exists
     if (checkBox !== undefined) {
       if (checkBox != null) {
+        checkBox.setAttribute('title', `Toggles the layer ${layerName} on or off`);
+        checkBox.setAttribute('aria-label', `Toggles the layer ${layerName} on or off`);
+
         // add the listner
         checkBox.addEventListener('click', (e) => {
           this.toggleMapLayer(layerId);

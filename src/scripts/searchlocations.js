@@ -288,6 +288,15 @@ export class SearchLocations extends Component {
     // this.exploreComponent.drawAreaGroup.clearLayers();
     store.removeStateItem('userarea');
 
+    let shapecount = store.getStateItem('userareacount');
+
+    // sometimes with the search by location the the count is returned as an object
+    // if that is the case capture it and make it zero
+    if (!Number.isInteger(shapecount)) {
+      shapecount = 0;
+    }
+
+    store.setStoreItem('userareacount', shapecount + 1);
     // add the user area. in this case the user area is a point
     // we are running zonal states so we need a polygon. we are using a small
     // bounding box of "50" meters for now we may need to make 1 kilomter later

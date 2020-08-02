@@ -1,117 +1,52 @@
+import L from 'leaflet';
 import { saveCsv } from './fileExporter';
 import { Store } from './store';
+import { mapConfig } from '../config/mapConfig';
 import {
-  googleAnalyticsEvent,
-  getIndexes,
-  getAssetDrivers,
-  getThreatDrivers
+  googleAnalyticsEvent
 } from './utilitys';
 
 const store = new Store({});
-
+const { TMSLayers } = mapConfig;
 
 // rename field
 function getCSVName(name) {
-  switch (name) {
-    case 'ns_hubs':
-      return 'Targeted Watershed Hubs - data range (1 to 5)';
-    case 'ns_fishandwildlife':
-      return 'Targeted Watershed Fish and Wildlife Index - data range (1 to 5)';
-    case 'ns_asset':
-      return 'Targeted Watershed Asset Index - data range (1 to 5)';
-    case 'ns_threat':
-      return 'Targeted Watershed Index - data range (1 to 5)';
-    case 'ns_exposure':
-      return 'Targeted Watershed Exposure Index - data range (1 to 5)';
-    case 'hubs':
-      return 'Resilience Hubs - data range (1 to 10)';
-    case 'aquatic':
-      return 'Aquatic Index - data range (0 to 5)';
-    case 'terrestrial':
-      return 'Terrestrial Index - data range (0 to 5)';
-    case 'asset':
-      return 'Community Asset Index - data range (1 to 10)';
-    case 'threat':
-      return 'Threat Index - data range (1 to 10)';
-    case 'exposure':
-      return 'Community Exposure Index - data range (1 to 10)';
-    case 'pop_density':
-      return 'Population Density - data range (0 to 5)';
-    case 'social_vuln':
-      return 'Social Vulnerability - data range (0 to 3)';
-    case 'crit_facilities':
-      return 'Critical Facilities - data range (0 or 5)';
-    case 'crit_infra':
-      return 'Critical Infrastructure - data range (0 to 6)';
-    case 'drainage':
-      return 'Impermeable Soils - data range (0 to 5)';
-    case 'erosion':
-      return 'Soil Erodibility - data range (0 to 5)';
-    case 'floodprone_areas':
-      return 'Flood-Prone Areas - data range (0 to 5)';
-    case 'sea_level_rise':
-      return 'Sea Level Rise - data range (0 to 5)';
-    case 'storm_surge':
-      return 'Storm Surge - data range (0 to 5)';
-    case 'stormsurge':
-      return 'Storm Surge - data range (0 to 5)';
-    case 'geostress':
-      return 'Geological Stressors - data range (0 to 3)';
-    case 'slope':
-      return 'Areas of Low Slope - data range (0 to 5)';
-    case 'TARGET_FID':
-      return 'name';
-    default:
-      return name;
+  if (name === 'TARGET_FID') {
+    return 'Name';
   }
-}
+  if (name === 'name') {
+    return 'Name';
+  }
 
-/**
- * The code in this file provides the specific implementation of retrieving, formatting and
- * exporting zonal and hub data to a csv file.
- */
-
-// Takes the flat data results as given by the API and reformats it as an array with metadata
-// NOTE/TODO: This function is the reason why there is a 'Dependency cycle', but it is invoked by an
-//   async function so it should be fine.
-//
-// @param data | Object
-// @return Array
-function getExportData(data) {
+  // filter the region layer list so we can get map configation values for all
+  // regions layers
+  let region = store.getStateItem('region');
   const activeNav = store.getStateItem('activeNav');
-
-  let indexes = getIndexes(data).filter(val => (val.source === 'default'));
-  let assetDrivers = getAssetDrivers(data).filter(val => (val.source === 'default'));
-  let threatDrivers = getThreatDrivers(data).filter(val => (val.source === 'default'));
-
-  switch (activeNav) {
-    case 'main-nav-map-searchhubs':
-      indexes = getIndexes(data).filter(val => (val.source === 'default'));
-      assetDrivers = getAssetDrivers(data).filter(val => (val.source === 'default'));
-      threatDrivers = getThreatDrivers(data).filter(val => (val.source === 'default'));
-      break;
-    case 'main-nav-map-examples':
-      indexes = getIndexes(data).filter(val => (val.source === 'default'));
-      assetDrivers = getAssetDrivers(data).filter(val => (val.source === 'default'));
-      threatDrivers = getThreatDrivers(data).filter(val => (val.source === 'default'));
-      break;
-    case 'main-nav-map-searchNShubs':
-      indexes = getIndexes(data).filter(val => (val.source === 'ns'));
-      assetDrivers = getAssetDrivers(data).filter(val => (val.source === 'ns'));
-      threatDrivers = getThreatDrivers(data).filter(val => (val.source === 'ns'));
-      break;
-    case 'main-nav-map':
-      indexes = getIndexes(data).filter(val => (val.source === 'default'));
-      assetDrivers = getAssetDrivers(data).filter(val => (val.source === 'default'));
-      threatDrivers = getThreatDrivers(data).filter(val => (val.source === 'default'));
-      break;
-    default:
-      indexes = getIndexes(data).filter(val => (val.source === 'default'));
-      assetDrivers = getAssetDrivers(data).filter(val => (val.source === 'default'));
-      threatDrivers = getThreatDrivers(data).filter(val => (val.source === 'default'));
-      break;
+  if (activeNav === 'main-nav-map-searchNShubs') {
+    region = 'targetedwatershed';
   }
-  return indexes.concat(assetDrivers).concat(threatDrivers);
+  const layerRegionInfo = TMSLayers.filter(layers => layers.region === region);
+
+  // if layerRegionInfo empty array then exit nothing matches.
+  if (layerRegionInfo.length === 0) {
+    return null;
+  }
+
+  // check of data matches a driver
+  let layerInfoHasKey = layerRegionInfo.filter(layer => layer.apikey === name);
+
+  // filter the regions layers to the specifc layer so we can get map configation values
+  if (activeNav === 'main-nav-map-searchhubs' || activeNav === 'main-nav-map-searchNShubs') {
+    layerInfoHasKey = layerRegionInfo.filter(layer => layer.hubsapikey === name);
+  }
+
+  // check of data matches a driver and add it to a new object araray that is key, value
+  if (layerInfoHasKey.length > 0) {
+    const label = `${layerInfoHasKey[0].label}-data range (${layerInfoHasKey[0].chartMinValue} to ${layerInfoHasKey[0].chartMaxValue - 1})`;
+    // have to add underscore for some csv conversions and I don't know why
+    return label.replace(/ /g, '_');
+  }
+  return null;
 }
 
 // Implements a toString handler for each item in the array provided by getExportData to convert
@@ -138,7 +73,8 @@ function formatExportData(exportData) {
 // @param data | Object - Data from API
 // @return Array
 function makeExportFileContent(data) {
-  const csvString = formatExportData(getExportData(data));
+  // const csvString = formatExportData(getExportData(data));
+  const csvString = formatExportData(data);
   return [`Index,Value,Range(s)\r\n${csvString}`];
 }
 
@@ -183,7 +119,6 @@ function getNatureServeHubDataFromState(key) {
       break;
     }
   }
-
   return data;
 }
 
@@ -214,20 +149,45 @@ function makeZonalNameFromKey(key) {
   return `Area-${key}`;
 }
 
-// Formats the key information about a hub into the format needed for the filename
-//
-// @param key | String
-// @return String
-function makeNatureServeHubNameFromKey(key) {
-  return `TargetedWaterShed-${key}`;
-}
+function formatDataForTables(data) {
+  // filter the region layer list so we can get map configation values for all
+  // regions layers
+  let region = store.getStateItem('region');
+  const activeNav = store.getStateItem('activeNav');
+  if (activeNav === 'main-nav-map-searchNShubs') {
+    region = 'targetedwatershed';
+  }
+  const layerRegionInfo = TMSLayers.filter(layers => layers.region === region);
 
-// Formats the key information about a hub into the format needed for the filename
-//
-// @param key | String
-// @return String
-function makeHubNameFromKey(key) {
-  return `Hub-${key}`;
+  // if layerRegionInfo empty array then exit nothing matches.
+  if (layerRegionInfo.length === 0) {
+    return null;
+  }
+
+  // iterate over returned data and values and map it into a object array
+  // that only contains summary data or input data not driver data
+  const dataForTables = [];
+  Object.keys(data).forEach((key) => {
+    // check of data matches a driver
+    let layerInfoHasKey = layerRegionInfo.filter(layer => layer.apikey === key);
+    // filter the regions layers to the specifc layer so we can get map configation values
+    if (activeNav === 'main-nav-map-searchhubs' || activeNav === 'main-nav-map-searchNShubs') {
+      layerInfoHasKey = layerRegionInfo.filter(layer => layer.hubsapikey === key);
+    }
+
+    // check of data matches a driver and add it to a new object araray that is key, value
+    if (layerInfoHasKey.length > 0) {
+      dataForTables.push({
+        key,
+        value: data[key],
+        cssselector: layerInfoHasKey[0].chartCSSSelector,
+        label: layerInfoHasKey[0].label,
+        range: `${layerInfoHasKey[0].chartMinValue} to ${layerInfoHasKey[0].chartMaxValue - 1}`,
+        source: layerInfoHasKey[0].source
+      });
+    }
+  });
+  return dataForTables;
 }
 
 // Handles the export of zonal / hub data to a csv file.
@@ -236,40 +196,36 @@ function makeHubNameFromKey(key) {
 function handleZonalCsvExport(name) {
   const key = getZonalKeyFromName(name);
   const activeNav = store.getStateItem('activeNav');
+  let data = {};
+  const region = store.getStateItem('region');
 
+  // state data depends on tab
   switch (activeNav) {
     case 'main-nav-map-searchhubs': {
-      const data = getHubDataFromState(key);
-      const label = makeHubNameFromKey(key);
-      const fileContent = makeExportFileContent(data);
-      triggerCsvExport(fileContent, label);
+      data = getHubDataFromState(key);
       break;
     }
     case 'main-nav-map-examples': {
       break;
     }
     case 'main-nav-map-searchNShubs': {
-      const data = getNatureServeHubDataFromState(key);
-      const label = makeNatureServeHubNameFromKey(key);
-      const fileContent = makeExportFileContent(data);
-      triggerCsvExport(fileContent, label);
+      data = getNatureServeHubDataFromState(key);
       break;
     }
     case 'main-nav-map': {
-      const data = getZonalDataFromState(key);
-      const label = makeZonalNameFromKey(key);
-      const fileContent = makeExportFileContent(data);
-      triggerCsvExport(fileContent, label);
+      data = getZonalDataFromState(key);
       break;
     }
     default: {
-      const data = getZonalDataFromState(key);
-      const label = makeZonalNameFromKey(key);
-      const fileContent = makeExportFileContent(data);
-      triggerCsvExport(fileContent, label);
+      data = getZonalDataFromState(key);
       break;
     }
   }
+
+  const formatedData = formatDataForTables(data, region);
+  const label = makeZonalNameFromKey(key);
+  const fileContent = makeExportFileContent(formatedData);
+  triggerCsvExport(fileContent, label);
 
   // ga event action, category, label
   googleAnalyticsEvent('click', 'download', `${name}`);
@@ -284,22 +240,37 @@ function convertDataToCSV(data) {
   const header = Object.keys(items[0]);
   const downloadHeader = header.map(name => getCSVName(name));
   let csv = items.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer).replace(/\\"/g, '""')).join(','));
+
+  // push header to begining of array
   csv.unshift(downloadHeader.join(','));
   csv = csv.join('\r\n');
   return csv;
 }
 
-// Mines the state object for the data about all user defined zonse from the API
+// filter geojson by the current region
+function regionFilter(feature) {
+  const region = store.getStateItem('region');
+  if (feature.properties.region === region) return true;
+  return false;
+}
+
+// Mines the state object for the data about all user defined zones from the API
 //
 // @param none
 // @return Object
 function getAllZonesFromState() {
   const zonaldata = [];
   const userareas = store.getStateItem('userareas');
+
   Object.keys(userareas).forEach((key) => {
     const { name } = userareas[key][0];
-    const data = { name, ...userareas[key][3].zonalstatsjson.features[0].properties.mean };
-    zonaldata.push(data);
+    const zonalData = userareas[key][3].zonalstatsjson;
+    const regionalData = L.geoJson(zonalData, { filter: regionFilter }).toGeoJSON();
+    // limit to regional data, and make sure empty GeoJson is ignored
+    if (regionalData.features[0]) {
+      const data = { name, ...userareas[key][3].zonalstatsjson.features[0].properties.mean };
+      zonaldata.push(data);
+    }
   });
   return convertDataToCSV(zonaldata);
 }

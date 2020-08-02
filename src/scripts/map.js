@@ -4,6 +4,12 @@ import { basemapLayer } from 'esri-leaflet';
 // may need feature layer latter if store the user generated shapefiles, drawon
 // user drawn shapes somehere else if so add this
 // import { basemapLayer, featureLayer } from 'esri-leaflet';
+import booleanPointInPolygon from '@turf/boolean-point-in-polygon';
+import booleanOverlap from '@turf/boolean-overlap';
+import booleanWithin from '@turf/boolean-within';
+import booleanContains from '@turf/boolean-contains';
+import bboxPolygon from '@turf/bbox-polygon';
+import { point } from '@turf/helpers';
 
 import { Component } from './components';
 import { mapConfig } from '../config/mapConfig';
@@ -86,6 +92,8 @@ export class Map extends Component {
 
     // add spinner element
     Map.addSpinnerElement();
+
+    Map.addRegionNotDisplayedListner();
   }
 
   // add spinner element to leftlet map panes
@@ -156,6 +164,7 @@ export class Map extends Component {
       this.basemaploaded = true;
       store.setStoreItem('working_basemap', false);
       spinnerOff('load');
+      this.hideLabelsZooomOut();
     });
 
     // add new event to fire when on base map is in process of loading
@@ -396,6 +405,117 @@ export class Map extends Component {
     this.map.on('moveend', (event) => {
       this.saveZoomAndMapPosition();
       store.saveAction('moveend');
+      this.hideLabelsZooomOut();
+      // uncomment to get console of center and extent helpful for region extents
+      // console.log('center',  [this.map.getCenter().wrap().lng,
+      //   this.map.getCenter().wrap().lat] )
+      // console.log('mapBBox',
+      //   this.map.wrapLatLngBounds(this.map.getBounds()).toBBoxString().split(',').map(x => +x))
+    });
+  }
+
+  // check if map's center is in a regions extent
+  inRegion() {
+    // get mapconfig so we can check all regions
+    const { zoomRegions } = mapConfig;
+    let doit = true;
+
+    // check if map is initializeing for the first time
+    try {
+      this.map.getBounds();
+    } catch (err) {
+      doit = false;
+    }
+
+    if (doit) {
+      // the current map extent
+      const mapBBox = bboxPolygon(this.map.wrapLatLngBounds(this.map.getBounds()).toBBoxString().split(',').map(x => +x));
+
+      // the current map center point
+      const mapCenterPoint = point([this.map.getCenter().wrap().lng,
+        this.map.getCenter().wrap().lat]);
+
+      // iterate all regions from config and check if current map cetner
+      // is within the regions extent
+      zoomRegions.forEach((region) => {
+        // the regions extent
+        const regionPoly = bboxPolygon(region.extent);
+
+        // is the the current map cetner point within the regions extent
+        // const isRegion = booleanPointInPolygon(mapCenterPoint, poly);
+        const isRegion = booleanOverlap(regionPoly, mapBBox) ||
+                            booleanContains(regionPoly, mapBBox) ||
+                            booleanWithin(regionPoly, mapBBox) ||
+                            booleanPointInPolygon(mapCenterPoint, regionPoly);
+
+        // add boolean
+        region.inregion = isRegion; // eslint-disable-line
+      });
+    }
+
+    // return new regions object
+    return zoomRegions;
+  }
+
+  // create messages for any region that is  within the curent map extent
+  // and is not the current region, so the user knows the regional data exists
+  regionAwareMessages(regions) {
+    //  get maps current region
+    const currentRegion = store.getStateItem('region');
+    const mapRegions = [];
+
+    // this does nothing don't want lint static errors
+    const cnt = this.renderCount;
+    if (cnt) { this.renderCount = cnt; }
+
+    // iterate all regions from config and check if current map cetner
+    // is within the regions extent
+    regions.map((region) => {
+      if (currentRegion !== region.region && region.inregion) {
+        mapRegions.push(region.label);
+      }
+      return mapRegions;
+    });
+
+    // only trigger the an event if there are regions on the map that are not the current region
+    if (mapRegions.length > 0) {
+      const regionnotdisplayedEvent = new CustomEvent('regionnotdisplayed', { detail: mapRegions.join() });
+      window.dispatchEvent(regionnotdisplayedEvent);
+    }
+  }
+
+  // addds listener for when there is a region to be displayed.
+  static addRegionNotDisplayedListner() {
+    window.addEventListener('regionnotdisplayed', (e) => {
+      // add tool tip
+      document.getElementById('btn-zoomregion').setAttribute('title', '');
+      $(() => {
+        $('#btn-zoomregion').popover({
+          trigger: 'manual',
+          placement: 'bottom',
+          content: `The map boundaries include ${e.detail}. If you want to view data associated with ${e.detail} you will need to switch the region.`,
+          title: '',
+          template: '<div class="popover location-aware-messsage" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>'
+        });
+
+        // show the a loation aware message saying the region available but not activated
+        $('#btn-zoomregion').popover('show');
+        // dismiss on click anywhere or after 5 seconds
+        window.addEventListener('click', clicke => $('#btn-zoomregion').popover('dispose'));
+        setTimeout(() => { $('#btn-zoomregion').popover('dispose'); }, 5000);
+      });
+    });
+  }
+
+  // hides labels when users zoom out
+  // hide area labels when user zooms out
+  hideLabelsZooomOut() {
+    this.map.eachLayer((layer) => {
+      if (this.map.getZoom() <= 10) {
+        document.querySelector('.leaflet-tooltip-pane').classList.add('d-none');
+      } else {
+        document.querySelector('.leaflet-tooltip-pane').classList.remove('d-none');
+      }
     });
   }
 
@@ -405,6 +525,7 @@ export class Map extends Component {
     this.map.on('zoomend', (event) => {
       this.saveZoomAndMapPosition();
       store.saveAction('zoomend');
+      this.hideLabelsZooomOut();
     });
   }
 
@@ -474,10 +595,11 @@ export class Map extends Component {
     this.map.addLayer(layer);
   }
 
+
   // Toggle map layer visibility
   // this needs to be made more modular but not sure
   // ho do that yet
-  toggleLayer(layerName) {
+  toggleLayer(layerName, dostat = true) {
     store.saveAction('maplayertoggle');
     store.setStoreItem('working_basemap', true);
     spinnerOn();
@@ -485,16 +607,24 @@ export class Map extends Component {
     const layer = this.overlayMaps[layerName];
     if (this.map.hasLayer(layer)) {
       this.map.removeLayer(layer);
-      // ga event action, category, label
-      googleAnalyticsEvent('click', 'maplayerlist', `layerToggle off ${layerName}`);
+      if (dostat) {
+        // ga event action, category, label
+        googleAnalyticsEvent('click', 'maplayerlist', `layerToggle off ${layerName}`);
+      }
       mapDisplayLayersObj = { [layerName]: false };
     } else {
       store.setStoreItem('working_basemap', true);
       spinnerOn();
       this.map.addLayer(layer);
       mapDisplayLayersObj = { [layerName]: true };
-      // ga event action, category, label
-      googleAnalyticsEvent('click', 'maplayerlist', `layerToggle on ${layerName}`);
+      // check region
+      const region = this.inRegion();
+      // create region location aware region messages
+      this.regionAwareMessages(region);
+      if (dostat) {
+        // ga event action, category, label
+        googleAnalyticsEvent('click', 'maplayerlist', `layerToggle on ${layerName}`);
+      }
     }
     Object.assign(this.mapOverlayLayers, mapDisplayLayersObj);
     store.setStoreItem('mapLayerDisplayStatus', this.mapOverlayLayers);

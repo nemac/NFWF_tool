@@ -10,7 +10,8 @@ import { URL } from './url';
 import {
   checkValidObject,
   addMissingStateItems,
-  addDownloadGoogleEvents
+  addDownloadGoogleEvents,
+  formatChartData
 } from './utilitys';
 
 // import extended components
@@ -28,6 +29,7 @@ import DownloadDataPage from '../templates/downloaddata.html';
 import NotFoundPage from '../templates/notfound.html';
 import LandingPage from '../templates/landingpage.html';
 import { restoreGraphState } from './zonalStats';
+import { mapConfig } from '../config/mapConfig';
 
 // scss
 import '../css/_print.scss';
@@ -66,11 +68,36 @@ store.removeStateItem('aboutComponent');
 store.setStoreItem('shareurl', shareurl);
 store.removeStateItem('shareurl');
 
+// reformat state data for use in charts.js
+formatChartData();
+
 let homeloc = window.location.origin;
+const path = window.location.pathname;
 // handle gh pages dist folder.
 if (homeloc === 'https://nemac.github.io') {
-  homeloc += '/NFWF_tool/dist';
+  if (path.includes('crest-refresh-stagging')) {
+    homeloc += '/crest-refresh-stagging/dist';
+  } else {
+    homeloc += '/NFWF_tool/dist';
+  }
 }
+
+// triggers event for zomming to region with a quick link from home page
+//  or anywhere really
+function triggerZoomRegionQuikLink() {
+  const navChangeEvent = new CustomEvent('zoomRegionQuikLink');
+  window.dispatchEvent(navChangeEvent);
+}
+
+function setRegionsQuikLinkState(regionForState) {
+  const { zoomRegions } = mapConfig;
+  store.setStoreItem('region', regionForState);
+  const region = zoomRegions.filter(regions => regions.region === regionForState);
+  store.setStoreItem('region', regionForState);
+  store.setStoreItem('mapCenter', { lat: region[0].center[0], lng: region[0].center[1] });
+  store.setStoreItem('mapZoom', region[0].zoom);
+}
+
 
 // Creates a new Leaflet Map in the target DOM element
 //
@@ -221,6 +248,135 @@ function addLandingListners() {
       if (elemCREST) {
         elemCREST.click();
         setNavBars('main-nav-map-searchhubs');
+        router.navigate(location);
+      }
+    });
+  }
+
+  const elemStartUsingCRESTCONUSIMG = document.getElementById('landingpage-btn-conus-img');
+  if (elemStartUsingCRESTCONUSIMG) {
+    const location = elemStartUsingCRESTCONUSIMG.getAttribute('href');
+    elemStartUsingCRESTCONUSIMG.addEventListener('click', (e) => {
+      e.preventDefault();
+      const elemCREST = document.getElementById('main-nav-map');
+      if (elemCREST) {
+        setRegionsQuikLinkState('continental_us');
+        triggerZoomRegionQuikLink();
+        elemCREST.click();
+        setNavBars('main-nav-map');
+        router.navigate(location);
+      }
+    });
+  }
+
+  const elemStartUsingCRESTCONUS = document.getElementById('landingpage-btn-conus');
+  if (elemStartUsingCRESTCONUS) {
+    const location = elemStartUsingCRESTCONUS.getAttribute('href');
+    elemStartUsingCRESTCONUS.addEventListener('click', (e) => {
+      e.preventDefault();
+      const elemCREST = document.getElementById('main-nav-map');
+      if (elemCREST) {
+        setRegionsQuikLinkState('continental_us');
+        triggerZoomRegionQuikLink();
+        elemCREST.click();
+        setNavBars('main-nav-map');
+        router.navigate(location);
+      }
+    });
+  }
+
+  const elemStartUsingCRESTPuertoRicoIMG = document.getElementById('landingpage-btn-puerto_rico-img');
+  if (elemStartUsingCRESTPuertoRicoIMG) {
+    const location = elemStartUsingCRESTPuertoRicoIMG.getAttribute('href');
+    elemStartUsingCRESTPuertoRicoIMG.addEventListener('click', (e) => {
+      e.preventDefault();
+      const elemCREST = document.getElementById('main-nav-map');
+      if (elemCREST) {
+        setRegionsQuikLinkState('puerto_rico');
+        triggerZoomRegionQuikLink();
+        elemCREST.click();
+        setNavBars('main-nav-map');
+        router.navigate(location);
+      }
+    });
+  }
+
+  const elemStartUsingCRESTPuertoRico = document.getElementById('landingpage-btn-puerto_rico');
+  if (elemStartUsingCRESTPuertoRico) {
+    const location = elemStartUsingCRESTPuertoRico.getAttribute('href');
+    elemStartUsingCRESTPuertoRico.addEventListener('click', (e) => {
+      e.preventDefault();
+      const elemCREST = document.getElementById('main-nav-map');
+      if (elemCREST) {
+        setRegionsQuikLinkState('puerto_rico');
+        triggerZoomRegionQuikLink();
+        elemCREST.click();
+        setNavBars('main-nav-map');
+        router.navigate(location);
+      }
+    });
+  }
+
+  const elemStartUsingCRESTUSVirginIslandsIMG = document.getElementById('landingpage-btn-us_virgin_islands-img');
+  if (elemStartUsingCRESTUSVirginIslandsIMG) {
+    const location = elemStartUsingCRESTUSVirginIslandsIMG.getAttribute('href');
+    elemStartUsingCRESTUSVirginIslandsIMG.addEventListener('click', (e) => {
+      e.preventDefault();
+      const elemCREST = document.getElementById('main-nav-map');
+      if (elemCREST) {
+        setRegionsQuikLinkState('us_virgin_islands');
+        triggerZoomRegionQuikLink();
+        elemCREST.click();
+        setNavBars('main-nav-map');
+        router.navigate(location);
+      }
+    });
+  }
+
+  const elemStartUsingCRESTUSVirginIslands = document.getElementById('landingpage-btn-us_virgin_islands');
+  if (elemStartUsingCRESTUSVirginIslands) {
+    const location = elemStartUsingCRESTUSVirginIslands.getAttribute('href');
+    elemStartUsingCRESTUSVirginIslands.addEventListener('click', (e) => {
+      e.preventDefault();
+      const elemCREST = document.getElementById('main-nav-map');
+      if (elemCREST) {
+        setRegionsQuikLinkState('us_virgin_islands');
+        triggerZoomRegionQuikLink();
+        elemCREST.click();
+        setNavBars('main-nav-map');
+        router.navigate(location);
+      }
+    });
+  }
+
+
+  const elemStartUsingCRESTNorthernMarianaIslands = document.getElementById('landingpage-btn-northern_mariana_islands');
+  if (elemStartUsingCRESTNorthernMarianaIslands) {
+    const location = elemStartUsingCRESTNorthernMarianaIslands.getAttribute('href');
+    elemStartUsingCRESTNorthernMarianaIslands.addEventListener('click', (e) => {
+      e.preventDefault();
+      const elemCREST = document.getElementById('main-nav-map');
+      if (elemCREST) {
+        setRegionsQuikLinkState('northern_mariana_islands');
+        triggerZoomRegionQuikLink();
+        elemCREST.click();
+        setNavBars('main-nav-map');
+        router.navigate(location);
+      }
+    });
+  }
+
+  const elemStartUsingCRESTNorthernMarianaIslandsIMG = document.getElementById('landingpage-btn-northern_mariana_islands-img');
+  if (elemStartUsingCRESTNorthernMarianaIslandsIMG) {
+    const location = elemStartUsingCRESTNorthernMarianaIslandsIMG.getAttribute('href');
+    elemStartUsingCRESTNorthernMarianaIslandsIMG.addEventListener('click', (e) => {
+      e.preventDefault();
+      const elemCREST = document.getElementById('main-nav-map');
+      if (elemCREST) {
+        setRegionsQuikLinkState('northern_mariana_islands');
+        triggerZoomRegionQuikLink();
+        elemCREST.click();
+        setNavBars('main-nav-map');
         router.navigate(location);
       }
     });

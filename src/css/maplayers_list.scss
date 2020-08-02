@@ -10,12 +10,17 @@ $dark-bg: #2A2E33;
 $box-shadow-default: 0 2.5px 5px rgba(0,0,0,0.19), 0 1.5px 1.5px rgba(0,0,0,0.23);
 $box-shadow-small: 0 2px 5px rgba(0,0,0,0.19), 0 1.25px 1.25px rgba(0,0,0,0.23);
 
+@mixin box-shadow-mixin($shadow...) {
+  -webkit-box-shadow: $shadow;
+  -moz-box-shadow: $shadow;
+  box-shadow: $shadow;
+}
+
 $layer_list_width: 275px;
 $layer_list_width_closed: 200px;
 $layer_list_padding: 10px;
 $map_top_margin: 5px;
 $map_right_margin: 10px;
-
 
 
 .tooltip.layerlist {
@@ -35,9 +40,7 @@ $map_right_margin: 10px;
     float: right !important;
     background-color: $body-color !important;
     border: 1px solid  $gray-400 !important;
-    border-radius: 4px;
-    -webkit-border-radius: 4px !important;
-    -moz-border-radius: 4px !important;
+    @include border-radius(4px, 4px);
   }
 }
 
@@ -52,7 +55,7 @@ $map_right_margin: 10px;
 }
 
 .layer-legend {
-    margin: 10px;
+  margin: 10px;
 }
 
 .map-information-popup a.leaflet-popup-close-button {
@@ -124,11 +127,11 @@ $map_right_margin: 10px;
 }
 
 .btn-action:after {
-    content:"\000A";
-    white-space: pre;
+  content:"\000A";
+  white-space: pre;
 }
 
-.list-basemap.closed  {
+.list-basemap.closed, .list-zoomregion.closed   {
   overflow: hidden;
   max-height: 0;
   padding-top: 0;
@@ -140,8 +143,17 @@ $map_right_margin: 10px;
 }
 
 .list-basemap {
-  width: 90% !important;
+  width: 100% !important;
   max-height: 1000px;
+  overflow: hidden;
+  transition: all 0.75s ease;
+  will-change: transform;
+}
+
+.list-zoomregion {
+  width: 100% !important;
+  max-height: 1000px;
+  font-size: .8rem;
   overflow: hidden;
   transition: all 0.75s ease;
   will-change: transform;
@@ -153,16 +165,33 @@ $map_right_margin: 10px;
   margin: 5px;
 }
 
+.map-messages {
+  z-index: 4000;
+  width: 50%;
+  background-color: white;
+  color: black;
+  padding: 12px;
+  @include border-radius(4px, 4px);
+  height: 100px;
+  top: calc(100% - 124px);
+  left: calc(150px);
+  font-size: 14px;
+}
+
+.popover.location-aware-messsage {
+  max-width: 500px !important;
+  @media screen and (max-width: 768px) {
+    max-width: 250px !important;
+  }
+}
+
 .btn-basemap {
   cursor: pointer;
   background-color: $body-bg !important;
   border-width: 1px !important;;
-  border-radius: 0.25rem !important;
-  -webkit-border-radius: 0.25rem !important;
-  -moz-border-radius: 0.25rem !important;
+  @include border-radius(4px, 4px);
   width: 100% !important;
-  box-shadow: $box-shadow-default !important;
-  -moz-box-shadow: $box-shadow-default !important;
+  @include box-shadow-mixin($box-shadow-default !important);
 
   /* Prevent background color leak outs */
   -webkit-background-clip: padding-box;
@@ -170,6 +199,10 @@ $map_right_margin: 10px;
   background-clip:         padding-box;
   border-color: #6c757d !important;
   border-style: solid;
+
+  &.zoom-region {
+    margin-top: 10px;
+  }
 
   .icon-right {
     float: right;
@@ -192,9 +225,7 @@ $map_right_margin: 10px;
     // background-color: $dark-bg !important;
     padding: 5px;
     border-width: 1px !important;;
-    border-radius: 0.25rem !important;
-    -webkit-border-radius: 0.25rem !important;
-    -moz-border-radius: 0.25rem !important;
+    @include border-radius(0.25rem, 0.25rem);
   }
 }
 
@@ -202,12 +233,9 @@ $map_right_margin: 10px;
   cursor: pointer;
   background-color: $body-bg !important;
   border-width: 1px !important;;
-  border-radius: 0.25rem !important;
-  -webkit-border-radius: 0.25rem !important;
-  -moz-border-radius: 0.25rem !important;
+  @include border-radius(0.25rem, 0.25rem);
   width: 100% !important;
-  box-shadow: $box-shadow-default !important;
-  -moz-box-shadow: $box-shadow-default !important;
+  @include box-shadow-mixin($box-shadow-default !important);
 
   /* Prevent background color leak outs */
   -webkit-background-clip: padding-box;
@@ -234,12 +262,9 @@ $map_right_margin: 10px;
   }
 
   .inputs-collapser-header {
-    // background-color: $dark-bg !important;
     padding: 5px;
     border-width: 1px !important;;
-    border-radius: 0.25rem !important;
-    -webkit-border-radius: 0.25rem !important;
-    -moz-border-radius: 0.25rem !important;
+    @include border-radius(0.25rem, 0.25rem);
   }
 
   .inputs-collapser-header:focus {
@@ -265,10 +290,18 @@ $map_right_margin: 10px;
 .basemap-img {
   width: 61px;
   height: 41px;
-  // border: $gray-700 solid 1px;
-  border-radius: 10%;
-  -webkit-border-radius: 10%;
-  -moz-border-radius: 10%;
+  @include border-radius(10%, 10%);
+  margin-right: 10px;
+  /* Prevent background color leak outs */
+  -webkit-background-clip: padding-box;
+  -moz-background-clip:    padding;
+  background-clip:         padding-box;
+}
+
+.zoomregion-img {
+  width: 40px;
+  height: 34px;
+  @include border-radius(10%, 10%);
   margin-right: 10px;
   /* Prevent background color leak outs */
   -webkit-background-clip: padding-box;
@@ -288,20 +321,20 @@ $map_right_margin: 10px;
 }
 
 .list-group-dark, .list-group-item {
-    background-color: $body-bg !important;
-    background:  $body-bg-semiTransparent !important;
-    color: $body-color !important;
-    border-color: $gray-700 !important;
-    width: 100%;
+  background-color: $body-bg !important;
+  background:  $body-bg-semiTransparent !important;
+  color: $body-color !important;
+  border-color: $gray-700 !important;
+  width: 100%;
 }
 
 .basemap_list_close:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .basemap_list_close {
-    font-size: 10px;
-    margin: 5px;
+  font-size: 10px;
+  margin: 5px;
 }
 
 .list-group-dark {
@@ -322,9 +355,7 @@ $map_right_margin: 10px;
   background-color: $body-bg;
   background:  $body-bg-semiTransparent;
   color: $body-color;
-  border-radius: 0.25rem;
-  -webkit-border-radius: 0.25rem;
-  -moz-border-radius: 0.25rem;
+  @include border-radius(0.25rem, 0.25rem);
   overflow: scroll;
 }
 
@@ -349,8 +380,8 @@ $map_right_margin: 10px;
 }
 
 .custom-control {
-    padding-bottom: 2px;
-    margin-top: 1.5px;
+  padding-bottom: 2px;
+  margin-top: 1.5px;
 }
 
 .maplayers_list hr {
@@ -358,256 +389,97 @@ $map_right_margin: 10px;
 }
 
 .maplayers_list label {
-    font-size: 12px;
-    padding: 2px;
+  font-size: 12px;
+  padding: 3px;
 }
 
 .maplayers_list {
-    .zonal-long-table-row {
-        margin-top: 0;
-    }
+  .zonal-long-table-row {
+    margin-top: 0;
+  }
 
-    div.zonal-long-table-header-simple {
-        top: 0;
-    }
+  div.zonal-long-table-header-simple {
+    top: 0;
+  }
 
-    .zonal-long-table-row-header-simple {
-        height: 18px;
-    }
+  .zonal-long-table-row-header-simple {
+    height: 18px;
+  }
 
-    .zonal-long-table-item, .zonal-long-table-row-header-simple {
-        transition-property: all;
-        transition-duration: .5s;
-        transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
-    }
+  .zonal-long-table-item, .zonal-long-table-row-header-simple {
+    transition-property: all;
+    transition-duration: .5s;
+    transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+  }
 
-    .driver-chart-backgroundColor-asset, .driver-chart-backgroundColor-threat {
-        &-zero, &-one, &-two {
-            color: #000;
-        }
+  .driver-chart-backgroundColor-asset, .driver-chart-backgroundColor-threat {
+    &-zero, &-one, &-two {
+      color: #000;
     }
+  }
 }
 
 .layer-legend-wrapper {
-    padding-top: 5px;
-    padding-bottom: 5px;
-    border-bottom: 1px solid #ffffff40;
-    margin-bottom: 5px;
-    margin-left: -1.5rem; /* Negative of the left padding on the .custom-control which is declared.... somewhere.... */
-    overflow: hidden;
-    max-height: 500px;
-    // animation: scale-display .3s;
-    transition: all 0.75s ease;
-    will-change: transform;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #ffffff40;
+  margin-bottom: 5px;
+  margin-left: -1.5rem; /* Negative of the left padding on the .custom-control which is declared.... somewhere.... */
+  max-height: 500px;
+  transition: all 0.75s ease;
+  will-change: transform;
 
-    &.closed {
-        animation: scale-display--reversed .3s;
-        // animation-fill-mode:forwards;
-        overflow: hidden;
-        max-height: 0;
-        padding-top: 0;
-        padding-bottom: 0;
-        border-bottom: 0;
-        margin-bottom: 0;
-        transition: all 0.4s ease;
-        will-change: transform;
-    }
+  &.closed {
+    animation: scale-display--reversed .3s;
+    overflow: hidden;
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-bottom: 0;
+    margin-bottom: 0;
+    transition: all 0.4s ease;
+    will-change: transform;
+  }
 }
 
 .layer-description-text {
-    width: 20px;
-    font-size: .95em;
-    color: #999595;
+  width: 20px;
+  font-size: .90em;
+  height: 25px !important;
+  border: 1px solid  $gray-600 !important;
+  color: $body-color !important;
+  margin-right: 5px;
+  @include border-radius(4px, 4px);
+  cursor: pointer;
+  @include box-shadow-mixin($box-shadow-small);
+  svg {
+    // vertical-align: -0.10em;
+  }
 
-    &:hover {
-        color: #fff;
-        cursor: pointer;
-    }
+  &:hover {
+    cursor: pointer;
+    color: #fff;
+    background-color: $gray-600;
+  }
+  &:focus {
+    outline: none;
+  }
 }
 
 .layer-legend-toggler {
-    width: 20px;
+  width: 20px;
+  color: $body-color !important;
+  cursor: pointer;
+
+  &.closed {
+    color: #fff;
+  }
+
+  &:hover {
     color: #999595;
-    cursor: pointer;
-
-    &.closed {
-        color: #fff;
-    }
-
-    &:hover {
-        color: #999595;
-    }
+  }
 }
 
-.layer-legend .zonal-long-table-cell {
-  &-hub, &-ns-hub{
-    &-none {
-     display: none;
-   }
-
-   &-zero {
-     display: none;
-   }
-  }
-
-  &-asset, &-ns-asset {
-    &-none {
-     display: none;
-   }
-
-   &-zero {
-     display: none;
-   }
-  }
-
-  &-threat, &-ns-threat {
-    &-none {
-     display: none;
-   }
-
-   &-zero {
-     display: none;
-   }
-  }
-
-  &-exposure-box, &-ns-exposure-box {
-    &-none {
-     display: none;
-   }
-
-   &-zero {
-     display: none;
-   }
-  }
-
-  &-fish {
-    &-none {
-     display: none;
-   }
-
-   &-zero {
-     display: none;
-   }
-  }
-
-  &-wildlife, &-ns-fishandwildlife {
-    &-none {
-     display: none;
-   }
-
-   &-zero {
-     display: none;
-   }
-  }
-
-  &-popdensity {
-    &-none {
-     display: none;
-   }
-
-   &-zero {
-     display: none;
-   }
-  }
-
-  &-socvuln {
-    &-none {
-     display: none;
-   }
-
-   &-zero {
-     display: none;
-   }
-  }
-
-  &-critfac {
-    &-none {
-     display: none;
-   }
-
-   &-zero {
-     display: none;
-   }
-  }
-
-  &-critinfra {
-    &-none {
-     display: none;
-   }
-
-   &-zero {
-     display: none;
-   }
-  }
-
-  &-drainage {
-    &-none {
-     display: none;
-   }
-
-   &-zero {
-     display: none;
-   }
-  }
-
-  &-erosion {
-    &-none {
-     display: none;
-   }
-
-   &-zero {
-     display: none;
-   }
-  }
-
-  &-floodprone {
-    &-none {
-     display: none;
-   }
-
-   &-zero {
-     display: none;
-   }
-  }
-
-  &-slr {
-    &-none {
-     display: none;
-   }
-
-   &-zero {
-     display: none;
-   }
-  }
-
-  &-stormsurge {
-    &-none {
-     display: none;
-   }
-
-   &-zero {
-     display: none;
-   }
-  }
-
-  &-geostress {
-    &-none {
-     display: none;
-   }
-
-   &-zero {
-     display: none;
-   }
-  }
-
-  &-slope {
-    &-none {
-     display: none;
-   }
-
-   &-zero {
-     display: none;
-   }
-  }
-
+.layer-legend .value-none {
+  display: none;
 }

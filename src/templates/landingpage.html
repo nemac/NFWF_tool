@@ -1,112 +1,186 @@
-<div>
-  <div class="row whatcando-row d-flex w-100" >
-    <div class="landingpage-header col-md-12 col-sm-12">
+<div class="landingpage-container-fluid container-fluid px-4 flex-column h-100 w-100">
+
+  <div class="landingpage-title-section row d-flex">
+    <div class="col-lg-12">
+      <h2 class="landingpage-tile-text text-center">Coastal Resilience Evaluation and Siting Tool (CREST)</h2>
+      <div class="landingpage-sub-text text-center mx-5">CREST is used to make informed decisions about the siting of coastal restoration and resilience projects. The tool
+        identifies Resilience Hubs, which are areas of open space where projects may have the greatest potential to benefit both human community
+        resilience and fish and wildlife. Resilience Hubs incorporate multiple indices, all of which are available in CREST.
+      </div>
     </div>
   </div>
-  <div class="whatcando-container container">
 
-    <header class="Title">
-      <div class="whatcando-inner-first-container">
-        <div class="row  d-flex">
-          <div class="col-lg-12">
-            <h2 class="whatcando-heading">Coastal Resilience Evaluation and Siting Tool (CREST)</h2>
-            <div class="section-subheading">CREST can be used to make informed decisions about the siting of restoration and resilience projects.  The tool
-              identifies Resilience Hubs, which are areas of open space where projects may have the greatest potential to benefit both human community
-              resilience and fish and wildlife.  Resilience Hubs incorporate multiple indices, which can also be explored through CREST.
-            </div>
-          </div>
-        </div>
-        <div class="row  d-flex final-report-row">
-          <div class="col-md-2 col-sm-12">
-          </div>
-          <div class="col-md-4 col-sm-12">
-            <a role="button" href="#SearchHubs" id="whatcando-btn-startusingCREST" title="Start using the CREST" aria-label="Start using the CREST" class="btn btn-light btn-box user-shape btn-draw-area bnt-primary whatcando-btn"><span class="btn-med-label">Start Using CREST</span><span class="btn-lg-label"></span></a>
-          </div>
-          <div class="col-md-4 col-sm-12">
-            <a role="button" target="_blank" href="https://www.nfwf.org/coastalresilience/Pages/regional-coastal-resilience-assessment.aspx" id="whatcando-btn-finalreport"  title="Final Report" aria-label="Final Report" class="btn btn-light btn-box user-shape btn-draw-area bnt-primary whatcando-btn align-middle"><span class="btn-med-label">Regional Coastal Resilience Assessments</span></a>
-          </div>
-          <div class="col-md-2 col-sm-12">
-          </div>
-        </div>
-      </div>
-    </header>
-    <section id="whatcando">
-      <div class="row  d-flex section-header">
-        <div class="col-lg-12 col-sm-12 text-center">
-          <h2 class="whatcando-heading">Regional Assessment</h2>
-        </div>
-      </div>
-      <div class="whatcando-inner-container">
-        <div class="row  d-flex">
-          <div class="col-12">
-            <img src="../images/CONUS_Hubs_Tool_15x5.jpg" class="rounded img-fluid header-image" alt="Reginal Assement and Resilience Hubs.">
-          </div>
-        </div>
-        <div class="row whatcando-examples-row">
-          <div class="col-md-7 col-sm-12">
-            <img src="../images/doresil-ex.jpg" class="rounded img-fluid whatcando-ex-image" alt="Reginal Assement and Resilience Hubs.">
-          </div>
-          <div class="col-md-5 col-sm-12">
-            <p class="action-description">Identify all Resilience Hubs in your study area and rank them by their potential for a project located therein to deliver both human community resilience and fish and wildlife benefits.</p>
-            <a role="button" href="#SearchHubs" id="whatcando-btn-reslinceprojects" title="Where Should I Do A Resilience Project?" aria-label="Where Should I Do A Resilience Project?" class="btn btn-light btn-box user-shape btn-draw-area bnt-primary whatcando-btn"><span class="btn-med-label">Where Should I Do A Resilience Project?</span><span class="btn-lg-label"></span></a>
-          </div>
-        </div>
-        <div class="row d-flex whatcando-examples-row">
-          <div class="col-md-5 col-sm-12 order-md-2 order-2"">
-            <p class="action-description">Examine and compare your project site(s) by proximity to Resilience Hubs, and explore the Community Exposure and Fish and Wildlife Indices in the surrounding area.</p>
-            <a role="button" href="#AnalyzeProjectSites" id="whatcando-btn-analyzesites" title="Analyze Project Sites" aria-label="Analyze Project Sites" class="btn btn-light btn-box user-shape btn-draw-area bnt-primary whatcando-btn"><span class="btn-med-label">Analyze Project Sites</span><span class="btn-lg-label"></span></a>
-          </div>
-          <div class="col-md-7 col-sm-12 order-md-3 order-1">
-            <img src="../images/analyze-ex.jpg" class="rounded img-fluid whatcando-ex-image" alt="Reginal Assement and Resilience Hubs.">
-          </div>
-        </div>
 
-        <div class="row d-flex whatcando-examples-row">
-          <div class="col-md-7 col-sm-12">
-            <img src="../images/learnmore-ex.jpg" class="rounded img-fluid whatcando-ex-image" alt="Reginal Assement and Resilience Hubs.">
-          </div>
-          <div class="col-md-5 col-sm-12">
-            <p class="action-description">Learn how the Assessment was created.</p>
-            <a role="button" href="#About" id="whatcando-btn-learnmore" title="Learn More About the Assessment" aria-label="Learn More About the Assessment" class="btn btn-light btn-box user-shape btn-draw-area bnt-primary whatcando-btn"><span class="btn-med-label">About</span><span class="btn-lg-label"></span></a>
-          </div>
+  <div class="landingpage-region-row row d-flex align-items-center mx-4 pt-4">
+    <div class="align-self-center text-center py-3 col-sm-12">
+      <h3>
+        Select a region to start using CREST
+      </h3>
+    </div>
+    <div class="h-100 align-self-center text-center col-lg-3 col-md-6 col-sm-12 py-2 px-4">
+
+      <div class="card h-100 text-white bg-dark border-dark">
+        <h5 class="card-header bg-transparent border-bottom-0">Continental U.S</h5>
+        <a href="#SearchHubs" id="landingpage-btn-conus-img" >
+          <img class="card-img-top img-thumbnail border-0 bg-dark" src="../images/landingpage-map-CONUS.png" alt="Continental U.S">
+        </a>
+        <div class="card-body">
+          <a id="landingpage-btn-conus" href="#AnalyzeProjectSites" class="btn btn-info w-100 p-2">Continental U.S</a>
         </div>
       </div>
-    </section>
-    <section id="whatcando">
-      <div class="row  d-flex section-header">
-        <div class="col-lg-12 text-center">
-          <h2 class="whatcando-heading">Targeted Watershed Assessments</h2>
+    </div>
+
+    <div class="h-100 align-self-center text-center col-lg-3 col-md-6 col-sm-12 py-2 px-4">
+
+      <div class="card h-100 text-white bg-dark border-dark">
+        <h5 class="card-header bg-transparent border-bottom-0">Northern Mariana Islands</h5>
+        <a href="#SearchHubs" id="landingpage-btn-northern_mariana_islands-img" >
+          <img class="card-img-top img-thumbnail border-0 bg-dark" src="../images/landingpage-map-CNMI.png" alt="Northern Mariana Islands">
+        </a>
+        <div class="card-body">
+          <a id="landingpage-btn-northern_mariana_islands" href="#AnalyzeProjectSites" class="btn btn-info w-100 p-2">Northern Mariana Islands</a>
         </div>
       </div>
-      <div class="whatcando-inner-container">
-        <div class="row">
-          <div class="col-lg-12">
-            <img src="../images/homepage_targetwatersheds.jpg" class="rounded img-fluid header-image" alt="Reginal Assement and Resilience Hubs.">
-          </div>
+    </div>
+
+    <div class="h-100 align-self-center text-center col-lg-3 col-md-6 col-sm-12 py-2 px-4">
+      <div class="card h-100 text-white bg-dark border-dark">
+        <h5 class="card-header bg-transparent border-bottom-0">Puerto Rico</h5>
+        <a href="#SearchHubs" id="landingpage-btn-puerto_rico-img" >
+          <img class="card-img-top img-thumbnail border-0 bg-dark" src="../images/landingpage-map-PR.png" alt="Puerto Rico">
+        </a>
+        <div class="card-body">
+          <a id="landingpage-btn-puerto_rico" href="#AnalyzeProjectSites" class="btn btn-info w-100 p-2">Puerto Rico</a>
         </div>
-        <div class="row">
-          <div class="col-lg-3 col-md-0">
-          </div>
-          <div class="col-lg-6  col-md-12 text-center">
-            <div class="section-subheading">CREST also includes eight in-depth assessments of targeted watersheds that incorporate
-              more specific fish and wildlife datasets as identified by local stakeholders. Within these watersheds, users can more precisely
-              target restoration opportunities to maximize benefits for communities, fish, and wildlife.
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-0">
-          </div>
+      </div>
+    </div>
+
+    <div class="h-100 align-self-center text-center col-lg-3 col-md-6 col-sm-12 py-2 px-4">
+      <div class="card h-100 text-white bg-dark border-dark">
+        <h5 class="card-header bg-transparent border-bottom-0">U.S. Virgin Islands</h5>
+        <a href="#SearchHubs" id="landingpage-btn-us_virgin_islands-img" >
+          <img class="card-img-top img-thumbnail border-0 bg-dark" src="../images/landingpage-map-USVI.png" alt="U.S. Virgin Islands">
+        </a>
+        <div class="card-body">
+          <a id="landingpage-btn-us_virgin_islands" href="#AnalyzeProjectSites" class="btn btn-info w-100 p-2">U.S. Virgin Islands</a>
         </div>
-        <div class="row d-flex whatcando-examples-row">
-          <div class="col-md-7">
-            <img src="../images/targeted-ex.jpg" class="rounded img-fluid whatcando-ex-image" alt="Reginal Assement and Resilience Hubs.">
-          </div>
-          <div class="col-md-5">
-            <p class="action-description">Identify all Resilience Hubs in your study area and rank them by their potential located therein for a project to
-              deliver both human community resilience and fish and wildlife benefits.</p>
-              <a role="button" href="#SearchNSHubs" id="whatcando-btn-targetedwatershed"  title="Targeted Watershed" aria-label="Targeted Watershed" class="btn btn-light btn-box user-shape btn-draw-area bnt-primary whatcando-btn"><span class="btn-med-label">Targeted Watersheds</span><span class="btn-lg-label"></span></a>
-            </div>
-          </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="row d-flex mx-5 pt-1 pb-5"">
+    <div class="card w-100 text-white bg-dark border-dark">
+      <div class="card-body">
+        <div class="card=text">
+          <i class="fas fa-question-circle mr-1"></i>
+          Not sure how to get started. Step through a few <a id="landingpage-not-sure" href="#Examples" class="alert-link text-info" >examples</a> and learn how to use CREST.
+          <br /><br />
+          <i class="fas fa-info-circle mr-1"></i>
+          Methods and data sources vary by region, but all assessments allow you to view and interact with all model inputs and results. Assessment for all other US regions are underway and will be added to CREST once available.
         </div>
-      </section>
+      </div>
     </div>
   </div>
+
+  <div class="dropdown-divider mx-5 p-1"></div>
+
+  <div class="landingpage-explore-row row d-flex align-items-top mx-5 px-2 pt-2 pb-2">
+
+    <div class="align-self-center text-center py-3 col-sm-12">
+      <h3>
+        Or choose a topic to start using CREST
+      </h3>
+    </div>
+
+    <div class="col-lg-3 col-md-6 col-sm-12 px-3 py-5">
+      <div class="card h-100 text-white bg-dark border-dark">
+        <!-- <h5 class="card-header bg-transparent border-bottom-0">Analyze Project Sites</h5> -->
+        <!-- <img class="card-img-top img-thumbnail border-0 bg-dark" src="../images/landing-ap2.png" alt="Analyze Project Sites"> -->
+        <div class="card-body">
+          <h5 class="card-title font-weight-bold" >Analyize Project Sites</h5>
+          <p class="card-text text-left">Examine and compare your project site(s) by proximity to Resilience Hubs while exploring the Community Exposure and Fish and Wildlife Indices in the surrounding area.</p>
+          <a id="landingpage-analyze-projets" href="#AnalyzeProjectSites" class="btn btn-info w-100 p-2">Analyze Project Sites</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6 col-sm-12 px-3 py-5">
+      <div class="card h-100 text-white bg-dark border-dark">
+        <!-- <h5 class="card-header bg-transparent border-bottom-0">Where should I do a Resilience Project?</h5> -->
+        <!-- <img class="card-img-top img-thumbnail border-0 bg-dark" src="../images/landing-wsi2.png" alt="Where should I do a Resilience Project?"> -->
+        <div class="card-body">
+          <h5 class="card-title font-weight-bold" >Where should I do a Resilience Project?</h5>
+          <p class="card-text text-left">Identify all Resilience Hubs in your study area to find locations for potential projects that may deliver both human community and fish and wildlife benefits.</p>
+          <a id="landingpage-search-hubs" href="#SearchHubs" class="btn btn-info w-100 p-2">Do a Resilience Project</a>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col-lg-3 col-md-6 col-sm-12 px-3 py-5">
+      <div class="card h-100 text-white bg-dark border-dark">
+        <!-- <h5 class="card-header bg-transparent border-bottom-0">Download Data and Access Reports</h5> -->
+        <!-- <img class="card-img-top img-thumbnail border-0 bg-dark" src="../images/landingpage-download2.png" alt="Download Data and Access Reports"> -->
+        <div class="card-body">
+          <h5 class="card-title font-weight-bold" >Download Data and Access Reports</h5>
+          <p class="card-text text-left">Download results for each Regional Assessment to use in your own GIS application. Then review the Regional reports for detailed descriptions of methods, data sources, and results.</p>
+          <a id="landingpage-download-reports" href="#Download" class="btn btn-info w-100 p-2">Download Data and Reports</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6 col-sm-12 px-3 py-5">
+      <div class="card h-100 text-white bg-dark border-dark">
+        <!-- <h5 class="card-header bg-transparent border-bottom-0">Learn About the Assessment</h5> -->
+        <!-- <img class="card-img-top img-thumbnail border-0 bg-dark" src="../images/landingpage-more2.png" alt="Learn About the Assessment"> -->
+        <div class="card-body">
+          <h5 class="card-title font-weight-bold" >Learn About the Assessment</h5>
+          <p class="card-text text-left">Learn how the National Coastal Resilience Assessment was created, including descriptions of the Resilience Hubs, Community Exposure Index, and Fish and Wildlife Index.</p>
+          <a id="landingpage-about" href="#About" class="btn btn-info w-100 p-2">Learn About the Assessment</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- <div class="dropdown-divider mx-5 p-1"></div> -->
+
+  <!-- <div class="landingpage-other-row row d-flex align-items-top mx-4 pt-2 pb-5">
+
+    <div class="align-items-center text-center col-12 py-3 px-3">
+      <h3>
+      More with CREST...
+      </h3>
+    </div>
+
+    <div class="col-lg-3 col-md-12 order-lg-0 order-md-3 col-sm-12 py-3 px-3">
+    </div>
+
+    <div class="col-lg-3 col-md-6 col-sm-12 py-3 px-3">
+      <div class="card h-100 text-white bg-dark border-dark">
+        <img class="card-img-top img-thumbnail border-0 bg-dark" src="../images/landingpage-examples.png" alt="Where should I do a Resilience Project?">
+        <div class="card-body">
+          <p class="card-text text-left">Not sure how to get started. Step through a few examples and learn.</p>
+          <a href="#Examples" class="btn btn-info w-100 p-2">View examples of how to use CREST</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6 col-sm-12 py-3 px-3">
+      <div class="card h-100 text-white bg-dark border-dark">
+        <img class="card-img-top img-thumbnail border-0 bg-dark" src="../images/landingpage-tw.png" alt="Where should I do a Resilience Project?">
+        <div class="card-body">
+          <p class="card-text text-left">In-depth assessments that incorporate more specific fish and wildlife datasets to more precisely target restoration opportunities.</p>
+          <a href="#SearchNSHubs" class="btn btn-info w-100 p-2">View targeted watershed assessments</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6 col-sm-12 py-3 px-3">
+    </div>
+
+  </div> -->
+
+</div>

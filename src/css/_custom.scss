@@ -1,22 +1,21 @@
 // Your variable overrides
 $body-main-bar-bg-color: #101012;
-// #0F0F0F;
-// #2A2E33; //#0f1110
 $body-bg: lighten(#101012,5) ;
-// #3e3e3e; //#151417
-// $gray-800;
-// #040807
 $body-list-border:    $gray-600;
 $body-color: $gray-200;
 $aboutbackground: #0f1110;
-//#494c50; //2F3235
 
 $btn-color-prinary: $gray-100;
 $btn-color-secondary: $gray-300;
 
 $box-shadow-default: 0 2.5px 5px #000, 0 1.5px 1.5px #333;
-// 0 2.5px 5px rgba(0,0,0,0.19), 0 1.5px 1.5px rgba(0,0,0,0.23);
 $box-shadow-small: 0 2px 5px rgba(0,0,0,0.19), 0 1.25px 1.25px rgba(0,0,0,0.23);
+@mixin box-shadow-mixin($shadow...) {
+  -webkit-box-shadow: $shadow;
+     -moz-box-shadow: $shadow;
+          box-shadow: $shadow;
+}
+
 
 $body-color-visited: $gray-400;
 $body-color-medium: $gray-600;
@@ -34,6 +33,9 @@ $body-bg-semiTransparent9:    rgba(53, 59, 65, .9); // $gray-800
 $body-bg-FullTransparent:    rgba(53, 59, 65, 0.0); // $gray-800
 $newbg: #151417;
 
+@import url(https://fonts.googleapis.com/css?family=Roboto:300,400,600,700);
+$roboto:  Roboto, Helvetica, 'Helvetica Neue', Arial, sans-serif; // default should be everywhere
+
 @mixin hovcol($color){
   // @content;
 @if(lightness($color) > 50){
@@ -44,148 +46,35 @@ background-color: mix(white,$color,25) !important;
 
 }
 
-// @mixin size1700{
-//   @media screen and (max-width: 1700px) {
-//     @content;
-//   }
-// }
-// @mixin size1600{
-//   @media screen and (max-width: 1600px) {
-//     @content;
-//   }
-// }
-//@mixin size1500{
-//   @media screen and (max-width: 1500px) {
-// @content;  }
-// }
-//@mixin size1427{
-// @media screen and (max-width: 1427px) {
-// @content;
-// }
-//}
-  //@mixin size1280{
-// @media screen and (max-width: 1280px) {
-// @content;
-// }
-//}
-// @mixin size1200{
-//   @media screen and (max-width: 1200px) {
-// @content;  }
-// }
-// @mixin size1100{
-//   @media screen and (max-width: 1100px) {
-// @content;  }
-// }
-// @mixin size1024{
-// @media screen and (max-width: 1024px) {
-// @content;
-// }
-// }
 @mixin size1000{
 @media screen and (max-width: 1000px) {
 @content;
   }
 }
-// @mixin size993{
-// @media screen and (min-width: 993px) {
-// @content;
-//   }
-// }
+
 @mixin size992{
 @media screen and (max-width: 992px) {
   @content;
   }
 }
-//  @mixin size900{
-//   @media screen and (max-width: 900px) {
-// @content;  }
-//}
 
 @mixin size768{
-
   @media screen and (max-width: 768px) {
       @content;
   }
 }
-//@mixin size640{
-// @media screen and (max-width: 640px) {
-// @content;
-//    }
-// }
-// @mixin size500{
-// @media screen and (max-width: 500px) {
-// @content;
-//  }
-// }
-// @mixin size414{
-// @media screen and (max-width: 414px) {
-// @content;
-//   }
-// }
-// @mixin size400{
-// @media screen and (max-width: 400px) {
-//   @content;
-// }
-// }
-// @mixin size375{
-// @media screen and (max-width: 375px) {
-// @content;
-//   }
-// }
-// @mixin size360{
-// @media screen and (max-width: 360px) {
-// @content;
-//   }
-// }
-// @mixin size325{
-// @media screen and (max-width: 325px) {
-//   @content;
-//   }
-// }
-// @mixin size320{
-// @media screen and (max-width: 320px) {
-// @content;
-//     }
-// }
-// @mixin size324{
-// @media screen and (max-width: 324px) {
-// @content;
-//       }
-// }
- //  "phone":        400px,
- // "phone-wide":   480px,
- // "phablet":      560px,
- // "tablet-small": 640px,
- // "tablet":       768px,
- // "tablet-wide":  1024px,
- // "desktop":      1248px,
- // "desktop-wide": 1440px
-// }
-
-
-
-
 
 // general page styles
-
 html, body {
     height: 100%;
+    font-family: $roboto;
 }
 
 a:hover {
   text-decoration: none !important;
 }
 
-// --hue: 210; /* Blue */
-// --link-color: hsl(var(--hue), 90%, 70%) !important;
-
-// a {
-//   --hue: 210; /* Blue */
-//   --link-color: hsl(var(--hue), 90%, 70%) !important;
-//   // color: $link-color !important;
-// }
 #main-content{
-  // padding: $padding15;
   min-height: 0px;
 }
 
@@ -199,7 +88,6 @@ hr {
 }
 
 // nav bar styles
-
 .main-navbar-toggle {
     z-index: 5000 !important;
 }
@@ -215,7 +103,6 @@ a.nav-link.active {
 
 a.nav-link {
   color: #babcbf !important; //new
-  // color: rgba(255, 255, 255, 0.5);
   border-bottom: 1px solid $gray-200;
   margin-bottom: $margin;
   margin-left: $margin;
@@ -230,6 +117,7 @@ a.nav-link {
   padding: 30px;
   img {
     margin-top: 30px;
+    max-height: 64px;
   }
 }
 
@@ -239,7 +127,7 @@ a.nav-link {
 }
 
 .nfwf-header {
-  box-shadow: $box-shadow-default;
+  @include box-shadow-mixin($box-shadow-default);
   padding-left: $padding15;
   padding-right: $padding15;
   background-color: $body-main-bar-bg-color !important;
@@ -286,24 +174,19 @@ a.nav-link {
   outline: inherit;
 }
 
-#second-tab-content {
-  // margin-top: 50px;
-}
-
-#glossary-holder, #exposure-holder, #assets-holder, #threats-holder ,#aboutgen-holder {
-  // margin-top: $margin;
+#reports-holder, #glossary-holder, #exposure-holder, #assets-holder, #threats-holder ,#aboutgen-holder {
   margin-bottom: $margin*2;
 }
 
-#tab-about-nav-glossary {
+#tab-about-nav-reports, #tab-about-nav-glossary {
   margin-left: -15px;
 }
 
 .w-45 {
   width: 45% !important;
 }
-// map styles
 
+// map styles
 #exposure-holder {
   h5 {
     margin: 15px !important;
@@ -343,13 +226,11 @@ a.nav-link {
   max-width: 200px;
   min-width: 200px;
   height: 5px;
-  border-radius: 5px;
+  @include border-radius(5px, 5px);
   background: $body-color-medium;
   outline: none;
   padding: 0px;
-  // opacity: 0.7;
   -webkit-transition: .2s;
-  // transition: opacity .2s;
 
   &:after {
     content: "";
@@ -358,10 +239,10 @@ a.nav-link {
     width: 10px;
     height: 10px;
     left: 7px;
-    border-radius: 50%;
+    @include border-radius(50%, 50%)
     top: -2px;
     z-index: 1;
-    box-shadow: 0px 0 0 $body-color-medium
+    @include box-shadow-mixin(0px 0 0 $body-color-medium);
   }
 
   &:after {
@@ -387,7 +268,7 @@ a.nav-link {
   margin: 0px;
   width: 25px;
   height: 25px;
-  border-radius: 50%;
+  @include border-radius(50%, 50%);
   background: $body-color;
   cursor: pointer;
 }
@@ -395,7 +276,7 @@ a.nav-link {
 .slider::-moz-range-thumb {
   width: 25px;
   height: 25px;
-  border-radius: 50%;
+  @include border-radius(50%, 50%);
   background: $body-color;
   cursor: pointer;
 }
@@ -407,28 +288,8 @@ a.nav-link {
   margin-right: 2px;
   height: 25px !important;
   border: 1px solid $body-list-border !important;
-  border-radius: 4px;
-  -webkit-border-radius: 4px !important;
-  -moz-border-radius: 4px !important;
-  box-shadow: $box-shadow-small;
-
-  &:hover {
-    background-color: $gray-600;
-  }
-}
-
-.layer-description-text {
-  height: 25px !important;
-  border: 1px solid $body-list-border !important;
-  color: $body-color !important;
-  padding: 1px;
-  padding-left: 3px;
-  margin-right: 5px;
-  border-radius: 4px;
-  -webkit-border-radius: 4px !important;
-  -moz-border-radius: 4px !important;
-  cursor: pointer;
-  box-shadow: $box-shadow-small;
+  @include border-radius(4px, 4px);
+  @include box-shadow-mixin($box-shadow-small);
 
   &:hover {
     background-color: $gray-600;
@@ -466,6 +327,7 @@ a.nav-link {
 
 .mapinfo-header {
   width: 100%;
+  padding-top: 8px;
 }
 
 #user-shape {
@@ -505,8 +367,6 @@ a.nav-link {
   left: 0px !important;
   height: 100% !important;
   width: 100% !important;
-  // transform: translate(0, 0);
-  // float: left;
 }
 
 .leaflet-draw-tooltip {
@@ -522,7 +382,7 @@ a.nav-link {
   width: min-content;
   background-color: $leaflet-draw-tooltip-top-bg;
   color: $body-bg-semiTransparent;
-  box-shadow: $box-shadow-default;
+  @include box-shadow-mixin($box-shadow-default);
   z-index: 500;
   font-size: 2em !important;
   position: absolute !important;
@@ -538,9 +398,7 @@ a.nav-link {
 .geocoder-control-input.leaflet-bar {
   border-width: 0px;
   height: 30px;
-  border-radius: 2px;
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
+  @include border-radius(2px, 2px);
 }
 
 .geocoder-control-input {
@@ -575,7 +433,6 @@ a.nav-link {
   @media screen and (max-width: 420px) {
     background-color:  $yellow !important;
   }
-  // height: 30px !important;
 }
 
 .leaflet-draw-actions a:hover {
@@ -622,43 +479,26 @@ a.nav-link {
   height: 30px !important;
 }
 
-.mapinfodata::-webkit-scrollbar-corner{
-  display: none;
-}
-
-
 // about styles
 
 // $aboutbackground: #3c4044; //#3B3E42; //2F3235
 
 .about-content  {
   background-color: $aboutbackground;
-  // max-width: 1140px;
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-  -webkit-border-top-left-radius: 4px !important;
-  -webkit-border-top-right-radius: 4px !important;
-  -moz-border-radius-topleft: 4px !important;
-  -moz-border-radius-topright: 4px !important;
-  box-shadow: $box-shadow-small;
+  @include border-top-left-radius(4px);
+  @include border-top-right-radius(4px);
+  @include box-shadow-mixin($box-shadow-small);
 }
 
 .about-nav {
   font-size: .9rem !important;
   &.active {
     background-color: grayscale(#0f1110);
-    // $aboutbackground;
     color: #FFF !important; //new
   }
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-  -webkit-border-top-left-radius: 4px !important;
-  -webkit-border-top-right-radius: 4px !important;
-  -moz-border-radius-topleft: 4px !important;
-  -moz-border-radius-topright: 4px !important;
-  box-shadow: $box-shadow-small;
-  // color: #32fcea !important;
-  // #d1d4d7 !important; //new
+  @include border-top-left-radius(4px);
+  @include border-top-right-radius(4px);
+  @include box-shadow-mixin($box-shadow-small);
 }
 
 .about-nav {
@@ -666,19 +506,16 @@ a.nav-link {
     max-width: 250px !important;
   }
   @media screen and (max-width: 1600px) {
-    max-width: 200px !important;
+    max-width: 250px !important;
   }
   @media screen and (max-width: 1500px) {
+    max-width: 225px !important;
+  }
+  @media screen and (max-width: 1000px) {
     max-width: 150px !important;
   }
-  @media screen and (max-width: 1200px) {
-    max-width: 125px !important;
-  }
-  @media screen and (max-width: 1100px) {
-    max-width: 100px !important;
-  }
   @media screen and (max-width: 900px) {
-    max-width: 80px !important;
+    max-width: 150px !important;
     font-size: .8em !important;
   }
 @include size768 {
@@ -718,8 +555,6 @@ a.about-nav.active::before {
 }
 
 .about-main-text, .about-tool-text {
-    margin: $margin;
-    padding: $padding15;
     a {
       color: #17a2b8 !important;
       text-decoration: underline;
@@ -761,18 +596,29 @@ a.about-nav.active::before {
       margin-left: 0px;
     }
   }
-
+  .figure-img {
+    margin-left: 10px;
+  }
   .figure-caption {
     color: $body-color !important;
     font-size: .9em;
     font-weight: 300;
     max-width: 1024px !important;
-  @include size768 {
-      padding-left: 5px;
-      padding-right: 5px;
+    @include size768 {
+        padding-left: 5px;
+        padding-right: 5px;
+      }
+    .region-header {
+      font-weight: 700;
+      margin-bottom: 8px;
+      font-size: 1rem;
+    }
+    .region-header-middle {
+    margin-top: 16px;
     }
     p {
       max-width: 1024px !important;
+      margin-left: 10px;
     }
     li {
       max-width: 1024px !important;
@@ -786,12 +632,11 @@ a.about-nav.active::before {
     font-weight: 800;
     border: 1px solid $gray-100;
     background: $newbg;
-     // $gray-600;
-    box-shadow: $box-shadow-default;
+    @include box-shadow-mixin($box-shadow-default);
     padding: 10px;
     margin: 0px 5px 10px 0px;
 
-    border-radius: 4px;
+    @include border-radius(4px, 4px);
 
     font-size: 1em;
     @media screen and (max-width: 400px) {
@@ -851,7 +696,7 @@ a.about-nav.active::before {
   background-color: #417da0;
 }
 
-.making-of-community-exposure-box {
+.making-of-community-exposure {
   background-color: #45818e;
   .making-of-main-text {
     display: inline-block;
@@ -863,9 +708,11 @@ a.about-nav.active::before {
 //end of making of styles
 
 // download styles
-
-.download-row {
-  padding-top: 10px;
+.download-data {
+  .download-icon {
+    display: inline-block;
+    width: 20px;
+  }
 }
 
 .download-layer-name {
@@ -877,12 +724,10 @@ a.about-nav.active::before {
 }
 
 .download-layer-name-main {
-  // padding-top: 30px;
   font-weight: 900;
 }
 
 .download-container, .whatcando-container {
-  // box-shadow: $box-shadow-small;
   width: 100% !important;
   padding: 30px;
 }
@@ -894,9 +739,76 @@ a.about-nav.active::before {
   }
 }
 
-// .data-source-list {
-//   // padding-left: 25px;
-// }
+.landingpage-container-fluid {
+  background-color: #232227;
+  color: $body-color;
+
+  .exploreregion-img {
+    width: 220px;
+    height: 189px;
+    border-radius: 10%;
+    margin-right: 10px;
+    background-clip: padding-box;
+  }
+
+  .card-img, .card-img-top, .card-img-bottom {
+    max-width: 50%;
+    align-self: center;
+  }
+}
+
+.landingpage-explore-note {
+  font-style: italic;
+  font-size: .95rem;
+}
+
+.landingpage-tile-text {
+  margin-top: 15px;
+  font-size: 30px;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.landingpage-sub-text {
+  margin-top: 15px;
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+.landingpage-region-row,
+.landingpage-explore-row,
+.landingpage-other-row {
+  .card-header {
+    min-height: 75px;
+  }
+  .card-body {
+    .btn {
+      font-size: .9rem;
+      min-height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
+
+.landingpage-explore-row {
+  .card-body {
+    font-size: .9rem;
+    .card-title {
+      min-height: 50px;
+    }
+    .card-text {
+      min-height: 110px;
+    }
+  }
+}
+
+.landingpage-other-row {
+  .card-text {
+    min-height: 75px;
+  }
+}
 
 //landing page styles
 .landingpage-header {
@@ -910,9 +822,9 @@ a.about-nav.active::before {
   background-size: cover; /* Resize the background image to cover the entire container */
 }
 
+
 #tab-main-nav-landingpage, #landingpage-holder{
   background-color: #232227; //new
-  // $body-color;
   color: $body-bg;
   margin-left: unset !important;
   margin-right: unset !important;
@@ -955,7 +867,7 @@ a.about-nav.active::before {
     margin-top: 120px;
   }
   .whatcando-ex-image {
-    border-radius: 15px !important;
+    @include border-radius(15px, 15px);
     box-shadow: $box-shadow-default !important;
     -moz-box-shadow: $box-shadow-default !important;
   }
@@ -964,9 +876,7 @@ a.about-nav.active::before {
     font-size: 14px;
   }
   .header-image  {
-    border-radius: 15px !important;
-    -webkit-border-radius: 15px !important;
-    -moz-border-radius: 15px !important;
+    @include border-radius(15px, 15px);
     margin-bottom: 15px;
     margin-top: 15px;
     box-shadow: $box-shadow-default !important;
@@ -976,7 +886,7 @@ a.about-nav.active::before {
     width: 330px !important;
     height: 50px !important;
     line-height: 40px !important;
-    border-radius: 25px  !important;
+    @include border-radius(25px, 25px);
     background-color: $newbg !important;
      // #6c757d !important; //$newbg
     border: 1px solid #e9ecef !important;
@@ -985,7 +895,6 @@ a.about-nav.active::before {
   }
   .whatcando-btn:hover {
     @include hovcol ($newbg);
-    // background-color:  #333534 !important;
     // #4f5251 !important; //new #565d64 lighten($newbg,25)
   }
   .whatcando-btn:focus {
@@ -1008,13 +917,35 @@ a.about-nav.active::before {
     background-color: $body-bg;
     color: $body-color;
     padding: 15px;
-    border-radius: 15px;
+    @include border-radius(15px, 15px);
     box-shadow: $box-shadow-default !important;
     -moz-box-shadow: $box-shadow-default !important;
   }
 }
 
 //end of landing page styles
+
+.dropdown.show {
+  .dropdown-menu.show {
+    width: 330px;
+    @media screen and (max-width: 400px) {
+      width: 250px !important;
+    }
+    top: 1px !important;
+    background-color: $newbg !important;
+    border: 1px solid #e9ecef !important;
+    color: #e9ecef !important;
+    font-size: 14px !important;
+    @include box-shadow-mixin($box-shadow-default);
+    .dropdown-item {
+      color: #e9ecef !important;
+      &:focus, &:hover {
+      background-color: #565d64 !important;
+      }
+    }
+  }
+}
+
 .download-group {
   padding: 15px;
 }
@@ -1033,64 +964,33 @@ a.about-nav.active::before {
 .btn-download { //download page buttons
   width: 100%;
   height: 30px;
-  background-color: $gray-300 !important; //new
-
-  &:hover {
-@include hovcol($gray-300);
-  // background-color: mix($gray-300,gray,25) !important;
-    // #949596 !important;
-  }
-@include size992 {
-    &:enabled {
-      background: #32363a !important;
-    }
-
-    &:hover {
-    // background-color: mix(white,#32363a,25) !important;
-        @include hovcol(#32363a);
-      // scale-color(#545b62, $lightness: 50%)
-   //#32363a
-    }
-  }
+  text-decoration: underline;
 }
 
-.download-collapser {
-      padding-bottom: 6px;
-  .icon-right {
-
-    float: right;
-  }
-}
-
-.download-collapse{
-      padding-bottom: 6px;
-}
-
-.download-notes-description {
-  padding-left: 75px;
-  @media screen and (max-width: 992px) {
-    padding-left: 5px;
-  }
-  padding-right: 75px;
+.data-download-description, .data-download-size {
   margin-bottom: 10px;
-  a {
-    color: #17a2b8 !important;
-    text-decoration: underline;
-  }
+  padding-top: 10px;
+  margin-left: 15px;
+  font-weight: 300;
 }
 
-.download-description-content {
-  margin-bottom: 10px;
-  padding-top: 15px;
-  border-bottom: solid 1px $gray-700;
-  font-size: 14px;
-  margin-left: 30px;
+.download-source-break {
+  width: 90%;
+}
+
+.download-datagroup-break {
+  border-color: $body-list-border;
+  width: 60%;
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
+  margin-left: 0;
+  text-align: left;
 }
 
 .exploreInfo-description-content {
   margin-bottom: 10px;
   padding-bottom: 5px;
-  // padding-top: 15px;
   border-bottom: solid 1px $gray-600;
   font-size: 14px;
   margin-left: 30px;
@@ -1124,10 +1024,8 @@ a.about-nav.active::before {
   cursor: pointer;
   background-color: $newbg !important;
   // $body-bg !important;
-  border-width: 1px !important;;
-  border-radius: 0.25rem !important;
-  -webkit-border-radius: 0.25rem !important;
-  -moz-border-radius: 0.25rem !important;
+  border-width: 1px !important;
+  @include border-radius(0.25rem, 0.25rem);
   width: 100% !important;
   box-shadow: $box-shadow-default !important;
   -moz-box-shadow: $box-shadow-default !important;
@@ -1165,9 +1063,6 @@ a.about-nav.active::before {
     border-width: 1px !important;
     padding-left: 20px !important;
     font-size: .9em;
-    // border-radius: 0.25rem !important;
-    // -webkit-border-radius: 0.25rem !important;
-    // -moz-border-radius: 0.25rem !important;
   }
 
   .zoomLinks-collapser-header:focus {
@@ -1182,8 +1077,8 @@ a.about-nav.active::before {
 
   .list-group-item:last-child {
     margin-bottom: 0 !important;
-    border-bottom-right-radius: 0.25rem !important;;
-    border-bottom-left-radius: 0.25rem !important;;
+    @include border-bottom-left-radius(0.25rem !important);
+    @include border-bottom-right-radius(0.25rem !important);
   }
 
   .zoomLinks-group-item:hover {
@@ -1212,17 +1107,12 @@ a.about-nav.active::before {
     margin-top: 0px !important;
   }
 }
-
-.mapinfo-header {
-  width: 100%;
-}
-
 // #main-content,{
 //   // padding: $padding15;
 // }
 
 .nfwf-header {
-  box-shadow: $box-shadow-default;
+  @include box-shadow-mixin($box-shadow-default);
   padding-left: $padding15;
   padding-right: $padding15;
   background-color: $body-main-bar-bg-color !important;
@@ -1249,11 +1139,6 @@ a.about-nav.active::before {
 
 #about-main {
   margin-left: 15px;
-}
-
-.about-main-text, .about-tool-text {
-    margin: $margin;
-    padding: $padding15;
 }
 
 .about-tool-text {
@@ -1341,8 +1226,6 @@ background-color: $body-bg !important;
 }
 
 .action-bnt-row {
-  // padding-left: 0px !important;
-  // margin-right: -15px !important;
   padding-right: 0px !important;
 }
 
@@ -1406,9 +1289,7 @@ background-color: $body-bg !important;
   position: relative;
   left: 275px;
   bottom: 0px;
-  border-radius: 2px;
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
+  @include border-radius(2px, 2px);
   margin-left: 2px;
   vertical-align: middle !important;
   align-items: center !important;
@@ -1426,9 +1307,7 @@ background-color: $body-bg !important;
   background-size: 30px;
   color: $gray-700;
   color: $body-bg;
-  border-radius: 2px;
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
+  @include border-radius(2px, 2px);
   cursor: pointer;
 }
 
@@ -1472,8 +1351,8 @@ background-color: $body-bg !important;
   background-color: $body-color;
   color: $body-bg;
   border: 0px;
-  border-bottom-left-radius: 2px;
-  border-bottom-right-radius: 2px;
+  @include border-bottom-left-radius(2px);
+  @include border-bottom-right-radius(2px);
   span {
     font-size: 10px;
   }
@@ -1496,8 +1375,8 @@ background-color: $body-bg !important;
   background-color: $body-color;
   color: $body-bg;
   border: 0px;
-  border-bottom-left-radius: 2px;
-  border-bottom-right-radius: 2px;
+  @include border-bottom-left-radius(2px);
+  @include border-bottom-right-radius(2px);
 }
 
 .i-btn {
@@ -1506,10 +1385,7 @@ background-color: $body-bg !important;
   width: 30px;
   height: 30px;
   font-size: 15px;
-  border-radius: 4px;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  vertical-align: middle !important;
+  @include border-radius(4px, 4px);
   align-items: center !important;
 }
 
@@ -1519,9 +1395,7 @@ background-color: $body-bg !important;
   width: 75px;
   height: 30px;
   font-size: 15px;
-  border-radius: 4px;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
+  @include border-radius(4px, 4px);
   vertical-align: middle !important;
   align-items: center !important;
 }
@@ -1540,7 +1414,10 @@ background-color: $body-bg !important;
   color: $body-bg;
   padding: 4px 4px;
   border-width: 0px;
-  box-shadow: $box-shadow-default;
+  @include box-shadow-mixin($box-shadow-default);
+  &:hover{
+    background: #adaeaf !important;
+    }
 }
 
 // explore styles
@@ -1551,9 +1428,7 @@ background-color: $body-bg !important;
  }
 
 #explore-holder::-webkit-scrollbar-thumb {
-   border-radius: 4px;
-   -webkit-border-radius: 4px;
-   -moz-border-radius: 4px;
+   @include border-radius(4px, 4px);
    background-color: $body-color;
  }
 
@@ -1595,9 +1470,7 @@ a.list-group-item.list-group-item-action.not-found{
   background-color: $body-bg;
   border-color: $gray-400;
   border-width: 0px;
-  border-radius: 0;
-  -webkit-border-radius: 0px;
-  -moz-border-radius: 0px;
+  @include border-radius(0px, 0px);
   text-decoration: underline;
 }
 
@@ -1626,9 +1499,7 @@ p.not-found {
   &::-webkit-scrollbar-thumb {
     max-height: 15px;
     background-color: $gray-500;
-    border-radius: 4px;
-    -webkit-border-radius: 4px !important;
-    -moz-border-radius: 4px !important;
+    @include border-radius(4px, 4px);
     &:vertical {
       height: 10px;
     }
@@ -1715,12 +1586,10 @@ p.not-found {
     min-width: 290px;
     max-width: 375px !important;
     background-color: $body-bg !important;
-    border-top-left-radius:  4px !important;
-    border-top-right-radius: 4px !important;
-    -webkit-border-top-left-radius: 4px !important;
-    -webkit-border-top-right-radius: 4px !important;
-    -webkit-border-bottom-left-radius: 0px !important;
-    -webkit-border-bottom-right-radius: 0px !important;
+    @include border-top-left-radius(4px);
+    @include border-top-right-radius(4px);
+    @include border-bottom-left-radius(0px);
+    @include border-bottom-right-radius(0px);
     border-color:  $body-list-border !important;
     border-width:  1px 1px 1px 1px !important;
     border-style: solid !important;
@@ -1742,9 +1611,7 @@ p.not-found {
 
   .maplayers_list {
     height: 100% !important;
-    border-radius: 4px !important;
-    -webkit-border-radius: 4px !important;
-    -moz-border-radius: 4px !important;
+    @include border-radius(4px, 4px);
 
     .navbar {
       padding-right: 0px !important;
@@ -1775,11 +1642,8 @@ p.not-found {
       width: 35px;
       height: 35px;
       border: 1px solid  $gray-600 !important;
-      border-radius: 4px;
-      -webkit-border-radius: 4px !important;
-      -moz-border-radius: 4px !important;
-      box-shadow: $box-shadow-small;
-      // margin-top: 5px;
+      @include border-radius(4px, 4px);
+      @include box-shadow-mixin($box-shadow-small);
       background: $newbg !important;
       &:hover {
         background-color: $gray-600;
@@ -1804,23 +1668,17 @@ p.not-found {
 
     #mapListToggle {
       background-color: $newbg !important;
-      // $body-bg !important;
       border-color:  $body-list-border !important;
       border-width:  0px 1px 1px 1px !important;
       border-style: solid !important;
-      border-top-left-radius:  0px !important;
-      border-top-right-radius: 0px !important;
-      -webkit-border-top-left-radius: 0px !important;
-      -webkit-border-top-right-radius: 0px !important;
-      border-bottom-left-radius:  4px !important;
-      border-bottom-right-radius: 4px !important;
-      -webkit-border-bottom-left-radius: 4px !important;
-      -webkit-border-bottom-right-radius: 4px !important;
+      @include border-top-left-radius(0px);
+      @include border-top-right-radius(0px);
+      @include border-bottom-left-radius(4px);
+      @include border-bottom-right-radius(4px);
     }
 
     #ToggleLayerList {
       background-color: $newbg  !important;
-       // $body-bg !important;
       margin: 15px;
       height: 100%;
       width: 100% !important;
@@ -1840,10 +1698,8 @@ p.not-found {
 
   .h-0 {
     .brand-maplist-holder {
-      border-bottom-left-radius:  4px !important;
-      border-bottom-right-radius: 4px !important;
-      -webkit-border-bottom-left-radius: 4px !important;
-      -webkit-border-bottom-right-radius: 4px !important;
+      @include border-bottom-left-radius(4px);
+      @include border-bottom-right-radius(4px);
     }
   }
 
@@ -1981,7 +1837,7 @@ p.not-found {
   }
 
   .btn-toggle-shapes {
-    box-shadow: $box-shadow-default;
+    @include box-shadow-mixin($box-shadow-default);
     margin-bottom: $margin !important;
     border: 1px solid $body-color !important;
     color: $body-color !important;
@@ -2052,9 +1908,7 @@ p.not-found {
     #mapListToggle {
       background-color: $body-bg !important;
       border: 1px solid $body-list-border !important;
-      border-radius: 4px !important;
-      -webkit-border-radius: 4px !important;
-      -moz-border-radius: 4px !important;
+      @include border-radius(4px, 4px);
       z-index: 4000 !important;
     }
 
@@ -2072,7 +1926,7 @@ p.not-found {
     .navbar-toggler {
       background-color: $body-bg !important;
       float: right !important;
-      box-shadow: $box-shadow-default;
+      @include box-shadow-mixin($box-shadow-default);
     }
 
     .bg_dark {
@@ -2275,9 +2129,6 @@ p.not-found {
     }
   }
 
-  .mapinfodata {
-    overflow: scroll;
-  }
 
   .map_info_list .toggle-list .zonal-long-graph-label-terrestrial .zonal-long-graph-label-text {
     left: -10px !important;
@@ -2298,16 +2149,22 @@ p.not-found {
 
   }
 
+  .mapinfodata {
+    overflow: scroll;
+  }
+
   .mapinfodata::-webkit-scrollbar {
      -webkit-appearance: none;
      width: 7px;
    }
 
    .mapinfodata::-webkit-scrollbar-thumb {
-     border-radius: 4px;
-     -webkit-border-radius: 4px;
-     -moz-border-radius: 4px;
+     @include border-radius(4px, 4px);
      background-color: $body-color;
+   }
+
+   .mapinfodata::-webkit-scrollbar-corner {
+     display: none;
    }
 
     #btn-clear-area, #btn-update-zonal-stats, #btn-download-all-zonal-stats {
@@ -2649,27 +2506,17 @@ p.not-found {
     &.title-caption { //case studies
       font-size: 18px !important;
       background-color:$newbg;
-       // $gray-600;// default bootstrap gray
-      border-top-left-radius: 4px !important;
-      border-top-right-radius: 4px !important;
-      -webkit-border-top-left-radius: 4px !important;
-      -webkit-border-top-right-radius: 4px !important;
-      -moz-border-radius-topleft: 4px !important;
-      -moz-border-radius-topright: 4px !important;
+      @include border-top-left-radius(4px);
+      @include border-top-right-radius(4px);
     }
 
     &.narrative-caption {
-      border-bottom-left-radius: 4px !important;
-      border-bottom-right-radius: 4px !important;
-      -webkit-border-bottom-left-radius: 4px !important;
-      -webkit-border-bottom-right-radius: 4px !important;
-      -moz-border-radius-bottomleft: 4px !important;
-      -moz-border-radius-bottomright: 4px !important;
+      @include border-bottom-left-radius(4px);
+      @include border-bottom-right-radius(4px);
     }
 
     &.title-caption:hover {
       @include hovcol($newbg);
-      // background: $gray-700 radial-gradient(circle, transparent 1%, $gray-700 1%) center/15000% !important;
     }
 
     .icon-right {
@@ -2843,20 +2690,16 @@ p.not-found {
 
 .custom-checkbox .custom-control-input:checked ~ .custom-control-label::after {
   background-color:  $body-bg;
-  border-radius: 0.25rem;
-  -webkit-border-radius: 0.25rem;
-  -moz-border-radius: 0.25rem;
+  @include border-radius(0.25rem, 0.25rem);
   border: 1px solid $gray-700;
-  transform: scale(1.75);
+  transform: scale(1.4);
 }
 
 .custom-control-input:active ~ .custom-control-label::before {
   background-color: $body-color;
   background:  $body-bg-semiTransparent;
   border: 0px solid $body-color;
-  border-radius: 0.25rem;
-  -webkit-border-radius: 0.25rem;
-  -moz-border-radius: 0.25rem;
+  @include border-radius(0.25rem, 0.25rem);
 }
 
 
@@ -2932,9 +2775,7 @@ p.not-found {
     float: right !important;
     background-color: $body-color !important;
     border: 1px solid  $gray-400 !important;
-    border-radius: 4px;
-    -webkit-border-radius: 4px !important;
-    -moz-border-radius: 4px !important;
+    @include border-radius(4px, 4px);
   }
 }
 
@@ -2979,9 +2820,7 @@ p.not-found {
     float: right !important;
     background-color: $body-color !important;
     border: 1px solid  $gray-400 !important;
-    border-radius: 4px;
-    -webkit-border-radius: 4px !important;
-    -moz-border-radius: 4px !important;
+    @include border-radius(4px, 4px);
   }
 
   .close-exlpore-directions:hover {
@@ -2989,13 +2828,19 @@ p.not-found {
   }
 }
 
-.tooltip.download-layer-description {
+.popover {
+  z-index: 4500;
   max-width: 500px !important;
-  padding-top: px !important;
-  text-align: left !important;
-  opacity: 1.0 !important;
-  font-size: 14px !important;
+  &:focus {
+    outline: none;
+  }
+  .popover-header {
+    background-color: $body-color !important;
+    color: $body-bg !important;
+  }
+  .popover-body {
 
+  }
   @media screen and (max-width: 992px) {
     max-width: 400px !important;
   }
@@ -3003,43 +2848,7 @@ p.not-found {
   @media screen and (max-width: 400px) {
     max-width: 300px !important;
   }
-
-  .btn-explore-info {
-    background-color:  $gray-300 !important;
-    color: $body-bg !important;
-    font-size: .6rem !important;
-    width: 25px !important;
-    height: 25px !important;
-  }
-
-  .tooltip-inner {
-    float: left !important;
-    padding-right: 30px;
-    padding-top: 10px !important;
-    padding-bottom: 10px !important;
-  }
-
-  .close-download-layer-description {
-    cursor: pointer;
-    height: 33px !important;
-    position: relative;
-    left: -25px !important;
-    top: 5px;
-    padding: 5px;
-    color: $body-bg !important;
-    float: right !important;
-    background-color: $body-color !important;
-    border: 1px solid  $gray-400 !important;
-    border-radius: 4px;
-    -webkit-border-radius: 4px !important;
-    -moz-border-radius: 4px !important;
-  }
-
-  .close-download-layer-description:hover {
-    background-color: $gray-400 !important; //$body-color
-  }
 }
-
 
 
 .explore-helper, .download-data-source-helper  {
@@ -3052,12 +2861,9 @@ p.not-found {
   padding: 1px;
   padding-left: 3px;
   margin-right: 5px;
-  border-radius: 4px;
-  -webkit-border-radius: 4px !important;
-  -moz-border-radius: 4px !important;
+  @include border-radius(4px, 4px);
   cursor: pointer;
-  box-shadow: $box-shadow-small;
-  // color: #999595; //?
+  @include box-shadow-mixin($box-shadow-small);
   float: right !important;
 }
 
@@ -3078,12 +2884,9 @@ p.not-found {
   padding: 1px;
   padding-left: 3px;
   margin-right: 5px;
-  border-radius: 4px;
-  -webkit-border-radius: 4px !important;
-  -moz-border-radius: 4px !important;
+  @include border-radius(4px, 4px);
   cursor: pointer;
-  box-shadow: $box-shadow-small;
-  // color: #999595;
+  @include box-shadow-mixin($box-shadow-small);
   margin-left: 40px;
   svg {
     margin-bottom: 5px;
@@ -3136,10 +2939,15 @@ p.not-found {
   width: inherit !important;
 }
 
-.glossary-container, .about-container {
+.reports-container, .glossary-container, .about-container {
   margin-right: 0px !important;
   margin-left: 0px !important;
   padding-bottom: 15px !important;
+}
+
+.reports-container {
+  min-height: 200px;
+  padding: 12px;
 }
 
 .term {
@@ -3317,8 +3125,8 @@ p.not-found {
   background-color: $body-color;
   color: $body-bg;
   border: 0px;
-  border-bottom-left-radius: 2px;
-  border-bottom-right-radius: 2px;
+  @include border-bottom-left-radius(2px);
+  @include border-bottom-right-radius(2px);
   span {
     font-size: 10px;
   }
@@ -3341,8 +3149,8 @@ p.not-found {
   background-color: $body-color;
   color: $body-bg;
   border: 0px;
-  border-bottom-left-radius: 2px;
-  border-bottom-right-radius: 2px;
+  @include border-bottom-left-radius(2px);
+  @include border-bottom-right-radius(2px);
 }
 
 .i-btn {
@@ -3351,9 +3159,7 @@ p.not-found {
   width: 30px;
   height: 30px;
   font-size: 15px;
-  border-radius: 4px;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
+  @include border-radius(4px, 4px);
   vertical-align: middle !important;
   align-items: center !important;
 }
@@ -3397,15 +3203,10 @@ p.not-found {
     vertical-align: inherit;
 }
 
-.mapinfodata-header {
-  font-size: 1.250em;
-}
-
-.map-info-point{
+.searchlocations-point {
   background-color: $body-bg;
-  border-radius: 10px;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
+  @include border-radius(10px, 10px);
+
   /* Prevent background color leak outs */
   -webkit-background-clip: padding-box;
   -moz-background-clip:    padding;
@@ -3413,12 +3214,13 @@ p.not-found {
 
 }
 
-.searchlocations-point {
-  background-color: $body-bg;
-  border-radius: 10px;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
+.mapinfodata-header {
+  font-size: 1.250em;
+}
 
+.map-info-point{
+  background-color: $body-bg;
+  @include border-radius(10px, 10px);
   /* Prevent background color leak outs */
   -webkit-background-clip: padding-box;
   -moz-background-clip:    padding;
@@ -3441,40 +3243,7 @@ p.not-found {
   width: 250px;
   font-size: .85rem;
 }
-
-.mapinfodata .default-mapinfo{
-  font-size: .85rem;
-  .zonal-long-graph-label{
-    &-exposure {
-      .zonal-long-graph-label-text {
-        left: -65% !important;
-        top: 25px;
-        white-space: nowrap;
-      }
-    }
-  }
-}
-
-.mapinfodata .ns-mapinfo{
-  font-size: .85rem;
-  .zonal-long-graph-label{
-    &-exposure {
-      .zonal-long-graph-label-text {
-        left: 0px !important;
-        top: 0px;
-        white-space: nowrap;
-      }
-    }
-    &-hubs {
-      .zonal-long-graph-label-text {
-        left: 5px !important;
-        top: 0px;
-        white-space: nowrap;
-      }
-    }
-  }
-}
-
+å
 .searchlocationsdata {
   font-size: .85rem;
 }
@@ -3544,9 +3313,7 @@ p.not-found {
   background: $body-bg;
   background:  $body-bg-semiTransparent9;
   color: $body-color;
-  border-radius: 0px;
-  -webkit-border-radius: 0px;
-  -moz-border-radius: 0px;
+  @include border-radius(0px, 0px);
   min-width: 300px;
 }
 
@@ -3605,4 +3372,38 @@ p.not-found {
   margin-bottom: 0px;
 }
 
-// test
+// chartjs
+#chartjs-tooltip {
+  background-color: $leaflet-draw-tooltip-top-bg;
+  border-color: $gray-800;
+  @include border-radius(4px, 4px);
+  @include box-shadow-mixin($box-shadow-small);
+  min-width: 50px;
+  min-height: 50px;
+  font-family: $roboto;
+  font-size: 12px;
+  th {
+    font-weight: normal;
+  }
+  td {
+    text-align: center;
+  }
+  tbody {
+    font-weight: bold;
+    font-size: 18px;
+  }
+}
+
+#chartjs-tooltip.above:before {
+  border: solid;
+  border-color: $leaflet-draw-tooltip-top-bg transparent;
+  border-width: 8px 8px 0 8px;
+  content:"";
+  display: block;
+  left: 50%;
+  top: 100%;
+  position: absolute;
+  z-index: 99;
+  -webkit-transform: translate(-50%, 0);
+  transform: translate(-50%, 0);
+}

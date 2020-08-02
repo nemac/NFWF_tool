@@ -1,508 +1,345 @@
-<div class="w-100">
-  <div class="download-container">
-    <h3>Regional Coastal Resilience Assessment</h3>
-    <div class="download-group dg-no-padding">
-      <div class="row d-flex w-100 text-left download-row">
-        <div class="col-md-5 col-sm-12 col-12 h-100 w-100 download-collapse">
-          <div class="align-bottom download-layer-name h-100 hubs" data-toggle="collapse" data-target="#CollapseHubsSource" aria-expanded="false" aria-controls="CollapseHubsSource">Resilience Hubs
-            <button id="download-data-source" aria-label="Data Source" class="download-data-source-helper" >
-              <i aria-label="Data Source" class="fas fa-info"></i>
-            </button>
-          </div>
-          <div class="collapse download-description-content" id="CollapseHubsSource">
-            <div class="download-description-name">Data Source(s):</div>
-            <ul class="data-source-list" >
-              <li class="download-description w-100">USGS Protected Areas Database (version 1.4 or later)</li>
-              <li class="download-description w-100">Multi-Resolution Land Characteristics Consortium National Land Cover Database (2011 or later)</li>
-              <li class="download-description w-100">NOAA Sea Level Rise model (2015 or later)</li>
-              <li class="download-description w-100">NOAA/NHC Storm Surge SLOSH model (2014 or later)</li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-md-3 col-sm-12 col-12 h-100 w-100">
-          <a id="download-hubs" href="https://s3.amazonaws.com/nfwf-tool/nfwf_download_data/nfwf_conus_resiliencehubs.zip" role="button" class="btn btn-light btn-sm btn-download">Download</a>
-        </div>
-        <div class="col-md-4 col-sm-12 col-12 h-100 w-100">
-        </div>
-      </div>
-    </div>
+<div class="download-data w-100 p-3">
 
-    <div class="download-group dg-no-padding">
-      <div class="row d-flex w-100 text-left download-row">
-        <div class="col-md-5 col-sm-12 col-12 h-100 w-100">
-          <div class="align-bottom download-layer-name h-100">Community Exposure Index
-          </div>
-        </div>
-        <div class="col-md-3 col-sm-12 col-12 h-100 w-100">
-          <a id="download-exposure" href="https://s3.amazonaws.com/nfwf-tool/nfwf_download_data/nfwf_conus_exposure.zip" role="button" class="btn btn-light btn-sm btn-download">Download</a>
-        </div>
-        <div class="col-md-4 col-sm-12 col-12 h-100 w-100">
-        </div>
-      </div>
-    </div>
-
-    <div class="download-group">
-      <div class="row d-flex w-100 text-left download-row">
-        <div class="col-12 h-100">
-          <div class="align-bottom download-layer-name-main h-100">Community Asset and Threat Indices</div>
-        </div>
-      </div>
-
-      <div class="row d-flex w-100 text-left download-row">
-        <div class="col-md-5 col-sm-12 col-12 h-100 w-100">
-          <div class="align-bottom download-layer-name h-100">Community Asset Index</div>
-        </div>
-        <div class="col-md-3 col-sm-12 col-12 h-100 w-100">
-          <a id="download-assets" href="https://s3.amazonaws.com/nfwf-tool/nfwf_download_data/nfwf_conus_asset.zip" role="button" class="btn btn-light btn-sm btn-download">Download</a>
-        </div>
-        <div class="col-md-4 col-sm-12 col-12 h-100 w-100">
-        </div>
-      </div>
-
-      <div class="row d-flex w-100 text-left download-row">
-        <div class="col-md-5 col-sm-12 col-12 h-100 w-100">
-          <div class="align-bottom download-layer-name h-100">Threat Index</div>
-        </div>
-        <div class="col-md-3 col-sm-12 col-12 h-100 w-100">
-          <a id="download-threats" href="https://s3.amazonaws.com/nfwf-tool/nfwf_download_data/nfwf_conus_threat.zip" role="button" class="btn btn-light btn-sm btn-download">Download</a>
-        </div>
-        <div class="col-md-4 col-sm-12 col-12 h-100 w-100">
-        </div>
-      </div>
-    </div>
-
-    <div class="download-group">
-      <div class="row d-flex w-100 text-left download-row">
-        <div class="col-12 h-100">
-          <div class="align-bottom download-layer-name-main h-100">Aquatic and Terrestrial Indices</div>
-        </div>
-      </div>
-
-      <div class="row d-flex w-100 text-left download-row">
-        <div class="col-md-5 col-sm-12 col-12 h-100 w-100 download-collapser">
-          <div class="align-bottom download-layer-name h-100 aquatic" data-toggle="collapse" data-target="#CollapseAquaticSource" aria-expanded="false" aria-controls="CollapseAquaticSource">Aquatic Index
-            <button id="download-data-source" aria-label="Data Source" class="download-data-source-helper" >
-              <i aria-label="Data Source" class="fas fa-info"></i>
-            </button>
-          </div>
-          <div class="collapse download-description-content" id="CollapseAquaticSource">
-            <span class="download-description-name">Data Source(s):</span>
-            <ul class="data-source-list" >
-              <li class="download-description w-100">NatureServe (most recent available)</li>
-              <li class="download-description w-100">NOAA National Marine Fisheries Service</li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-md-3 col-sm-12 col-12 h-100 w-100">
-          <a id="download-aquatic" href="https://s3.amazonaws.com/nfwf-tool/nfwf_download_data/nfwf_conus_aquatic.zip" role="button" class="btn btn-light btn-sm btn-download">Download</a>
-        </div>
-        <div class="col-md-4 col-sm-12 col-12 h-100 w-100">
-        </div>
-      </div>
-
-      <div class="row d-flex w-100 text-left download-row">
-        <div class="col-md-5 col-sm-12 col-12 h-100 w-100 download-collapse">
-          <div class="align-bottom download-layer-name h-100 terrestrial" data-toggle="collapse" data-target="#CollapseTerrestrialSource" aria-expanded="false" aria-controls="CollapseTerrestrialSource">Terrestrial Index
-            <button id="download-data-source" aria-label="Data Source" class="download-data-source-helper" >
-              <i aria-label="Data Source" class="fas fa-info"></i>
-            </button>
-          </div>
-          <div class="collapse download-description-content" id="CollapseTerrestrialSource">
-            <div class="download-description-name">Data Source(s):</div>
-            <ul class="data-source-list" >
-              <li class="download-description w-100">NatureServe (most recent available)</li>
-              <li class="download-description w-100">Audubon, BirdLife International (most recent available)</li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-md-3 col-sm-12 col-12 h-100 w-100">
-          <a id="download-terrestrial" href="https://s3.amazonaws.com/nfwf-tool/nfwf_download_data/nfwf_conus_terrestrial.zip" role="button" class="btn btn-light btn-sm btn-download">Download</a>
-        </div>
-        <div class="col-md-4 col-sm-12 col-12 h-100 w-100">
-        </div>
-      </div>
-    </div>
-
-    <div class="download-group">
-      <div class="row d-flex w-100 text-left download-row">
-        <div class="col-12 h-100">
-          <div class="align-bottom download-layer-name-main h-100">Community Asset Index Inputs</div>
-        </div>
-      </div>
-
-      <div class="row d-flex w-100 text-left download-row">
-        <div class="col-md-5 col-sm-12 col-12 h-100 w-100 download-collapse">
-          <div class="align-bottom download-layer-name h-100 population-density" data-toggle="collapse" data-target="#CollapsePopulationDensitySource" aria-expanded="false" aria-controls="CollapsePopulationDensitySource">Population Density
-            <button id="download-data-source" aria-label="Data Source" class="download-data-source-helper" >
-              <i aria-label="Data Source" class="fas fa-info"></i>
-            </button>
-          </div>
-          <div class="collapse download-description-content" id="CollapsePopulationDensitySource">
-            <div class="download-description-name">Data Source(s):</div>
-            <ul class="data-source-list" >
-              <li class="download-description w-100">U.S. Census Bureau (2010 or later)</li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-md-3 col-sm-12 col-12 h-100 w-100">
-          <a id="download-populationdensity" href="https://s3.amazonaws.com/nfwf-tool/nfwf_download_data/nfwf_conus_asset_populationdensity_inputs.zip" role="button" class="btn btn-light btn-sm btn-download">Download</a>
-        </div>
-        <div class="col-md-4 col-sm-12 col-12 h-100 w-100">
-        </div>
-      </div>
-
-      <div class="row d-flex w-100 text-left download-row">
-        <div class="col-md-5 col-sm-12 col-12 h-100 w-100 download-collapse">
-          <div class="align-bottom download-layer-name h-100 social-vulnerability" data-toggle="collapse" data-target="#CollapseSocialVulnerabilitySource" aria-expanded="false" aria-controls="CollapseSocialVulnerabilitySource">Social Vulnerability
-            <button id="download-data-source" aria-label="Data Source" class="download-data-source-helper" >
-              <i aria-label="Data Source" class="fas fa-info"></i>
-            </button>
-          </div>
-          <div class="collapse download-description-content" id="CollapseSocialVulnerabilitySource">
-            <div class="download-description-name">Data Source(s):</div>
-            <ul class="data-source-list" >
-              <li class="download-description w-100">U.S. EPA Environmental Justice Screening and Mapping tool (2016 or later)</li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-md-3 col-sm-12 col-12 h-100 w-100">
-          <a id="download-socialvulnerability" href="https://s3.amazonaws.com/nfwf-tool/nfwf_download_data/nfwf_conus_asset_socialvulnerability_inputs.zip" role="button" class="btn btn-light btn-sm btn-download">Download</a>
-        </div>
-        <div class="col-md-4 col-sm-12 col-12 h-100 w-100">
-        </div>
-      </div>
-      <div class="row d-flex w-100 text-left download-row">
-        <div class="col-md-5 col-sm-12 col-12 h-100 w-100 download-collapse">
-          <div class="align-bottom download-layer-name h-100 critical-facilities" data-toggle="collapse" data-target="#CollapseCriticalFacilitiesSource" aria-expanded="false" aria-controls="CollapseCriticalFacilitiesSource">Critical Facilities
-            <button id="download-data-source" aria-label="Data Source" class="download-data-source-helper" >
-              <i aria-label="Data Source" class="fas fa-info"></i>
-            </button>
-          </div>
-          <div class="collapse download-description-content" id="CollapseCriticalFacilitiesSource">
-            <div class="download-description-name">Data Source(s):</div>
-            <ul class="data-source-list" >
-              <li class="download-description w-100">USGS National Structures Dataset (2015 or later)</li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-md-3 col-sm-12 col-12 h-100 w-100">
-          <a id="download-criticalfacilities" href="https://s3.amazonaws.com/nfwf-tool/nfwf_download_data/nfwf_conus_asset_criticalfacilities_inputs.zip" role="button" class="btn btn-light btn-sm btn-download">Download</a>
-        </div>
-        <div class="col-md-4 col-sm-12 col-12 h-100 w-100">
-        </div>
-      </div>
-
-      <div class="row d-flex w-100 text-left download-row">
-        <div class="col-md-5 col-sm-12 col-12 h-100 w-100 download-collapse">
-          <div class="align-bottom download-layer-name h-100 critical-infrastructure" data-toggle="collapse" data-target="#CollapseCriticalInfrastructureSource" aria-expanded="false" aria-controls="CollapseCriticalInfrastructureSource">Critical Infrastructure
-            <button id="download-data-source" aria-label="Data Source" class="download-data-source-helper" >
-              <i aria-label="Data Source" class="fas fa-info"></i>
-            </button>
-          </div>
-          <div class="collapse download-description-content" id="CollapseCriticalInfrastructureSource">
-            <div class="download-description-name">Data Source(s):</div>
-            <ul class="data-source-list" >
-              <li class="download-description w-100">National Highway Planning Network: National Transportation Atlas Database (v.11.09 or later)</li>
-              <li class="download-description w-100">Federal Highway Administration: National Bridge Inventory (v.7 or later)</li>
-              <li class="download-description w-100">National Transportation Atlas Database: Airport Runways (2015 or later)</li>
-              <li class="download-description w-100">U.S. Energy Information Administration: EIA-860, Annual Electric Generator Report; EIA-860M, Monthly Update to the Annual Electric Generator Report; EIA-923, Power Plant Operations Report (2016 or later)</li>
-              <li class="download-description w-100">USGS National Structures Dataset (2015 or later)</li>
-              <li class="download-description w-100">USDOT/Bureau of Transportation Statistics’s National Transportation Atlas Database (2015 or later)</li>
-              <li class="download-description w-100">Dept. of Homeland Security: Homeland Infrastructure Foundation Level Data (2007 or later)</li>
-              <li class="download-description w-100">USDOT/Bureau of Labor Statistics’s National Transportation Atlas Database (2015 or later)</li>
-              <li class="download-description w-100">U.S. Energy Information Administration: EIA-815, Monthly Bulk Terminal and Blender Report: EIA-820 Refinery Capacity Report (2015 or later)</li>
-              <li class="download-description w-100">U.S. Energy Information Administration, Federal Energy Regulatory Commission, and U.S. Dept. of Transportation: EIA-757, Natural Gas Processing Plant Survey (2015 or later)</li>
-              <li class="download-description w-100">U.S. EPA Facility Registry Service (2016 or later)</li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-md-3 col-sm-12 col-12 h-100 w-100">
-          <a id="download-criticalinfrastructure" href="https://s3.amazonaws.com/nfwf-tool/nfwf_download_data/nfwf_conus_asset_criticalinfrastructure_inputs.zip" role="button" class="btn btn-light btn-sm btn-download">Download</a>
-        </div>
-        <div class="col-md-4 col-sm-12 col-12 h-100 w-100">
-        </div>
-      </div>
-    </div>
-
-    <div class="download-group">
-      <div class="row d-flex w-100 text-left download-row">
-        <div class="col-12 h-100">
-          <div class="align-bottom download-layer-name-main h-100">Threat Index Inputs </div>
-        </div>
-      </div>
-
-      <div class="row d-flex w-100 text-left download-row">
-        <div class="col-md-5 col-sm-12 col-12 h-100 w-100 download-collapse">
-          <div class="align-bottom download-layer-name h-100 impermeable-soils" data-toggle="collapse" data-target="#CollapseImpermeableSoilsSource" aria-expanded="false" aria-controls="CollapseImpermeableSoilsSource">Impermeable Soils
-            <button id="download-data-source" aria-label="Data Source" class="download-data-source-helper" >
-              <i aria-label="Data Source" class="fas fa-info"></i>
-            </button>
-          </div>
-          <div class="collapse download-description-content" id="CollapseImpermeableSoilsSource">
-            <div class="download-description-name">Data Source(s):</div>
-            <ul class="data-source-list" >
-              <li class="download-description w-100">USDA-NRCS SSURGO (2.2 or later), National Land Cover Database (2011 or later)</li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-md-3 col-sm-12 col-12 h-100 w-100">
-          <a id="download-drainage" href="https://s3.amazonaws.com/nfwf-tool/nfwf_download_data/nfwf_conus_threat_drainage.zip" role="button" class="btn btn-light btn-sm btn-download">Download</a>
-        </div>
-        <div class="col-md-4 col-sm-12 col-12 h-100 w-100">
-        </div>
-      </div>
-
-      <div class="row d-flex w-100 text-left download-row">
-        <div class="col-md-5 col-sm-12 col-12 h-100 w-100 download-collapse">
-          <div class="align-bottom download-layer-name h-100 soil-erodibility" data-toggle="collapse" data-target="#CollapseSoilErodibilitySource" aria-expanded="false" aria-controls="CollapseSoilErodibilitySource">Soil Erodibility
-            <button id="download-data-source" aria-label="Data Source" class="download-data-source-helper" >
-              <i aria-label="Data Source" class="fas fa-info"></i>
-            </button>
-          </div>
-          <div class="collapse download-description-content" id="CollapseSoilErodibilitySource">
-            <div class="download-description-name">Data Source(s):</div>
-            <ul class="data-source-list" >
-              <li class="download-description w-100">USDA-NRCS SSURGO (2.2 or later)</li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-md-3 col-sm-12 col-12 h-100 w-100">
-          <a id="download-erosion" href="https://s3.amazonaws.com/nfwf-tool/nfwf_download_data/nfwf_conus_threat_erosion.zip" role="button" class="btn btn-light btn-sm btn-download">Download</a>
-        </div>
-        <div class="col-md-4 col-sm-12 col-12 h-100 w-100">
-        </div>
-      </div>
-      <div class="row d-flex w-100 text-left download-row">
-        <div class="col-md-5 col-sm-12 col-12 h-100 w-100 download-collapse">
-          <div class="align-bottom download-layer-name h-100 flood-prone-areas" data-toggle="collapse" data-target="#CollapseFloodProneAreasSource" aria-expanded="false" aria-controls="CollapseFloodProneAreasSource">Flood-Prone Areas
-            <button id="download-data-source" aria-label="Data Source" class="download-data-source-helper" >
-              <i aria-label="Data Source" class="fas fa-info"></i>
-            </button>
-          </div>
-          <div class="collapse download-description-content" id="CollapseFloodProneAreasSource">
-            <div class="download-description-name">Data Source(s):</div>
-            <ul class="data-source-list" >
-              <li class="download-description w-100">FEMA National Flood Hazard Layers, USDA-NRCS SSURGO (2.2 or later)</li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-md-3 col-sm-12 col-12 h-100 w-100">
-          <a id="download-floodproneareas" href="https://s3.amazonaws.com/nfwf-tool/nfwf_download_data/nfwf_conus_threat_floodproneareas.zip" role="button" class="btn btn-light btn-sm btn-download">Download</a>
-        </div>
-        <div class="col-md-4 col-sm-12 col-12 h-100 w-100">
-        </div>
-      </div>
-
-      <div class="row d-flex w-100 text-left download-row">
-        <div class="col-md-5 col-sm-12 col-12 h-100 w-100 download-collapse">
-          <div class="align-bottom download-layer-name h-100 sea-level-rise" data-toggle="collapse" data-target="#CollapseSeaLevelRiseSource" aria-expanded="false" aria-controls="CollapseSeaLevelRiseSource">Sea Level Rise
-            <button id="download-data-source" aria-label="Data Source" class="download-data-source-helper" >
-              <i aria-label="Data Source" class="fas fa-info"></i>
-            </button>
-          </div>
-          <div class="collapse download-description-content" id="CollapseSeaLevelRiseSource">
-            <div class="download-description-name">Data Source(s):</div>
-            <ul class="data-source-list" >
-              <li class="download-description w-100">NOAA Office of Coastal Management Sea Level Rise Inundation Database (2015 or later)</li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-md-3 col-sm-12 col-12 h-100 w-100">
-          <a id="download-sealevelrise" href="https://s3.amazonaws.com/nfwf-tool/nfwf_download_data/nfwf_conus_threat_sealevelrise.zip" role="button" class="btn btn-light btn-sm btn-download">Download</a>
-        </div>
-        <div class="col-md-4 col-sm-12 col-12 h-100 w-100">
-        </div>
-      </div>
-
-      <div class="row d-flex w-100 text-left download-row">
-        <div class="col-md-5 col-sm-12 col-12 h-100 w-100 download-collapse">
-          <div class="align-bottom download-layer-name h-100 storm-surge" data-toggle="collapse" data-target="#CollapseStormSurgeSource" aria-expanded="false" aria-controls="CollapseStormSurgeSource">Storm Surge
-            <button id="download-data-source" aria-label="Data Source" class="download-data-source-helper" >
-              <i aria-label="Data Source" class="fas fa-info"></i>
-            </button>
-          </div>
-          <div class="collapse download-description-content" id="CollapseStormSurgeSource">
-            <div class="download-description-name">Data Source(s):</div>
-            <ul class="data-source-list" >
-              <li class="download-description w-100">NOAA/NHC Sea, Lake, and Overland Surge from Hurricanes (SLOSH) model (2014 or later)</li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-md-3 col-sm-12 col-12 h-100 w-100">
-          <a id="download-stromsurge" href="https://s3.amazonaws.com/nfwf-tool/nfwf_download_data/nfwf_conus_threat_stormsurge.zip" role="button" class="btn btn-light btn-sm btn-download">Download</a>
-        </div>
-        <div class="col-md-4 col-sm-12 col-12 h-100 w-100">
-        </div>
-      </div>
-
-      <div class="row d-flex w-100 text-left download-row">
-        <div class="col-md-5 col-sm-12 col-12 h-100 w-100 download-collapse">
-          <div class="align-bottom download-layer-name h-100 geological-stressors" data-toggle="collapse" data-target="#CollapseGeologicalStressorsSource" aria-expanded="false" aria-controls="CollapseGeologicalStressorsSource">Geological Stressors
-            <button id="download-data-source" aria-label="Data Source" class="download-data-source-helper" >
-              <i aria-label="Data Source" class="fas fa-info"></i>
-            </button>
-          </div>
-          <div class="collapse download-description-content" id="CollapseGeologicalStressorsSource">
-            <div class="download-description-name">Data Source(s):</div>
-            <ul class="data-source-list" >
-              <li class="download-description w-100">USGS Landslide Susceptibility (most recent available) and regionally available subsidence mapping</li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-md-3 col-sm-12 col-12 h-100 w-100">
-          <a id="download-geostressor" href="https://s3.amazonaws.com/nfwf-tool/nfwf_download_data/nfwf_conus_threat_geostress.zip" role="button" class="btn btn-light btn-sm btn-download">Download</a>
-        </div>
-        <div class="col-md-4 col-sm-12 col-12 h-100 w-100">
-        </div>
-      </div>
-
-      <div class="row d-flex w-100 text-left download-row">
-        <div class="col-md-5 col-sm-12 col-12 h-100 w-100 download-collapse">
-          <div class="align-bottom download-layer-name h-100 areas-of-low=slope" data-toggle="collapse" data-target="#CollapseSlopeSource" aria-expanded="false" aria-controls="CollapseSlopeSource">Areas of Low Slope
-            <button id="download-data-source" aria-label="Data Source" class="download-data-source-helper" >
-              <i aria-label="Data Source" class="fas fa-info"></i>
-            </button>
-          </div>
-          <div class="collapse download-description-content" id="CollapseSlopeSource">
-            <div class="download-description-name">Data Source(s):</div>
-            <ul class="data-source-list" >
-              <li class="download-description w-100">USGS National Elevation Dataset, 30m or 1-arc second (most recent available)</li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-md-3 col-sm-12 col-12 h-100 w-100">
-          <a id="download-slope" href="https://s3.amazonaws.com/nfwf-tool/nfwf_download_data/nfwf_conus_threat_slope.zip" role="button" class="btn btn-light btn-sm btn-download">Download</a>
-        </div>
-        <div class="col-md-4 col-sm-12 col-12 h-100 w-100">
-        </div>
-      </div>
+  <div class="row d-flex align-items-left p-3">
+    <div class="col-12 bg-dark text-light align-content-start">
+      <h2 class="font-weight-bold">Regional Coastal Resilience Assessment Data Downloads and Reports</h2>
     </div>
   </div>
 
-  <div class="download-container targetedwatershed-vista-download">
-    <div class="download-collapse">
-    <div data-toggle="collapse" data-target="#CollapseTargetedWatershedSource" aria-expanded="false" aria-controls="CollapseTargetedWatershedSource">
-      <h3>Targeted Watershed Assessment
-        <button id="download-data-source" aria-label="Data Source" class="download-data-group-notes" >
-          <i aria-label="Data Source" class="fas fa-info"></i>
-        </button>
-      </h3>
-    </div>
-    <div class="collapse download-description-content" id="CollapseTargetedWatershedSource">
-      <div class="download-notes-description">
-        The downloads below contain the GIS data inputs and outputs from each assessment. Though not required to access or use these data, this project is also enabled with the
-        NatureServe Vista™ planning software, which can be obtained at <a target="_blank" class="infolink" href="http://www.natureserve.org/vista">http://www.natureserve.org/vista</a>. Vista™ can support additional customization, assessment, and planning functions.
-        These targeted watershed data created by NatureServe* are compiled using data sources, data resolutions, and methodologies not consistent to those of the Regional Assessment.
-        <br />
-        <br />
-        *Cape Fear Targeted Watershed created by NEMAC
+  <div class="row d-flex align-items-left px-3">
+    <div class="col-md-8 col-12">
+      <div class="card bg-dark text-light border-bottom mb-3">
+        <div class="card-body font-weight-light">
+          <h5 class="card-title font-weight-bold">Continental United States (CONUS)</h5>
+          <p class="card-text pl-3 ">The download contains all data for Continental United States (CONUS). The file also contians a readme file describing use.</p>
+          <div class="row d-flex w-100 card-text pl-3  text-left download-row">
+            <div class="col-12 py-2">
+              <span class="mr-1 download-icon">
+                <i class="fas fa-download text-info"></i>
+              </span>
+              <a id="download-conus-data" href="https://nfwf-tool.s3.amazonaws.com/nfwf_download_data/Continental_US_Assessment_Data.zip" class="btn-download text-info">Continental U.S Data Download</a> (958 M.B)
+            </div>
+            <div class="col-12 pt-2">
+              <span class="mr-1 download-icon">
+                <i class="fas fa-file-alt text-info"></i>
+              </span>
+              <a id="download-conus-report" target="_blank" href="https://www.nfwf.org/sites/default/files/coastalresilience/Documents/regional-coastal-resilience-assessment.pdf" class="btn-download text-info">Continental U.S Resilience Assessment</a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-
-  <div class="download-group">
-    <div class="row d-flex w-100 text-left download-row">
-      <div class="col-md-5 col-sm-12 col-12 h-100 w-100">
-        <div class="align-bottom download-layer-name h-100">Cape Fear Watershed (64.0 MB)</div>
-      </div>
-      <div class="col-md-3 col-sm-12 col-12 h-100 w-100">
-        <a id="download-capefearwatershed" href="https://s3.amazonaws.com/nfwf-tool/nfwf_download_data/CF_TargetWildlife_042919_FINAL.zip" role="button" class="btn btn-light btn-sm btn-download">Download</a>
-      </div>
-      <div class="col-md-4 col-sm-12 col-12 h-100 w-100">
-      </div>
+    <div class="col-md-4 col-0 bg-dark text-light align-content-start">
     </div>
   </div>
 
-  <div class="download-group">
-    <div class="row d-flex w-100 text-left download-row">
-      <div class="col-md-5 col-sm-12 col-12 h-100 w-100">
-        <div class="align-bottom download-layer-name h-100">Charleston Harbor Watershed (9.8 GB)</div>
+  <div class="row d-flex align-items-left px-3">
+    <div class="col-md-8 col-12">
+      <div class="card bg-dark text-light border-bottom mb-3">
+        <div class="card-body font-weight-light">
+          <h5 class="card-title font-weight-bold">Northern Mariana Islands</h5>
+          <p class="card-text pl-3 ">The download contains all data for Northern Mariana Islands. The file also contians a readme file describing use.</p>
+          <div class="row d-flex w-100 card-text pl-3  text-left download-row">
+            <div class="col-12 py-2">
+              <span class="mr-1 download-icon">
+                <i class="fas fa-download text-info"></i>
+              </span>
+              <a id="download-northern-mariana-islands-data" href="https://nfwf-tool.s3.amazonaws.com/nfwf_download_data/N_Mariana_Islands_Assessment_Data.zip" class="btn-download text-info">Northern Mariana Islands Data Download</a> (29.6 M.B)
+            </div>
+            <div class="col-12 pt-2">
+              <span class="mr-1 download-icon">
+                <i class="fas fa-file-alt text-info"></i>
+              </span>
+              <a id="download-northern-mariana-islands-report" target="_blank" href="https://www.nfwf.org/sites/default/files/2020-08/northern-mariana-islands-coastal-resilience-assessment.pdf" class="btn-download text-info">Northern Mariana Islands Coastal Resilience Assessment</a>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="col-md-3 col-sm-12 col-12 h-100 w-100">
-        <a id="download-capefearwatershed" href="https://s3.amazonaws.com/nfwf-tool/nfwf_download_data/CH_CoastalRes_Vista_20190424v2_FINAL.zip" role="button" class="btn btn-light btn-sm btn-download">Download</a>
-      </div>
-      <div class="col-md-4 col-sm-12 col-12 h-100 w-100">
-      </div>
+    </div>
+    <div class="col-md-4 col-0 bg-dark text-light align-content-start">
     </div>
   </div>
 
-  <div class="download-group">
-    <div class="row d-flex w-100 text-left download-row">
-      <div class="col-md-5 col-sm-12 col-12 h-100 w-100">
-        <div class="align-bottom download-layer-name h-100">Delaware Bay and Coastal Watersheds (11.2 GB)</div>
+  <div class="row d-flex align-items-left px-3">
+    <div class="col-md-8 col-12">
+      <div class="card bg-dark text-light border-bottom mb-3">
+        <div class="card-body font-weight-light">
+          <h5 class="card-title font-weight-bold">Puerto Rico</h5>
+          <p class="card-text pl-3 ">The download contains all data for Puerto Rico. The file also contians a readme file describing use.</p>
+          <div class="row d-flex w-100 card-text pl-3  text-left download-row">
+            <div class="col-12 py-2">
+              <span class="mr-1 download-icon">
+                <i class="fas fa-download text-info"></i>
+              </span>
+              <a id="download-puerto-rico-data-eng" href="https://nfwf-tool.s3.amazonaws.com/nfwf_download_data/Puerto_Rico_Assessment_Data.zip" class="btn-download text-info">Puerto Rico Data Download</a> (121.6 M.B)
+            </div>
+            <div class="col-12 pt-2">
+              <span class="mr-1 download-icon">
+                <i class="fas fa-file-alt text-info"></i>
+              </span>
+              <a id="download-puerto-rico-data-esp" target="_blank" href="https://www.nfwf.org/sites/default/files/2020-08/evaluacion-de-resiliencia-costera-de-puerto-rico.pdf" class="btn-download text-info">Evaluación de Resiliencia Costera de Puerto Rico</a>
+            </div>
+            <div class="col-12 pt-2">
+              <span class="mr-1 download-icon">
+                <i class="fas fa-file-alt text-info"></i>
+              </span>
+              <a id="download-puerto-rico-report" target="_blank" href="https://www.nfwf.org/sites/default/files/2020-08/puerto-rico-coastal-resilience-assessment.pdf" class="btn-download text-info">Puerto Rico Coastal Resilience Assessment</a>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="col-md-3 col-sm-12 col-12 h-100 w-100">
-        <a id="download-capefearwatershed" href="https://s3.amazonaws.com/nfwf-tool/nfwf_download_data/DE_CoastalRes_Vista_20190424_FINAL.zip" role="button" class="btn btn-light btn-sm btn-download">Download</a>
-      </div>
-      <div class="col-md-4 col-sm-12 col-12 h-100 w-100">
-      </div>
+    </div>
+    <div class="col-md-4 col-0 bg-dark text-light align-content-start">
     </div>
   </div>
 
-  <div class="download-group">
-    <div class="row d-flex w-100 text-left download-row">
-      <div class="col-md-5 col-sm-12 col-12 h-100 w-100">
-        <div class="align-bottom download-layer-name h-100">Narragansett Bay and Coastal Rhode Island Watersheds (9.3 GB)</div>
+  <div class="row d-flex align-items-left px-3">
+    <div class="col-md-8 col-12">
+      <div class="card bg-dark text-light border-bottom mb-3">
+        <div class="card-body font-weight-light">
+          <h5 class="card-title font-weight-bold">U.S. Virgin Islands</h5>
+          <p class="card-text pl-3 ">The download contains all data for U.S. Virgin Islands. The file also contians a readme file describing use.</p>
+          <div class="row d-flex w-100 card-text pl-3  text-left download-row">
+            <div class="col-12 py-2">
+              <span class="mr-1 download-icon">
+                <i class="fas fa-download text-info"></i>
+              </span>
+              <a id="download-virgin-islands-data" href="https://nfwf-tool.s3.amazonaws.com/nfwf_download_data/US_Virgin_Islands_Assessment_Data.zip" class="btn-download text-info">U.S. Virgin Islands Data Download</a> (10 M.B)
+            </div>
+            <div class="col-12 pt-2">
+              <span class="mr-1 download-icon">
+                <i class="fas fa-file-alt text-info"></i>
+              </span>
+              <a id="download-virgin-islands-report" target="_blank" href="https://www.nfwf.org/sites/default/files/2020-08/us-virgin-islands-coastal-resilience-assessment.pdf" class="btn-download text-info">U.S. Virgin Islands Coastal Resilience Assessment</a>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="col-md-3 col-sm-12 col-12 h-100 w-100">
-        <a id="download-capefearwatershed" href="https://s3.amazonaws.com/nfwf-tool/nfwf_download_data/Narr_CoastalRes_Vista_20190424_FINAL.zip" role="button" class="btn btn-light btn-sm btn-download">Download</a>
-      </div>
-      <div class="col-md-4 col-sm-12 col-12 h-100 w-100">
-      </div>
+    </div>
+    <div class="col-md-4 col-0 bg-dark text-light align-content-start">
     </div>
   </div>
 
-  <div class="download-group">
-    <div class="row d-flex w-100 text-left download-row">
-      <div class="col-md-5 col-sm-12 col-12 h-100 w-100">
-        <div class="align-bottom download-layer-name h-100">Portland and Midcoast Maine Watersheds (13.4 GB)</div>
+  <div class="row d-flex align-items-left px-3">
+    <div class="col-md-8 col-12">
+      <div class="card bg-dark text-light border-bottom mb-3">
+        <div class="card-body font-weight-light">
+          <h5 class="card-title font-weight-bold">Regional Methodology and Data</h5>
+          <p class="card-text pl-3 ">For every region the Assessment uses a standard set of methods and data, which is described in detail in this report. When necessary, the methods and data are altered depending on regional variations. Details on these alterations can be found in each regional report.</p>
+          <div class="row d-flex w-100 card-text pl-3  text-left download-row">
+            <div class="col-12 pt-2">
+              <span class="mr-1 download-icon">
+                <i class="fas fa-file-alt text-info"></i>
+              </span>
+              <a id="download-regional-report" target="_blank" href="https://www.nfwf.org/sites/default/files/2020-08/regional-coastal-resilience-assessments-methodology-data-report.pdf" class="btn-download text-info">Regional Methodology and Data Report</a>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="col-md-3 col-sm-12 col-12 h-100 w-100">
-        <a id="download-capefearwatershed" href="https://s3.amazonaws.com/nfwf-tool/nfwf_download_data/ME_CoastalRes_Vista_20190424_FINAL.zip" role="button" class="btn btn-light btn-sm btn-download">Download</a>
-      </div>
-      <div class="col-md-4 col-sm-12 col-12 h-100 w-100">
-      </div>
+    </div>
+    <div class="col-md-4 col-0 bg-dark text-light align-content-start">
     </div>
   </div>
 
-  <div class="download-group">
-    <div class="row d-flex w-100 text-left download-row">
-      <div class="col-md-5 col-sm-12 col-12 h-100 w-100">
-        <div class="align-bottom download-layer-name h-100">San Francisco Bay and Outer Coast Watersheds (12.5 GB)</div>
+
+  <!-- targetwatershed data download -->
+  <div class="pt-5 pr-5 mr-5">
+    <div class="row d-flex align-items-left mt-5 pt-5 px-3 pb-3">
+      <div class="col-12 bg-dark text-light align-content-start">
+        <h2 class="font-weight-bold">Targeted Watershed Assessment Data Downloads</h2>
       </div>
-      <div class="col-md-3 col-sm-12 col-12 h-100 w-100">
-        <a id="download-capefearwatershed" href="https://s3.amazonaws.com/nfwf-tool/nfwf_download_data/SF_CoastalRes_Vista_20190425_FINAL.zip" role="button" class="btn btn-light btn-sm btn-download">Download</a>
+    </div>
+
+    <div class="row d-flex align-items-left px-3">
+      <div class="col-md-8 col-12">
+        <div class="card bg-dark text-light border-bottom mb-3">
+          <div class="card-body font-weight-light">
+            <h5 class="card-title font-weight-bold">Cape Fear Watershed</h5>
+            <p class="card-text pl-3 ">The download contains all data for the Cape Fear Watershed. The file also contians a readme file describing use.</p>
+            <div class="row d-flex w-100 card-text pl-3  text-left download-row">
+              <div class="col-12 py-1">
+                The size of the download file is 64 G.B.
+              </div>
+              <div class="col-12 py-2">
+                <span class="mr-1 download-icon">
+                  <i class="fas fa-download text-info"></i>
+                </span>
+                <a id="download-cape-fear-data" href="https://nfwf-tool.s3.amazonaws.com/nfwf_download_data/CH_CoastalRes_Vista_20190424v2_FINAL.zip" class="btn-download text-info">Cape Fear Watershed</a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="col-md-4 col-sm-12 col-12 h-100 w-100">
+      <div class="col-md-4 col-0 bg-dark text-light align-content-start">
+      </div>
+    </div>
+
+    <div class="row d-flex align-items-left px-3">
+      <div class="col-md-8 col-12">
+        <div class="card bg-dark text-light border-bottom mb-3">
+          <div class="card-body font-weight-light">
+            <h5 class="card-title font-weight-bold">Charleston Harbor Watershed</h5>
+            <p class="card-text pl-3 ">The download contains all data for the Charleston Harbor Watershed. The file also contians a readme file describing use.</p>
+            <div class="row d-flex w-100 card-text pl-3  text-left download-row">
+              <div class="col-12 py-1">
+                The size of the download file is 9.8 G.B.
+              </div>
+              <div class="col-12 py-2">
+                <span class="mr-1 download-icon">
+                  <i class="fas fa-download text-info"></i>
+                </span>
+                <a id="download-charleston-harbor-data" href="https://nfwf-tool.s3.amazonaws.com/nfwf_download_data/CH_CoastalRes_Vista_20190424v2_FINAL.zip" class="btn-download text-info">Charleston Harbor Watershed</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-0 bg-dark text-light align-content-start">
+      </div>
+    </div>
+
+    <div class="row d-flex align-items-left px-3">
+      <div class="col-md-8 col-12">
+        <div class="card bg-dark text-light border-bottom mb-3">
+          <div class="card-body font-weight-light">
+            <h5 class="card-title font-weight-bold">Delaware Bay and Coastal Watersheds</h5>
+            <p class="card-text pl-3 ">The download contains all data for the Delaware Bay and Coastal Watersheds. The file also contians a readme file describing use.</p>
+            <div class="row d-flex w-100 card-text pl-3  text-left download-row">
+              <div class="col-12 py-1">
+                The size of the download file is 9.8 G.B.
+              </div>
+              <div class="col-12 py-2">
+                <span class="mr-1 download-icon">
+                  <i class="fas fa-download text-info"></i>
+                </span>
+                <a id="download-delaware-bay-data" href="https://nfwf-tool.s3.amazonaws.com/nfwf_download_data/DE_CoastalRes_Vista_20190424_FINAL.zip" class="btn-download text-info">Delaware Bay and Coastal Watersheds</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-0 bg-dark text-light align-content-start">
+      </div>
+    </div>
+
+    <div class="row d-flex align-items-left px-3">
+      <div class="col-md-8 col-12">
+        <div class="card bg-dark text-light border-bottom mb-3">
+          <div class="card-body font-weight-light">
+            <h5 class="card-title font-weight-bold">Narragansett Bay and Coastal Rhode Island Watersheds</h5>
+            <p class="card-text pl-3 ">The download contains all data for the Narragansett Bay and Coastal Rhode Island Watersheds. The file also contians a readme file describing use.</p>
+            <div class="row d-flex w-100 card-text pl-3  text-left download-row">
+              <div class="col-12 py-1">
+                The size of the download file is 9.8 G.B.
+              </div>
+              <div class="col-12 py-2">
+                <span class="mr-1 download-icon">
+                  <i class="fas fa-download text-info"></i>
+                </span>
+                <a id="download-narragansett-bay-data" href="https://nfwf-tool.s3.amazonaws.com/nfwf_download_data/Narr_CoastalRes_Vista_20190424_FINAL.zip" class="btn-download text-info">Narragansett Bay and Coastal Rhode Island Watersheds</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-0 bg-dark text-light align-content-start">
+      </div>
+    </div>
+
+    <div class="row d-flex align-items-left px-3">
+      <div class="col-md-8 col-12">
+        <div class="card bg-dark text-light border-bottom mb-3">
+          <div class="card-body font-weight-light">
+            <h5 class="card-title font-weight-bold">Portland and Midcoast Maine Watersheds</h5>
+            <p class="card-text pl-3 ">The download contains all data for the Portland and Midcoast Maine Watersheds. The file also contians a readme file describing use.</p>
+            <div class="row d-flex w-100 card-text pl-3  text-left download-row">
+              <div class="col-12 py-1">
+                The size of the download file is 13.4 G.B.
+              </div>
+              <div class="col-12 py-2">
+                <span class="mr-1 download-icon">
+                  <i class="fas fa-download text-info"></i>
+                </span>
+                <a id="download-portland-maine-data" href="https://nfwf-tool.s3.amazonaws.com/nfwf_download_data/ME_CoastalRes_Vista_20190424_FINAL.zip" class="btn-download text-info">Portland and Midcoast Maine Watersheds</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-0 bg-dark text-light align-content-start">
+      </div>
+    </div>
+
+    <div class="row d-flex align-items-left px-3">
+      <div class="col-md-8 col-12">
+        <div class="card bg-dark text-light border-bottom mb-3">
+          <div class="card-body font-weight-light">
+            <h5 class="card-title font-weight-bold">San Francisco Bay and Outer Coast Watersheds</h5>
+            <p class="card-text pl-3 ">The download contains all data for the San Francisco Bay and Outer Coast Watersheds. The file also contians a readme file describing use.</p>
+            <div class="row d-flex w-100 card-text pl-3  text-left download-row">
+              <div class="col-12 py-1">
+                The size of the download file is 12.5 G.B.
+              </div>
+              <div class="col-12 py-2">
+                <span class="mr-1 download-icon">
+                  <i class="fas fa-download text-info"></i>
+                </span>
+                <a id="download-san-francisco-bay-data" href="https://nfwf-tool.s3.amazonaws.com/nfwf_download_data/SF_CoastalRes_Vista_20190425_FINAL.zip" class="btn-download text-info">San Francisco Bay and Outer Coast Watersheds</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-0 bg-dark text-light align-content-start">
+      </div>
+    </div>
+
+    <div class="row d-flex align-items-left px-3">
+      <div class="col-md-8 col-12">
+        <div class="card bg-dark text-light border-bottom mb-3">
+          <div class="card-body font-weight-light">
+            <h5 class="card-title font-weight-bold">Savannah River Watersheds</h5>
+            <p class="card-text pl-3 ">The download contains all data for the Savannah River Watersheds. The file also contians a readme file describing use.</p>
+            <div class="row d-flex w-100 card-text pl-3  text-left download-row">
+              <div class="col-12 py-1">
+                The size of the download file is 7.7 G.B.
+              </div>
+              <div class="col-12 py-2">
+                <span class="mr-1 download-icon">
+                  <i class="fas fa-download text-info"></i>
+                </span>
+                <a id="download-assets" href="https://nfwf-tool.s3.amazonaws.com/nfwf_download_data/Sav_CoastalRes_Vista_20190424_FINAL.zip" class="btn-download text-info">Savannah River Watersheds</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-0 bg-dark text-light align-content-start">
+      </div>
+    </div>
+
+    <div class="row d-flex align-items-left px-3">
+      <div class="col-md-8 col-12">
+        <div class="card bg-dark text-light border-bottom mb-3">
+          <div class="card-body font-weight-light">
+            <h5 class="card-title font-weight-bold">Jacksonville and Lower St. Johns River Watersheds</h5>
+            <p class="card-text pl-3 ">The download contains all data for the Jacksonville and Lower St. Johns River Watersheds. The file also contians a readme file describing use.</p>
+            <div class="row d-flex w-100 card-text pl-3  text-left download-row">
+              <div class="col-12 py-1">
+                The size of the download file is 7.5 G.B.
+              </div>
+              <div class="col-12 py-2">
+                <span class="mr-1 download-icon">
+                  <i class="fas fa-download text-info"></i>
+                </span>
+                <a id="download-assets" href="https://nfwf-tool.s3.amazonaws.com/nfwf_download_data/StJ_CoastalRes_Vista_20190425_FINAL.zip" class="btn-download text-info">Jacksonville and Lower St. Johns River Watersheds</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-0 bg-dark text-light align-content-start">
       </div>
     </div>
   </div>
-
-  <div class="download-group">
-    <div class="row d-flex w-100 text-left download-row">
-      <div class="col-md-5 col-sm-12 col-12 h-100 w-100">
-        <div class="align-bottom download-layer-name h-100">Savannah River Watershed (7.7 GB)</div>
-      </div>
-      <div class="col-md-3 col-sm-12 col-12 h-100 w-100">
-        <a id="download-capefearwatershed" href="https://s3.amazonaws.com/nfwf-tool/nfwf_download_data/Sav_CoastalRes_Vista_20190424_FINAL.zip" role="button" class="btn btn-light btn-sm btn-download">Download</a>
-      </div>
-      <div class="col-md-4 col-sm-12 col-12 h-100 w-100">
-      </div>
-    </div>
-  </div>
-
-  <div class="download-group">
-    <div class="row d-flex w-100 text-left download-row">
-      <div class="col-md-5 col-sm-12 col-12 h-100 w-100">
-        <div class="align-bottom download-layer-name h-100">Jacksonville and Lower St. Johns River Watersheds (7.5 GB)</div>
-      </div>
-      <div class="col-md-3 col-sm-12 col-12 h-100 w-100">
-        <a id="download-capefearwatershed" href="https://s3.amazonaws.com/nfwf-tool/nfwf_download_data/StJ_CoastalRes_Vista_20190425_FINAL.zip" role="button" class="btn btn-light btn-sm btn-download">Download</a>
-      </div>
-      <div class="col-md-4 col-sm-12 col-12 h-100 w-100">
-      </div>
-    </div>
-  </div>
-
-</div>
 </div>

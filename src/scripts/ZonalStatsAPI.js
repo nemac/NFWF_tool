@@ -1,10 +1,15 @@
 import { CancelToken, post } from 'axios';
+import { Store } from './store';
+
 // import { postData } from '../config/testpost';
 import { checkValidObject } from './utilitys';
 
 // prod api is having issues some I am switching ot the dev version until its resolved
-const apiEndpoint = 'https://lg0njzoglg.execute-api.us-east-1.amazonaws.com/';
-const zonalStatsPath = 'Prod/zonal_stats';
+// const apiEndpoint = 'https://lg0njzoglg.execute-api.us-east-1.amazonaws.com/';
+// const zonalStatsPath = 'Prod/zonal_stats';
+const apiEndpoint = 'https://rlwk45u34h.execute-api.us-east-1.amazonaws.com/';
+const zonalStatsPath = 'beta/zonal_stats';
+const store = new Store({});
 
 // const apiEndpoint = 'https://ktj0thaws0.execute-api.us-east-1.amazonaws.com/';
 // const zonalStatsPath = 'Dev/zonal_stats';
@@ -19,6 +24,7 @@ export class ZonalStatsAPI {
   constructor(url = apiEndpoint, path = zonalStatsPath) {
     this.url = url + path;
     this.cancelToken = CancelToken.source();
+    this.seedLambda();
   }
 
   makeConfigObj(postdata) {
@@ -38,13 +44,25 @@ export class ZonalStatsAPI {
     return axiosConfig;
   }
 
+  // seeds zonal stats lambda so its ready for requests
+  seedLambda() {
+    const seedpostdata = {"type": "FeatureCollection","features": [{"type":"Feature","properties":{"region":"continental_us"},"geometry":{"type":"Polygon","coordinates":[[[-82.554037,35.594925],[-82.553758,35.594785999999985],[-82.553973,35.594715999999984],[-82.554037,35.594925]]]}}]} // eslint-disable-line
+    const axiosConfig = this.makeConfigObj(seedpostdata);
+    const region = 'continental_us';
+    try {
+      return post(`${this.url}?region=${region}`, seedpostdata, axiosConfig);
+    } catch (err) {
+      return err;
+    }
+  }
+
   async getZonalStatsSummary(postdata) {
     const axiosConfig = this.makeConfigObj(postdata);
-    // const success = false;
     let numAttempts = 0;
     while (numAttempts < maxAttempts) {
       try {
-        const response = await post(this.url, postdata, axiosConfig);
+        const region = store.getStateItem('region');
+        const response = await post(`${this.url}?region=${region}`, postdata, axiosConfig);
         if (response.status === 200 && response.data) {
           return response.data;
         }

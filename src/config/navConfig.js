@@ -30,19 +30,19 @@ export var navConfig = {
   {
     name: "examples",
     ref: "main-nav-map-examples",
-    text: "Case Studies",
+    text: "Examples",
     id: "main-nav-map-examples",
     href: "./#Examples"
   },
   {
-    name: "download",
+    name: "Data & Reports",
     ref: "main-nav-download",
-    text: "Download Data",
+    text: "Data & Reports",
     id: "main-nav-download",
     href: "./#Download"
   },
   {
-    name: "about",
+    name: "Data & Reports",
     ref: "main-nav-about",
     text: "About",
     id: "main-nav-about",

@@ -1,28 +1,27 @@
 import L from 'leaflet';
 import ZonalWrapper from '../templates/zonal_wrapper.html';
-import ColorRampHub from '../templates/colorramp_hub.html';
-import ColorRampAquatic from '../templates/colorramp_aquatic.html';
-import ColorRampTerrestrial from '../templates/colorramp_terrestrial.html';
-import ColorRampExposure from '../templates/colorramp_exposure.html';
-import ColorRampAsset from '../templates/colorramp_asset.html';
-import ColorRampThreat from '../templates/colorramp_threat.html';
 import ZonalLong from '../templates/zonal_long.html';
 import ZonalShort from '../templates/zonal_short.html';
 import ZonalButtons from '../templates/zonal_buttons.html';
-import ColorRampDriverNSHub from '../templates/colorramp_targetedwatershed_hub.html';
-import ColorRampDriverNSExposure from '../templates/colorramp_targetedwatershed_exposure.html';
-import ColorRampDriverNSAsset from '../templates/colorramp_targetedwatershed_asset.html';
-import ColorRampDriverNSThreat from '../templates/colorramp_targetedwatershed_threat.html';
-import ColorRampDriverNSFishAndWildlife from '../templates/colorramp_targetedwatershed_fishandwildlife.html';
+
 import { Store } from './store';
+import { mapConfig } from '../config/mapConfig';
+import { bindZonalExportHandler } from './zonalFileExporter';
+
 import {
   checkValidObject,
   googleAnalyticsEvent,
-  getIndexes,
-  getAssetDrivers,
-  getThreatDrivers
+  groupByDriver,
+  numberToWord,
+  makeBasicBarChart,
+  formatMapInfoChartData,
+  hardSpinnerOff,
+  getLegendHtml
 } from './utilitys';
-import { bindZonalExportHandler } from './zonalFileExporter';
+
+const { zoomRegions } = mapConfig;
+const { TMSLayers } = mapConfig;
+
 // required for bootstrap
 window.$ = require('jquery');
 // required for tooltip, popup...
@@ -45,6 +44,7 @@ function shapeNavOn() {
     elem.classList.remove('long-graphs-active');
   }
 }
+
 // Checks if a value falls in the range of accepted values
 // @param val | string || integer || float
 // @return boolean
@@ -85,7 +85,6 @@ function stripUserArea(id) {
 function makeLabelText(name) {
   return `Get Details for ${name}`;
 }
-
 
 function setGraphsState(name, activetype) {
   let newname = name;
@@ -167,7 +166,6 @@ function disableZonalButtons(HTMLName) {
   }
 }
 
-
 function disableAllZonalWrappers() {
   const zonalWrappers = document.querySelectorAll('.zonal-long-wrapper ');
   zonalWrappers.forEach((zonalwrapper) => {
@@ -204,7 +202,6 @@ function dismissLongZonalStats(wrapper) {
 
   const hasShapeButtonElem = document.getElementById('hasshape-button-holder');
   hasShapeButtonElem.classList.remove('d-none');
-  // wrapper.previousSibling.style.height = '100%';
   ZonalWrapperActiveAdd();
 }
 
@@ -244,6 +241,32 @@ function getZonalWrapper(elem) {
   const wrapperelem = document.querySelector(selector);
   return wrapperelem;
 }
+
+// limits charts to the current regions
+function toggleRegionCharts() {
+  const region = store.getStateItem('region');
+  const notInRegionInfo = zoomRegions.filter(regions => regions.region !== region);
+  const inRegionInfo = zoomRegions.filter(regions => regions.region === region);
+
+  notInRegionInfo.forEach((theRegion) => {
+    const notThisRegionElems = document.querySelectorAll(`.zonal-stats-wrapper.region-${theRegion.region}`);
+    notThisRegionElems.forEach((notThisRegionElem) => {
+      if (notThisRegionElem) {
+        notThisRegionElem.classList.add('d-none');
+      }
+    });
+  });
+
+  inRegionInfo.forEach((theRegion) => {
+    const inThisRegionElems = document.querySelectorAll(`.zonal-stats-wrapper.region-${theRegion.region}`);
+    inThisRegionElems.forEach((inThisRegionElem) => {
+      if (inThisRegionElem) {
+        inThisRegionElem.classList.remove('d-none');
+      }
+    });
+  });
+}
+
 // Click handler to trigger the dismiss of the long zonal stats
 function dismissZonalClickHandler(e) {
   // ga event action, category, label
@@ -262,6 +285,7 @@ function dismissZonalClickHandler(e) {
     togglePermHighLightsOff(path);
   }
   toggleALLPathsOff();
+  toggleRegionCharts();
 }
 
 function displayRawValues(wrapper) {
@@ -391,7 +415,6 @@ function makeLabel(name) {
   zonalLabel.setAttribute('aria-label', `Get Details for ${stripUserArea(name)}`);
 
   zonalLabel.innerHTML = '<span class="btn-icon" id="btn-details-icon" ><i class="far fa-chart-bar"></i></span>';
-  // zonalLabel.setAttribute('id', 'zonal-label');
   zonalLabel.appendChild(makeTextElement(makeLabelText(name)));
 
   if (window.screen.availWidth < 769) {
@@ -412,6 +435,7 @@ function addUserAreaIdsToChildren(children, name) {
       // add userarea name only if the node is an HTML element
       if (childItem instanceof Element) {
         childItem.setAttribute('id', `generic-${name}`);
+        childItem.classList.add(`state${name}`);
       }
 
       // check if the child has children if so recursivly call this function again
@@ -475,9 +499,13 @@ function returnSimpleButtonElementId(element) {
 function ZoomGeoJSON(zoomlayer, mapComponent) {
   const zoomBounds = zoomlayer.getBounds();
   if (mapComponent.map) {
-    mapComponent.map.flyToBounds(zoomBounds.pad(0.2));
+    // flyToBounds is glithy
+    // mapComponent.map.flyToBounds(zoomBounds.pad(0.2));
+    mapComponent.map.fitBounds(zoomBounds);
   } else {
-    mapComponent.flyToBounds(zoomBounds.pad(0.2));
+    // flyToBounds is glithy
+    // mapComponent.flyToBounds(zoomBounds.pad(0.2));
+    mapComponent.fitBounds(zoomBounds);
   }
 }
 
@@ -485,7 +513,6 @@ function ZoomGeoJSON(zoomlayer, mapComponent) {
 // @return DOM element
 function makeOverviewLabel() {
   const Overview = makeDiv();
-
   Overview.setAttribute('title', 'Overview');
   Overview.setAttribute('aria-label', 'Overview');
   Overview.classList.add('col-12');
@@ -640,7 +667,6 @@ function makeShortZonalStatsInterior(data, name) {
   ];
 }
 
-
 // checks if inner HTML of element is Plain old Text
 // instead of another HTML element
 function innerHTMLisText(innerHTML) {
@@ -762,7 +788,6 @@ function zonalLabelMouseOverHandler(e) {
   e.preventDefault();
   const id = e.target.getAttribute('id');
   const HTMLName = stripUserArea(id);
-
   if (innerHTMLisText(HTMLName)) {
     const path = document.querySelector(`.path-${HTMLName}`);
     togglePermHighLightsAllOff(path);
@@ -795,499 +820,95 @@ function zonalLabelMouseOutHandler(e) {
   }
 }
 
-// This function finds the scaled position of a value from [0,100]
-// It does the addition of scale and division by scaleGroups since the value falls into one of
-// multiple ranges and so it needs to put the scaled value into the correct area.
-//
-// @param val - float
-// @param rangeMin - int
-// @param rangeMax - int
-// @param scale - int. [0,scaleGroups - 1]
-// @param scaleGroups - int. Number of groups the value could be scaled for. [1,]
-function getValuePosition(val, rangeMin, rangeMax, scale, scaleGroups) {
-  let valOveride = val;
-  // no data overide
-  if (val === '255') {
-    valOveride = 0;
-  }
-  let position = (valOveride - rangeMin) / (rangeMax - rangeMin); // [0,1]
-  position += scale; // [0,scaleGroups]
-  position = (position / scaleGroups) * 100; // [0, 100]
-  if (position === 100) {
-    position = 99;
-  }
-  return position;
-}
-
-// Finds the scaled position for the drivers
-// @param driver | float - value from the api for a driver
-// @return float - [0,100]
-function getDriverHeight(driver) {
-  const LOW_RANGE = 0;
-  const HIGH_RANGE = 5;
-  const SCALE = 0;
-  const SCALE_GROUPS = 1;
-
-  return getValuePosition(driver, LOW_RANGE, HIGH_RANGE, SCALE, SCALE_GROUPS);
-}
-
-// Finds the scaled position for the drivers
-// @param driver | float - value from the api for a driver
-// @return float - [0,100]
-function getTwoHeight(driver) {
-  const LOW_RANGE = 0;
-  const HIGH_RANGE = 5;
-  const SCALE = 0;
-  const SCALE_GROUPS = 2;
-
-  return getValuePosition(driver, LOW_RANGE, HIGH_RANGE, SCALE, SCALE_GROUPS);
-}
-
-// Finds the scaled position for the drivers
-// @param driver | float - value from the api for a driver
-// @return float - [0,100]
-function getThreeHeight(driver) {
-  const LOW_RANGE = 0;
-  const HIGH_RANGE = 3;
-  const SCALE = 0;
-  const SCALE_GROUPS = 1;
-
-  return getValuePosition(driver, LOW_RANGE, HIGH_RANGE, SCALE, SCALE_GROUPS);
-}
-
-// Finds the scaled position for the drivers
-// @param driver | float - value from the api for a driver
-// @return float - [0,100]
-function getSixHeight(driver) {
-  const LOW_RANGE = 0;
-  const HIGH_RANGE = 6;
-  const SCALE = 0;
-  const SCALE_GROUPS = 1;
-
-  return getValuePosition(driver, LOW_RANGE, HIGH_RANGE, SCALE, SCALE_GROUPS);
-}
-
-// Finds the scaled position for the drivers
-// @param driver | float - value from the api for a driver
-// @return float - [0,100]
-function getTenHeight(driver) {
-  const LOW_RANGE = 0;
-  const HIGH_RANGE = 10;
-  const SCALE = 0;
-  const SCALE_GROUPS = 1;
-
-  return getValuePosition(driver, LOW_RANGE, HIGH_RANGE, SCALE, SCALE_GROUPS);
-}
-
-// Returns a position formatted as a percentage
-// @param position | float
-// @return String
-function formatPosition(position) {
-  return `${position}%`;
-}
-
 // Builds the inner HTML for the long zonal stats
 // @param DOM Element | wrapper
 function buildLongStatsHtml(wrapper) {
   // lint complains otherwise, but due to chaining of functions it's mistaken
   const innerWrapper = wrapper;
+  // const region = store.getStateItem('region');
   innerWrapper.innerHTML = ZonalLong;
+  const inputData = TMSLayers.filter(layer => layer.chartSummary);
 
-  innerWrapper.querySelector('.zonal-long-hub .zonal-long-table-wrapper').innerHTML = ColorRampHub;
-  innerWrapper.querySelector('.zonal-long-table-index--aquatic .zonal-long-table-wrapper').innerHTML = ColorRampAquatic;
-  innerWrapper.querySelector('.zonal-long-table-index--wildlife .zonal-long-table-wrapper').innerHTML = ColorRampTerrestrial;
-  innerWrapper.querySelector('.zonal-long-exposure-box .zonal-long-table-wrapper').innerHTML = ColorRampExposure;
-  innerWrapper.querySelector('.zonal-long-table-asset-sep .zonal-long-table-wrapper').innerHTML = ColorRampAsset;
-  innerWrapper.querySelector('.zonal-long-table-threat-sep .zonal-long-table-wrapper').innerHTML = ColorRampThreat;
+  // iterate the layer props to assing apporaite thml
+  inputData.forEach((layerProps) => {
+    const layerElem = wrapper.querySelector(`.zonal-long-${layerProps.chartCSSSelector}-wrapper .zonal-long-table-wrapper`);
 
-  innerWrapper.querySelector('.zonal-long-ns-hub .zonal-long-table-wrapper').innerHTML = ColorRampDriverNSHub;
-  innerWrapper.querySelector('.zonal-long-ns-exposure-box .zonal-long-table-wrapper').innerHTML = ColorRampDriverNSExposure;
-  innerWrapper.querySelector('.zonal-long-table-ns-asset-sep .zonal-long-table-wrapper').innerHTML = ColorRampDriverNSAsset;
-  innerWrapper.querySelector('.zonal-long-table-ns-threat-sep .zonal-long-table-wrapper').innerHTML = ColorRampDriverNSThreat;
-  innerWrapper.querySelector('.zonal-long-table-ns-fishandwildlife .zonal-long-table-wrapper').innerHTML = ColorRampDriverNSFishAndWildlife;
-}
+    if (layerElem) {
+      const legendHTML = getLegendHtml(layerProps.chartLegendValues);
+      layerElem.innerHTML = legendHTML;
 
-// convert a number to to the word representation
-// of the number.  We are using the word in the HTML class
-// and will use this to highlight the value in the chart details
-function numberToWord(number) {
-  let numberWord = 'none';
+      // get the color palette for layer, each layer can have its own
+      const colorPalette = layerProps.chartCSSColor;
 
-  switch (number) {
-    case 0:
-      numberWord = 'none';
-      break;
-    case 1:
-      numberWord = 'one';
-      break;
-    case 2:
-      numberWord = 'two';
-      break;
-    case 3:
-      numberWord = 'three';
-      break;
-    case 4:
-      numberWord = 'four';
-      break;
-    case 5:
-      numberWord = 'five';
-      break;
-    case 6:
-      numberWord = 'six';
-      break;
-    case 7:
-      numberWord = 'seven';
-      break;
-    case 8:
-      numberWord = 'eight';
-      break;
-    case 9:
-      numberWord = 'nine';
-      break;
-    case 10:
-      numberWord = 'ten';
-      break;
-    case 11:
-      numberWord = 'eleven';
-      break;
-    case 12:
-      numberWord = 'twelve';
-      break;
-    case 13:
-      numberWord = 'thirteen';
-      break;
-    case 14:
-      numberWord = 'fourteen';
-      break;
-    case 15:
-      numberWord = 'fifteen';
-      break;
-    case 16:
-      numberWord = 'sixteen';
-      break;
-    case 17:
-      numberWord = 'seventeen';
-      break;
-    case 18:
-      numberWord = 'eightteen';
-      break;
-    case 19:
-      numberWord = 'nineteen';
-      break;
-    case 20:
-      numberWord = 'twenty';
-      break;
-    default:
-  }
-  return numberWord;
-}
+      // iterate the color palette for layer so we can assing apporaite css color to element
+      Object.keys(colorPalette).forEach((color) => {
+        // convert the color number to number word 2 - two
+        // this is how html elments are named.
+        const colorlueWord = numberToWord(Number(color));
+        // get the element based on the color word
+        const valueELem = layerElem.querySelector(`.value-${colorlueWord}`);
 
-function selectChartCell(wrapper, type, value) {
-  const roundedValue = parseInt(value, 10);
+        // if the element exists add css color values
+        if (valueELem) {
+          // set background based on mapconfig values
+          valueELem.style.background = colorPalette[color];
 
-  const roundedValueWord = numberToWord(roundedValue);
-  let tooltipValue = Math.round(value * 100) / 100;
-  if (Number.isNaN(tooltipValue)) {
-    tooltipValue = 'None';
-  }
+          // set font color
+          valueELem.style.color = '#000';
 
-  if (tooltipValue === 0) {
-    tooltipValue = 'None';
-  }
-
-  if (checkValidObject(roundedValue)) {
-    const selector = `.zonal-long-table-cell-${type}-${roundedValueWord}`;
-    const cell = wrapper.querySelector(selector);
-    if (cell) {
-      cell.classList.add('selected-cell');
-      cell.setAttribute('title', `${tooltipValue}`);
-      cell.setAttribute('aria-label', `${tooltipValue}`);
-      cell.setAttribute('data-toggle', 'tooltip');
-      cell.setAttribute('data-placement', 'top');
+          // // last color tends to be to dark for dark font
+          // if (parseInt(color) >= layerProps.chartLegendValues ) {
+          //   valueELem.style.color = '#fff';
+          // }
+          // add classes for region, chartCSSSelector, and source in case we want to find it later
+          valueELem.classList.add(layerProps.chartCSSSelector);
+          valueELem.classList.add(layerProps.region);
+          valueELem.classList.add(layerProps.source);
+        }
+      });
     }
-  }
+  });
 }
 
-// Configures each driver bar
-// @param graph | DOM element
-// @param driver | Object
-function drawDriver(graph, name, type, driver) {
-  let height = getDriverHeight(driver.value);
-  let cssKey = driver.key;
-  let csstype = type;
-  let cssExtra = '';
+// event function to draw mapinfp (identify) stats
+function drawMapInfoStatsHandler() {
+  // get chart data for summary data
   const activeNav = store.getStateItem('activeNav');
+  let chartName = 'mapinfo_nfwf';
+  let region = store.getStateItem('region');
+  let mapinfochartdata = store.getStateItem('mapinfochartdata');
 
-  switch (activeNav) {
-    case 'main-nav-map-searchhubs':
-      cssExtra = '';
-      break;
-    case 'main-nav-map-examples':
-      cssExtra = '';
-      break;
-    case 'main-nav-map-searchNShubs':
-      cssExtra = 'ns-';
-      break;
-    default:
-      cssExtra = '';
-      break;
-  }
-
-  if (driver.key === 'hubs') {
-    height = getTenHeight(driver.value);
-    cssKey = 'hub';
-  }
-
-  if (driver.key === 'ns-hubs') {
-    height = getSixHeight(driver.value);
-    cssKey = 'ns-hub';
-  }
-
-  if (driver.key === 'aquatic') {
-    height = getSixHeight(driver.value);
-    cssKey = 'fish';
-  }
-
-  if (driver.key === 'ns-fishandwildlife') {
-    height = getSixHeight(driver.value);
-    cssKey = 'ns-fishandwildlife';
-  }
-
-  if (driver.key === 'terrestrial') {
-    height = getSixHeight(driver.value);
-    cssKey = 'wildlife';
-  }
-
-  if (driver.key === 'exposure') {
-    height = getTenHeight(driver.value);
-    cssKey = 'exposure-box';
-  }
-
-  if (driver.key === 'ns-exposure') {
-    height = getSixHeight(driver.value);
-    cssKey = 'ns-exposure-box';
-  }
-
-  if (driver.key === 'threat') {
-    height = getTenHeight(driver.value);
-    cssKey = 'threat';
-  }
-
-  if (driver.key === 'ns-threat') {
-    height = getSixHeight(driver.value);
-    cssKey = 'ns-threat';
-  }
-
-  if (driver.key === 'asset') {
-    height = getTenHeight(driver.value);
-    cssKey = 'asset';
-  }
-
-  if (driver.key === 'ns-asset') {
-    height = getSixHeight(driver.value);
-    cssKey = 'ns-asset';
-  }
-
-  if (driver.key === 'population-density') {
-    height = getSixHeight(driver.value);
-    csstype = 'popdensity';
-  }
-
-  if (driver.key === 'social-vulnerability') {
-    height = getThreeHeight(driver.value);
-    csstype = 'socvuln';
-  }
-
-  if (driver.key === 'critical-facilities') {
-    height = getSixHeight(driver.value);
-    csstype = 'critfac';
-  }
-
-  if (driver.key === 'critical-infrastructure') {
-    height = getTwoHeight(driver.value);
-    csstype = 'critinfra';
-  }
-
-  if (driver.key === 'drainage') {
-    height = getSixHeight(driver.value);
-    csstype = 'drainage';
-  }
-
-  if (driver.key === 'erosion') {
-    height = getSixHeight(driver.value);
-    csstype = 'erosion';
-  }
-
-  if (driver.key === 'floodprone-areas') {
-    height = getSixHeight(driver.value);
-    csstype = 'floodprone';
-  }
-
-  if (driver.key === 'sea-level-rise') {
-    height = getSixHeight(driver.value);
-    csstype = 'slr';
-  }
-
-  if (driver.key === 'storm-surge') {
-    height = getSixHeight(driver.value);
-    csstype = 'stormsurge';
-  }
-
-  if (driver.key === 'geostress') {
-    height = getThreeHeight(driver.value);
-    csstype = 'geostress';
-  }
-
-  if (driver.key === 'slope') {
-    height = getSixHeight(driver.value);
-    csstype = 'slope';
-  }
-
-  const roundedValue = parseInt(driver.value, 10);
-  const roundedValueWord = numberToWord(roundedValue);
-  // const bar = graph.querySelector(`.zonal-long-graph-bar-${cssExtra}${driver.key}`);
-  const bar = graph.querySelector(`.zonal-long-graph-bar-${driver.key}`);
-  const tooltipValue = Math.round(driver.value * 100) / 100;
-  const toolTipword = numberToWord(roundedValue);
-
-  if (bar) {
-    bar.setAttribute('id', `zonal-long-graph-bar-${cssExtra}${name}`);
-    bar.style.height = formatPosition(height);
-    if (name) {
-      bar.classList.add(`zonal-long-table-cell-${cssKey}-${toolTipword}`);
-    // } else {
-      // bar.style.backgroundColor = getDriverColor(height);
-    }
-
-    bar.classList.add(`driver-chart-backgroundColor-${csstype}-${roundedValueWord}`);
-    bar.setAttribute('title', `${tooltipValue}`);
-    bar.setAttribute('aria-label', `${tooltipValue}`);
-    bar.setAttribute('data-toggle', 'tooltip');
-    bar.setAttribute('data-placement', 'top');
-  }
-}
-
-function drawShortChart(wrapper, drivers, name, activeNav) {
-  let assetGraph = wrapper.querySelector('.zonal-long-graph-wrapper-short-chart .default-long-graphs .zonal-long-graph');
-  switch (activeNav) {
-    case 'main-nav-map-searchhubs':
-      assetGraph = wrapper.querySelector('.zonal-long-graph-wrapper-short-chart .default-long-graphs .zonal-long-graph');
-      assetGraph.setAttribute('id', `zonal-long-graph-${name}`);
-      drivers.forEach(drawDriver.bind(null, assetGraph, name, ''));
-      break;
-    case 'main-nav-map-examples':
-      assetGraph = wrapper.querySelector('zonal-long-graph-wrapper-short-chart .default-long-graphs .zonal-long-graph');
-      assetGraph.setAttribute('id', `zonal-long-graph-${name}`);
-      drivers.forEach(drawDriver.bind(null, assetGraph, name, ''));
-      break;
-    case 'main-nav-map-searchNShubs':
-      assetGraph = wrapper.querySelector('.zonal-long-graph-wrapper-short-chart .ns-long-graphs .zonal-long-graph');
-      assetGraph.setAttribute('id', `zonal-long-graph-${name}`);
-      drivers.forEach(drawDriver.bind(null, assetGraph, name, ''));
-      break;
-    case 'main-nav-map':
-      assetGraph = wrapper.querySelector('.zonal-long-graph-wrapper-short-chart .default-long-graphs .zonal-long-graph');
-      assetGraph.setAttribute('id', `zonal-long-graph-${name}`);
-      drivers.forEach(drawDriver.bind(null, assetGraph, name, ''));
-      break;
-    default:
-      assetGraph = wrapper.querySelector('.zonal-long-graph-wrapper-short-chart .default-long-graphs .zonal-long-graph');
-      assetGraph.setAttribute('id', `zonal-long-graph-${name}`);
-      drivers.forEach(drawDriver.bind(null, assetGraph, name, ''));
-      break;
-  }
-}
-
-function drawMapInfoChart(drivers, name, graph) {
-  const activeNav = store.getStateItem('activeNav');
-  let mapInfoElemCalss = '';
+  // natureserve data in differ state key
   if (activeNav === 'main-nav-map-searchNShubs') {
-    mapInfoElemCalss = '.ns-mapinfo';
-  } else {
-    mapInfoElemCalss = '.default-mapinfo';
+    chartName = 'mapinfo_ns';
+    region = 'targetedwatershed';
+    mapinfochartdata = store.getStateItem('mapinfonschartdata');
   }
-  const mapInfoGraph = graph.querySelector(`#mapinfodata ${mapInfoElemCalss} .zonal-long-graph`);
-  drivers.forEach(drawDriver.bind(null, mapInfoGraph, name, ''));
-}
 
-// @return Array
-function getShortDataChartData(data) {
-  return [
-    {
-      label: 'hubs',
-      key: 'hubs',
-      value: data.hubs
-    },
-    {
-      label: 'exposure',
-      key: 'exposure',
-      value: data.exposure
-    },
-    {
-      label: 'asset',
-      key: 'asset',
-      value: data.asset
-    },
-    {
-      label: 'threat',
-      key: 'threat',
-      value: data.threat
-    },
-    {
-      label: 'aquatic',
-      key: 'aquatic',
-      value: data.aquatic
-    },
-    {
-      label: 'terrestrial',
-      key: 'terrestrial',
-      value: data.terrestrial
-    },
-    {
-      label: 'ns-hubs',
-      key: 'ns-hubs',
-      value: data.ns_hubs
-    },
-    {
-      label: 'ns-fishandwildlife',
-      key: 'ns-fishandwildlife',
-      value: data.ns_fishandwildlife
-    },
-    {
-      label: 'ns-asset',
-      key: 'ns-asset',
-      value: data.ns_asset
-    },
-    {
-      label: 'ns-threat',
-      key: 'ns-threat',
-      value: data.ns_threat
-    },
-    {
-      label: 'ns-exposure',
-      key: 'ns-exposure',
-      value: data.ns_exposure
-    }
-  ];
-}
+  // filter chart data
+  const chartdata = mapinfochartdata.filter(data => data.name === chartName && data.groupname === 'summary' && data.region === region);
+  const chartSelector = '.leaflet-popup #mapInfo-chart.summary-chart';
 
-// Configures each asset driver bar
-// @param wrapper | DOM element
-// @param drivers | Array
-function drawAssetDrivers(wrapper, drivers) {
-  const assetGraph = wrapper.querySelector('.zonal-long-graph-wrapper-asset .zonal-long-graph');
-  drivers.forEach(drawDriver.bind(null, assetGraph, '', 'asset'));
+  // leaflet popup takes a second to render, chartjs needs to be rendered
+  // to draw on the canvas and resize so timeout needed
+  setTimeout(() => makeBasicBarChart(document, chartSelector, chartdata), 50);
+  hardSpinnerOff();
+  return null;
 }
 
 // draw the mapinfo chart. This is the indentify click function
-function drawMapInfoStats(data, doc) {
-  drawMapInfoChart(getShortDataChartData(data), 'mapInfo', doc);
+function drawMapInfoStats() {
+  // add listener for leaflets open popup
+  window.addEventListener('mapinfo-data-ready', drawMapInfoStatsHandler);
+
+  // reform identify data into chartjs data
+  formatMapInfoChartData();
 }
 
 // Creates the entire short zonal stats block of html
 // @param data | Object
 // @return DOM element
-function drawShortZonalStats(data, name, mapComponent) {
+function drawShortZonalStats(data, name, mapComponent, region) {
   const wrapper = makeDiv();
   const activeNav = store.getStateItem('activeNav');
 
@@ -1309,7 +930,12 @@ function drawShortZonalStats(data, name, mapComponent) {
     wrapper.insertBefore(elem, wrapper.childNodes[0]);
   });
 
-  drawShortChart(wrapper, getShortDataChartData(data), HTMLName, activeNav);
+  // get chart data for summary data
+  const chartName = stripUserArea(name);
+  const configchartdata = store.getStateItem('configchartdata');
+  const chartdata = configchartdata.filter(configdata => configdata.name === chartName && configdata.groupname === 'summary' && configdata.region === region);
+  const chartSelector = `.summary-chart.state${HTMLName}`;
+  makeBasicBarChart(wrapper, chartSelector, chartdata);
 
   if (window.screen.availWidth > 769) {
     wrapper.addEventListener('click', shortZonalClickHandler);
@@ -1329,46 +955,25 @@ function drawShortZonalStats(data, name, mapComponent) {
     case 'main-nav-map-searchNShubs':
       break;
     case 'main-nav-map': {
+      // detete the area button
       const rem = makeRemoveLabel(name, mapComponent);
-      wrapper.insertBefore(rem, wrapper.childNodes[0]);
+      wrapper.insertBefore(rem, wrapper.childNodes[1]);
       break;
     }
     default: {
+      // detete the area button
       const rem = makeRemoveLabel(name, mapComponent);
-      wrapper.insertBefore(rem, wrapper.childNodes[0]);
+      wrapper.insertBefore(rem, wrapper.childNodes[1]);
       break;
     }
   }
 
+  // zoom to the area button
   const zoom = makeZoom(name, mapComponent);
+  wrapper.insertBefore(zoom, wrapper.childNodes[1]);
 
   const defaultLongGraphs = wrapper.querySelector('.default-long-graphs');
-  const nsLongGraphs = wrapper.querySelector('.ns-long-graphs');
-
-  switch (activeNav) {
-    case 'main-nav-map-searchhubs':
-      wrapper.insertBefore(zoom, wrapper.childNodes[1]);
-      defaultLongGraphs.classList.remove('d-none');
-      nsLongGraphs.classList.add('d-none');
-      break;
-    case 'main-nav-map-examples':
-      break;
-    case 'main-nav-map-searchNShubs':
-      wrapper.insertBefore(zoom, wrapper.childNodes[1]);
-      defaultLongGraphs.classList.add('d-none');
-      nsLongGraphs.classList.remove('d-none');
-      break;
-    case 'main-nav-map':
-      wrapper.insertBefore(zoom, wrapper.childNodes[2]);
-      defaultLongGraphs.classList.remove('d-none');
-      nsLongGraphs.classList.add('d-none');
-      break;
-    default:
-      wrapper.insertBefore(zoom, wrapper.childNodes[2]);
-      defaultLongGraphs.classList.remove('d-none');
-      nsLongGraphs.classList.add('d-none');
-      break;
-  }
+  defaultLongGraphs.classList.remove('d-none');
 
   const ovr = makeOverviewLabel();
   const buttonHolder = document.getElementById('zonal-stats-short-title-holder');
@@ -1376,18 +981,6 @@ function drawShortZonalStats(data, name, mapComponent) {
   buttonHolder.classList.remove('d-none');
   disableMainZonalButton();
   return wrapper;
-}
-
-// Configures each threat driver bar
-// @param wrapper | DOM element
-// @param drivers | Array
-function drawThreatDrivers(wrapper, drivers) {
-  const threatGraph = wrapper.querySelector('.zonal-long-graph-wrapper-threat .zonal-long-graph');
-  drivers.forEach(drawDriver.bind(null, threatGraph, '', 'threat'));
-}
-
-function findRawValue(wrapper, key) {
-  return wrapper.querySelector(`.zonal-long-raw-value-${key}`);
 }
 
 function formatToThreePlaces(value) {
@@ -1398,8 +991,28 @@ function formatRawValue(value) {
   return checkNoData(value) ? 'No data' : formatToThreePlaces(value);
 }
 
+// renders data in a table format
+// only renders data that is available for the region it is from.
 function drawRawValue(wrapper, value) {
-  findRawValue(wrapper, value.key).appendChild(makeTextElement(formatRawValue(value.value)));
+  const tr = document.createElement('tr');
+
+  const th = document.createElement('th');
+  const label = document.createTextNode(value.label);
+  th.appendChild(label);
+
+  const tdvalue = document.createElement('td');
+  const dataValue = document.createTextNode(formatRawValue(value.value));
+  tdvalue.appendChild(dataValue);
+
+  const tdrange = document.createElement('td');
+  const range = document.createTextNode(value.range);
+  tdrange.appendChild(range);
+
+  tr.appendChild(th);
+  tr.appendChild(tdvalue);
+  tr.appendChild(tdrange);
+
+  wrapper.querySelector('.table-rawdata .body-rawdata').appendChild(tr);
 }
 
 function populateRawTableRow(wrapper, value) {
@@ -1431,35 +1044,104 @@ function drawZonalButtons(HTMLName, name) {
   buttonHolder.innerHTML += wrapper.innerHTML;
 }
 
-// make the input graphs invisible for
-// nature server data there are no Inputs
-function disableInputGraphs(wrapper, selector) {
-  const elems = wrapper.querySelectorAll(selector);
-  elems.forEach((elem) => {
-    if (elem) {
-      elem.classList.add('d-none');
+// take map config data and api data and maps to
+// the driver charts in the details, then dynamically uses the
+// chartInputName key from the mapconfig.js to create driver charts
+function makeDetailDriverCharts(wrapper, data, region, chartName) {
+  const layerRegionInfo = TMSLayers.filter(layers => layers.region === region);
+  const layerInfo = layerRegionInfo.filter(layer => layer.chartDriver);
+  const driverGroups = groupByDriver(layerInfo, 'chartInputName');
+
+  // iterate each group i.e. FishAndWildlife, assets, threats
+  driverGroups.forEach((driver) => {
+    const driverGroupName = driver[0].chartInputName;
+    const driverGroupLabel = driver[0].chartInpuLabel;
+
+    // filter data fro the group
+    const configchartdata = store.getStateItem('configchartdata');
+    const chartdata = configchartdata.filter(configdata => configdata.name === chartName &&
+      configdata.groupname === driverGroupName &&
+      configdata.region === region);
+
+    // make new html elements
+    const HTMLName = makeHTMLName(chartName);
+    const driverHolder = wrapper.querySelector(`#name-${HTMLName} #driver-charts-holder`);
+
+
+    // make title div to hold chart title
+    const NewTitleDiv = makeDiv();
+    NewTitleDiv.setAttribute('id', `driver-title-${driverGroupName}`);
+    NewTitleDiv.innerHTML = `${driverGroupLabel}`;
+    NewTitleDiv.classList.add('text-center');
+    NewTitleDiv.classList.add('text-capitalize');
+    NewTitleDiv.classList.add('font-weight-bold');
+    NewTitleDiv.classList.add('pt-3');
+
+    // make canvas div to hold chart
+    const NewChartCanvasDiv = makeDiv();
+    NewChartCanvasDiv.setAttribute('id', `driver-${driverGroupName}`);
+    NewChartCanvasDiv.classList.add('chartjs-wrapper');
+    NewChartCanvasDiv.innerHTML = `<canvas id="" class="d-flex details-chart group-${driverGroupName}"></canvas>`;
+
+    // ensire the the html element that holds the driver charts exists
+    if (driverHolder) {
+      driverHolder.appendChild(NewTitleDiv);
+      driverHolder.appendChild(NewChartCanvasDiv);
     }
+
+    // make the driver charts
+    const chartSelector = `#name-${HTMLName} #driver-charts-holder .details-chart.group-${driverGroupName}`;
+    makeBasicBarChart(driverHolder, chartSelector, chartdata);
   });
 }
 
-// make the input graphs visible for
-// nature server data there are no Inputs
-function enableInputGraphs(wrapper, selector) {
-  const elems = wrapper.querySelectorAll(selector);
-  elems.forEach((elem) => {
-    if (elem) {
-      elem.classList.remove('d-none');
+function getDataForTables(data, argRegion) {
+  // filter the region layer list so we can get map configation values for all
+  // regions layers
+  let region = argRegion;
+  const layerRegionInfo = TMSLayers.filter(layers => layers.region === region);
+  const activeNav = store.getStateItem('activeNav');
+  if (activeNav === 'main-nav-map-searchNShubs') {
+    region = 'targetedwatershed';
+  }
+  // if layerRegionInfo empty array then exit nothing matches.
+  if (layerRegionInfo.length === 0) {
+    return null;
+  }
+
+  // iterate over returned data and values and map it into a object array
+  // that only contains summary data or input data not driver data
+  const dataForTables = [];
+  Object.keys(data).forEach((key) => {
+    // check of data matches a driver
+    let layerInfoHasKey = layerRegionInfo.filter(layer => layer.apikey === key);
+
+    // filter the regions layers to the specifc layer so we can get map configation values
+    if (activeNav === 'main-nav-map-searchhubs' || activeNav === 'main-nav-map-searchNShubs') {
+      layerInfoHasKey = layerRegionInfo.filter(layer => layer.hubsapikey === key);
+    }
+
+    // check of data matches a driver and add it to a new object araray that is key, value
+    if (layerInfoHasKey.length > 0) {
+      dataForTables.push({
+        key,
+        value: data[key],
+        cssselector: layerInfoHasKey[0].chartCSSSelector,
+        label: layerInfoHasKey[0].label,
+        range: `${layerInfoHasKey[0].chartMinValue} to ${layerInfoHasKey[0].chartMaxValue - 1}`,
+        source: layerInfoHasKey[0].source
+      });
     }
   });
+  return dataForTables;
 }
 
 // Draws and configures the long zonal stats
 // @param data | Object - results of API
 // @return DOM element
-function drawLongZonalStats(data, name) {
+function drawLongZonalStats(data, name, region) {
   const HTMLName = makeHTMLName(name);
   const wrapper = makeDiv();
-  const activeNav = store.getStateItem('activeNav');
 
   wrapper.classList.add('zonal-long-wrapper');
   wrapper.setAttribute('id', `name-${HTMLName}`);
@@ -1467,89 +1149,20 @@ function drawLongZonalStats(data, name) {
   drawName(wrapper, name);
   drawZonalButtons(HTMLName, name);
 
-  const defaultdetailGraphs = wrapper.querySelector('.default-detail-graphs');
-  const nsdetailGraphs = wrapper.querySelector('.ns-detail-graphs');
+  const dataForTable = getDataForTables(data, region);
+  drawRawValues(wrapper, dataForTable);
 
-  drawRawValues(wrapper, getIndexes(data).concat(getAssetDrivers(data), getThreatDrivers(data)));
+  // get chart data for summary data
+  const chartName = stripUserArea(name);
+  const configchartdata = store.getStateItem('configchartdata');
+  const chartdata = configchartdata.filter(configdata => configdata.name === chartName && configdata.groupname === 'summary' && configdata.region === region);
+  const chartSelector = `#name-${HTMLName} .summary-chart-details`;
+  makeBasicBarChart(wrapper, chartSelector, chartdata);
 
-  switch (activeNav) {
-    case 'main-nav-map-searchhubs':
-      selectChartCell(wrapper, 'hub', data.hubs);
-      selectChartCell(wrapper, 'asset', data.asset);
-      selectChartCell(wrapper, 'threat', data.threat);
-      selectChartCell(wrapper, 'exposure-box', data.exposure);
-      selectChartCell(wrapper, 'fish', data.aquatic);
-      selectChartCell(wrapper, 'wildlife', data.terrestrial);
-      drawAssetDrivers(wrapper, getAssetDrivers(data));
-      drawThreatDrivers(wrapper, getThreatDrivers(data));
-      defaultdetailGraphs.classList.remove('d-none');
-      nsdetailGraphs.classList.add('d-none');
-      enableInputGraphs(wrapper, '.zonal-input-graph');
-      disableInputGraphs(wrapper, '.zonal-long-raw-values tr.ns');
-      enableInputGraphs(wrapper, '.zonal-long-raw-values tr.default');
-      break;
-    case 'main-nav-map-examples':
-      selectChartCell(wrapper, 'hub', data.hubs);
-      selectChartCell(wrapper, 'asset', data.asset);
-      selectChartCell(wrapper, 'threat', data.threat);
-      selectChartCell(wrapper, 'exposure-box', data.exposure);
-      selectChartCell(wrapper, 'fish', data.aquatic);
-      selectChartCell(wrapper, 'wildlife', data.terrestrial);
-      drawAssetDrivers(wrapper, getAssetDrivers(data));
-      drawThreatDrivers(wrapper, getThreatDrivers(data));
-      defaultdetailGraphs.classList.remove('d-none');
-      nsdetailGraphs.classList.add('d-none');
-      enableInputGraphs(wrapper, '.zonal-input-graph');
-      disableInputGraphs(wrapper, '.zonal-long-raw-values tr.ns');
-      enableInputGraphs(wrapper, '.zonal-long-raw-values tr.default');
-      break;
-    case 'main-nav-map-searchNShubs':
-      selectChartCell(wrapper, 'ns-hub', data.ns_hubs);
-      selectChartCell(wrapper, 'ns-asset', data.ns_asset);
-      selectChartCell(wrapper, 'ns-threat', data.ns_threat);
-      selectChartCell(wrapper, 'ns-exposure-box', data.ns_exposure);
-      selectChartCell(wrapper, 'ns-fishandwildlife', data.ns_fishandwildlife);
-      disableInputGraphs(wrapper, '.zonal-input-graph');
-      defaultdetailGraphs.classList.add('d-none');
-      nsdetailGraphs.classList.remove('d-none');
-      enableInputGraphs(wrapper, '.zonal-long-raw-values tr.ns');
-      disableInputGraphs(wrapper, '.zonal-long-raw-values tr.default');
-      break;
-    case 'main-nav-map':
-      selectChartCell(wrapper, 'hub', data.hubs);
-      selectChartCell(wrapper, 'asset', data.asset);
-      selectChartCell(wrapper, 'threat', data.threat);
-      selectChartCell(wrapper, 'exposure-box', data.exposure);
-      selectChartCell(wrapper, 'fish', data.aquatic);
-      selectChartCell(wrapper, 'wildlife', data.terrestrial);
-      drawAssetDrivers(wrapper, getAssetDrivers(data));
-      drawThreatDrivers(wrapper, getThreatDrivers(data));
-      defaultdetailGraphs.classList.remove('d-none');
-      nsdetailGraphs.classList.add('d-none');
-      disableInputGraphs(wrapper, '.zonal-long-raw-values tr.ns');
-      enableInputGraphs(wrapper, '.zonal-long-raw-values tr.default');
-      enableInputGraphs(wrapper, '.zonal-input-graph');
-      break;
-    default:
-      selectChartCell(wrapper, 'hub', data.hubs);
-      selectChartCell(wrapper, 'asset', data.asset);
-      selectChartCell(wrapper, 'threat', data.threat);
-      selectChartCell(wrapper, 'exposure-box', data.exposure);
-      selectChartCell(wrapper, 'fish', data.aquatic);
-      selectChartCell(wrapper, 'wildlife', data.terrestrial);
-      drawAssetDrivers(wrapper, getAssetDrivers(data));
-      drawThreatDrivers(wrapper, getThreatDrivers(data));
-      defaultdetailGraphs.classList.remove('d-none');
-      nsdetailGraphs.classList.add('d-none');
-      disableInputGraphs(wrapper, '.zonal-long-raw-values tr.ns');
-      enableInputGraphs(wrapper, '.zonal-long-raw-values tr.default');
-      enableInputGraphs(wrapper, '.zonal-input-graph');
-      break;
-  }
-
+  // make drivers charts will create drivers based on mapconfig
+  makeDetailDriverCharts(wrapper, data, region, chartName);
   return wrapper;
 }
-
 
 // check if graph or table is the active state is so we can disable the
 // mouse off event on the shape.  This prevents the map from removeing the
@@ -1570,7 +1183,6 @@ function restoreGraphState() {
     const activestate = graphstate[1];
     const elem = document.getElementById(elemid.replace('name-', 'name'));
     const path = document.querySelector(`.path${elemid.replace('name-', '')}`);
-
     const HTMLName = stripUserArea(elemid);
 
     switch (activestate) {
@@ -1621,7 +1233,7 @@ function restoreGraphState() {
 
 // Draws and configures the entire zonal stats
 // @param data | Object - results of API
-function drawZonalStatsFromAPI(data, name, mapComponent) {
+function drawZonalStatsFromAPI(data, name, mapComponent, region = 'continental_us') {
   const HTMLName = makeHTMLName(name);
 
   if (!document.getElementById('zonal-header')) {
@@ -1630,14 +1242,10 @@ function drawZonalStatsFromAPI(data, name, mapComponent) {
   const wrapper = makeDiv();
   wrapper.classList.add('zonal-stats-wrapper');
   wrapper.classList.add('h-100');
-
+  wrapper.classList.add(`region-${region}`);
   wrapper.setAttribute('id', `zonal-stats-wrapper-${HTMLName}`);
-
-  wrapper.appendChild(drawShortZonalStats(data, name, mapComponent));
-  wrapper.appendChild(drawLongZonalStats(data, name));
-
-  // const child = document.getElementById('full-table-holder').childNodes[0];
-  // document.getElementById('full-table-holder').replaceChild(zonalStatTable(), child);
+  wrapper.appendChild(drawShortZonalStats(data, name, mapComponent, region));
+  wrapper.appendChild(drawLongZonalStats(data, name, region));
   document.getElementById('zonal-content').appendChild(wrapper);
 
   // initalize new tooltips
@@ -1650,6 +1258,7 @@ function drawZonalStatsFromAPI(data, name, mapComponent) {
   iconelem.addEventListener('mouseout', zonalLabelMouseOutHandler);
   disableMainZonalButton();
 
+  toggleRegionCharts();
   restoreGraphState();
 }
 
@@ -1671,34 +1280,10 @@ export {
   enableZonalButtons,
   disableZonalButtons,
   toggleALLPathsOff,
-  toggleAllLongZonalsOff,
-  getIndexes,
-  getAssetDrivers,
-  getThreatDrivers
+  toggleAllLongZonalsOff
 };
 
-// Polyfill for Element.closest for IE9+ and Safari
-// https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
-if (!Element.prototype.matches) {
-  Element.prototype.matches = Element.prototype.msMatchesSelector ||
-        Element.prototype.webkitMatchesSelector;
-}
-
-if (!Element.prototype.closest) {
-  Element.prototype.closest = (s) => {
-    let el = this;
-
-    if (!document.documentElement.contains(el)) {
-      return null;
-    }
-
-    do {
-      if (el.matches(s)) {
-        return el;
-      }
-      el = el.parentElement || el.parentNode;
-    } while (el !== null && el.nodeType === 1);
-
-    return null;
-  };
-}
+// change region is state changes
+window.addEventListener('regionChanged', (e) => {
+  toggleRegionCharts();
+});

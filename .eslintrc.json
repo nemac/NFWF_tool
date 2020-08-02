@@ -11,6 +11,12 @@
     "operator-linebreak": ["error", "after"],
     "import/prefer-default-export": 0,
     "no-await-in-loop": ["off"],
-    "no-param-reassign": ["error", { "props": true, "ignorePropertyModificationsFor": ["elem","e","wrapper"] }]
+    "no-param-reassign": ["error", { "props": true, "ignorePropertyModificationsFor": ["elem","e","wrapper"] }],
+    "prefer-destructuring": ["error", {
+      "array": false,
+      "object": false
+    }, {
+      "enforceForRenamedProperties": false
+    }]
   }
 }

@@ -71,9 +71,9 @@ export class MapInfo extends Component {
     // setup marker layer which is not set yet.
     this.marker = undefined;
 
-    $(() => {
-      $('#mapinfodata [data-toggle="tooltip"]').tooltip({ trigger: 'hover focus' });
-    });
+    // $(() => {
+    //   $('#mapinfodata [data-toggle="tooltip"]').tooltip({ trigger: 'hover focus' });
+    // });
 
     window.addEventListener('aboutNavChange', (e) => {
       // remove from state
@@ -339,19 +339,13 @@ export class MapInfo extends Component {
     // get the mapinfo (identify) html document and udpate
     // the content with returned values
     const doc = MapInfo.getDocument();
-    MapInfo.buildMapInfoConent(RemapedIdentifyJson, doc);
-    const defaultElem = doc.querySelector('.default-mapinfo');
-    const nsElem = doc.querySelector('.ns-mapinfo');
+    const region = store.getStateItem('region');
 
-    if (activeNav === 'main-nav-map-searchNShubs') {
-      defaultElem.classList.add('d-none');
-      nsElem.classList.remove('d-none');
-    } else {
-      nsElem.classList.add('d-none');
-      defaultElem.classList.remove('d-none');
-    }
+    // build the map info (identify) data
+    MapInfo.buildMapInfoConent(RemapedIdentifyJson, doc, region);
+
     // bind the html to the leaflet marker and open as leaflet popup
-    const popup = MapInfo.bindPopup(this.marker, doc);
+    const popup = this.bindPopup(this.marker, doc);
 
     // toggle spinner css from utility.js
     store.setStoreItem('working_mapinfo', false);
@@ -371,22 +365,13 @@ export class MapInfo extends Component {
   // @param { Object } IdentifyJson is json data returned from api
   // @param { Object } doc is html document (identify/mapinfo html element)
   //
-  static buildMapInfoConent(IdentifyJson, doc) {
-    drawMapInfoStats(IdentifyJson, doc);
-    // tooltip and popover require javascript side modification to enable them (new in Bootstrap 4)
-    // use tooltip and popover components everywhere
-    $(() => {
-      $('[data-toggle="tooltip"]').tooltip({
-        trigger: 'hover focus'
-      });
-
-      $('[data-toggle="popover"]').popover();
-    });
+  static buildMapInfoConent() {
+    drawMapInfoStats();
   }
 
   // bind popup to marker
   // @param { Object } doc is html document (identify/mapinfo html element)
-  static bindPopup(marker, doc) {
+  bindPopup(marker, doc) {
     const mapinformationel = doc.getElementById('map_info_list');
     const tooltipContent = L.Util.template(mapinformationel.outerHTML);
 
@@ -405,6 +390,11 @@ export class MapInfo extends Component {
     const SearchLocationsCloseButtonElement = document.querySelector('.map-information-popup .leaflet-popup-close-button');
     SearchLocationsCloseButtonElement.setAttribute('aria-label', 'Close Map Information');
     SearchLocationsCloseButtonElement.setAttribute('title', 'Close Map Information');
+
+    this.map.addEventListener('popupopen', (e) => {
+      const removeUserAreaEvent = new CustomEvent('leafletpopupopen');
+      window.dispatchEvent(removeUserAreaEvent);
+    });
 
     return popup;
   }

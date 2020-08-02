@@ -19,41 +19,50 @@
 //  - The Feature Server returns a bad request status code (400).
 //  In these cases an Error object is returned.
 import simplify from '@turf/simplify';
-import config from '../config/hubIntersectionConfig';
+import hubIntersectionConfig from '../config/hubIntersectionConfig';
+
+// Import custom classess
+import { Store } from './store';
 
 const Terraformer = require('terraformer');
 Terraformer.ArcGIS = require('terraformer-arcgis-parser');
 const axios = require('axios');
 
-function transformAgolAttrs(attrs) {
-  const props = { mean: {} };
-  Object.keys(attrs).forEach((agolField) => {
-    let fieldName;
-    const val = attrs[agolField];
-    if (agolField in config.fieldMaps) {
-      fieldName = config.fieldMaps[agolField];
-    } else {
-      fieldName = agolField;
-    }
-    props.mean[fieldName] = val;
-  });
-  return props;
-}
-
-function convertAgolHubsFeature(feature) {
-  const geojsonGeom = Terraformer.ArcGIS.parse(feature.geometry);
-  const featureGeojson = {
-    type: 'Feature',
-    properties: transformAgolAttrs(feature.attributes),
-    geometry: geojsonGeom
-  };
-  return featureGeojson;
-}
+const store = new Store({});
 
 export class HubIntersectionApi {
-  constructor(url = config.queryUrl) {
-    this.queryUrl = url;
-    this.agolOutFields = config.agolOutFields;
+  constructor() {
+    this.hubIntersectionConfig = hubIntersectionConfig;
+  }
+
+  static filterConfig() {
+    // get current region
+    this.region = store.getStateItem('region');
+
+    // limit hub AGOL config to the current region
+    const regionConfig = hubIntersectionConfig.filter(region => (
+      region.region === this.region
+    ));
+
+    // get AGOL url from region limited config
+    return regionConfig[0];
+  }
+
+  static transformAgolAttrs(attrs) {
+    const props = { mean: {} };
+    const config = HubIntersectionApi.filterConfig();
+
+    Object.keys(attrs).forEach((agolField) => {
+      let fieldName;
+      const val = attrs[agolField];
+      if (agolField in config.fieldMaps) {
+        fieldName = config.fieldMaps[agolField];
+      } else {
+        fieldName = agolField;
+      }
+      props.mean[fieldName] = val;
+    });
+    return props;
   }
 
   static simplifyshape(feature) {
@@ -70,30 +79,49 @@ export class HubIntersectionApi {
     });
   }
 
+  static convertAgolHubsFeature(feature) {
+    const geojsonGeom = Terraformer.ArcGIS.parse(feature.geometry);
+    const featureGeojson = {
+      type: 'Feature',
+      properties: HubIntersectionApi.transformAgolAttrs(feature.attributes),
+      geometry: geojsonGeom
+    };
+    return featureGeojson;
+  }
+
   async getIntersectedHubs(feature) {
     try {
+      let doesNothing = this.hubIntersectionConfig; // eslint-disable-line
       const esriGeom = Terraformer.ArcGIS.convert(feature.geometry);
       const esriGeomStr = JSON.stringify(esriGeom);
+      const config = HubIntersectionApi.filterConfig();
+      const url = config.queryUrl;
+      const agolOutFields = config.agolOutFields;
 
       // create post form data
       const postBody = new URLSearchParams();
       postBody.append('f', 'json');
       postBody.append('inS', '4326');
       postBody.append('outSR', '4326');
-      postBody.append('outFields', this.agolOutFields.join());
+      postBody.append('outFields', agolOutFields.join());
       postBody.append('geometryType', 'esriGeometryPolygon');
       postBody.append('spatialRel', 'esriSpatialRelIntersects');
       postBody.append('geometry', esriGeomStr);
 
-      const response = await axios.post(this.queryUrl, postBody);
+      const response = await axios.post(url, postBody);
 
       if (Object.prototype.hasOwnProperty.call(response.data, 'error')) {
         throw response.data.message;
       }
-      const esriFeatures = response.data.features;
-      const geojsonFeatures = esriFeatures.map(f => convertAgolHubsFeature(f));
 
+      const esriFeatures = response.data.features;
+      const geojsonFeatures = esriFeatures.map(f => HubIntersectionApi.convertAgolHubsFeature(f));
       const newgeojson = HubIntersectionApi.simplifyGeoJson(geojsonFeatures);
+      const region = store.getStateItem('region');
+
+      newgeojson.forEach((newgeojsonfeature) => {
+        newgeojsonfeature.properties.region = region; // eslint-disable-line
+      });
 
       return newgeojson;
     } catch (err) {
