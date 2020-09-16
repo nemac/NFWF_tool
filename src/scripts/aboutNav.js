@@ -58,9 +58,20 @@ export class AboutNavBar extends Component {
 
     if (checkValidObject(aboutNav)) {
       AboutNavBar.deactivateAllNavs();
-      AboutNavBar.toggleTabContent(aboutNav);
+      AboutNavBar.toggleTabContent('aboutNav', aboutNav);
+
       const el = document.getElementById(aboutNav);
-      el.className += ' active';
+      if (el) {
+        el.className += ' active';
+      } else {
+        // tab deleted and old tab still in Store
+        //   make tab the genral about tab
+        store.setStoreItem('aboutNav');
+        const elrecover = document.getElementById('about-nav-aboutgen');
+        if (elrecover) {
+          elrecover.className += ' active';
+        }
+      }
     }
     // add click event for active toggle
     this.addTabClick();
@@ -85,27 +96,54 @@ export class AboutNavBar extends Component {
   static tabUpdate(id) {
     AboutNavBar.deactivateAllNavs();
     const el = document.getElementById(id);
-    el.className = `${el.className} active`;
+    if (el) {
+      el.className = `${el.className} active`;
+    } else {
+      // tab deleted and old tab still in Store this recovers from that
+      const elrecover = document.getElementById('tab-about-nav-aboutgen');
+      if (elrecover) {
+        elrecover.className = `${elrecover.className} active`;
+      }
+    }
   }
 
   static deactivateAllNavs() {
     navConfig.navs.forEach((nav) => {
       const el = document.getElementById(nav.id);
-      el.className = el.className.replace(' active', '');
+      if (el) {
+        el.className = el.className.replace(' active', '');
+      }
     });
   }
 
   static toggleTabContent(id) {
     AboutNavBar.resetTabContent();
     const el = document.getElementById(`tab-${id}`);
-    el.className = el.className.replace(' d-none', '');
+    if (el) {
+      el.className = el.className.replace(' d-none', '');
+    } else {
+      // tab deleted and old tab still in Store this recovers from that
+      const elrecover = document.getElementById('tab-about-nav-aboutgen');
+      if (elrecover) {
+        elrecover.className = elrecover.className.replace(' d-none', '');
+      }
+    }
   }
 
   static resetTabContent() {
     navConfig.navs.forEach((nav) => {
       const el = document.getElementById(`tab-${nav.id}`);
-      el.className = el.className.replace(' d-none', '');
-      el.className += ' d-none';
+      if (el) {
+        el.className = el.className.replace(' d-none', '');
+        el.className += ' d-none';
+      } else {
+        // tab deleted and old tab still in Store this recovers from that
+        const elrecover = document.getElementById('tab-about-nav-aboutgen');
+        if (elrecover) {
+          elrecover.className = elrecover.className.replace(' d-none', '');
+          elrecover.className += ' d-none';
+        }
+      }
     });
   }
 }
