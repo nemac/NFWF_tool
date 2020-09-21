@@ -731,7 +731,6 @@ a.about-nav.active::before {
   width: 100% !important;
   padding: 30px;
 }
-
 .download-description {
   a {
   color: #17a2b8 !important;
@@ -754,6 +753,16 @@ a.about-nav.active::before {
   .card-img, .card-img-top, .card-img-bottom {
     max-width: 50%;
     align-self: center;
+  }
+}
+
+.ask-for-help-modal {
+  // a {
+  // color: #17a2b8 !important;
+  // text-decoration: underline;
+  // }
+  .btn-light {
+      box-shadow: unset;
   }
 }
 

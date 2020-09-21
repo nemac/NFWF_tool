@@ -18,6 +18,8 @@ import ColorRampFourBreaks from '../templates/colorramp_breaks_four.html';
 import ColorRampThreeBreaks from '../templates/colorramp_breaks_three.html';
 import ColorRampTwoBreaks from '../templates/colorramp_breaks_two.html';
 import ColorRampOneBreaks from '../templates/colorramp_breaks_one.html';
+import AskForHelpPage from '../templates/askforhelp.html';
+
 
 const store = new Store({});
 const { TMSLayers } = mapConfig;
@@ -1108,5 +1110,21 @@ export function addMissingStateItems() {
   // check for zonalactive default is false
   if (!checkValidObject(store.getStateItem('zonalactive'))) {
     store.setStoreItem('zonalactive', ['none', 'none']);
+  }
+}
+
+// randomly ask user for feedaback and display a link for a google form
+// will open and modal form with a link to a google form https://forms.gle/21PPCSobQCGN7m157
+export function askForHelp() {
+  const start = 0;
+  const end = 5;
+  const shouldIAsk = Math.floor((Math.random() * end) + start);
+  if (!shouldIAsk) {
+    // is zero ask for help
+    const componentElem = document.getElementById('askforhelp-holder');
+    componentElem.innerHTML = AskForHelpPage;
+    $(() => {
+      $('#askForHelpModal').modal('show');
+    });
   }
 }

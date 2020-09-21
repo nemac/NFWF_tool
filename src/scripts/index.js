@@ -11,7 +11,8 @@ import {
   checkValidObject,
   addMissingStateItems,
   addDownloadGoogleEvents,
-  formatChartData
+  formatChartData,
+  askForHelp
 } from './utilitys';
 
 // import extended components
@@ -503,6 +504,8 @@ if (checkValidObject(theStartNav)) {
     elemStartNav.click();
   }
 }
+
+askForHelp();
 //
 // function eventsaddtest() {
 //   // need dom to be updated so timeout.
