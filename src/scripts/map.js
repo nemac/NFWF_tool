@@ -576,6 +576,7 @@ export class Map extends Component {
   toggleVisLayerOff(layerName) {
     store.saveAction('maplayertoggle');
     store.setStoreItem('working_basemap', true);
+
     spinnerOn();
     const layer = this.overlayMaps[layerName];
     if (this.map.hasLayer(layer)) {
@@ -594,7 +595,6 @@ export class Map extends Component {
     spinnerOn();
     this.map.addLayer(layer);
   }
-
 
   // Toggle map layer visibility
   // this needs to be made more modular but not sure

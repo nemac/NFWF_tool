@@ -260,19 +260,19 @@ export class MapLayersList extends Component {
     //   googleAnalyticsEvent('click', 'zoomregion', 'alaska');
     // });
     //
-    // document.getElementById('zoomregion-hawaii').addEventListener('click', (e) => {
-    //   const region = zoomRegions.filter(regions => regions.region === 'hawaii');
-    //   MapLayersList.zoomToRegion(mapComponent, region[0]);
-    //   MapLayersList.updateZoomRegionLabel('hawaii');
-    //   const navChangeEvent = new CustomEvent('regionChanged');
-    //    window.dispatchEvent(navChangeEvent);
-    //
-    // set region to hawaii
-    // store.setStoreItem('region', 'hawaii');
-    //
-    //   // ga event action, category, label
-    //   googleAnalyticsEvent('click', 'zoomregion', 'hawaii');
-    // });
+    document.getElementById('zoomregion-hawaii').addEventListener('click', (e) => {
+      const region = zoomRegions.filter(regions => regions.region === 'hawaii');
+      MapLayersList.zoomToRegion(mapComponent, region[0]);
+      MapLayersList.updateZoomRegionLabel('Hawai\'i');
+      const navChangeEvent = new CustomEvent('regionChanged');
+      window.dispatchEvent(navChangeEvent);
+
+      // set region to hawaii
+      store.setStoreItem('region', 'hawaii');
+
+      // ga event action, category, label
+      googleAnalyticsEvent('click', 'zoomregion', 'hawaii');
+    });
   }
 
   // zppm to region
@@ -329,6 +329,7 @@ export class MapLayersList extends Component {
     const puertoRicoLayerList = document.getElementById('puertoRicoLayerList');
     const usVirginIslandsLayerList = document.getElementById('usVirginIslandsLayerList');
     const northernMarianaIslandsLayerList = document.getElementById('northernMarianaIslandsLayerList');
+    const hawaiiLayerList = document.getElementById('hawaiiLayerList');
 
     // make sure region list are not displaying when targetedwatershed Nature Server data
     // nav is current location
@@ -337,6 +338,7 @@ export class MapLayersList extends Component {
       puertoRicoLayerList.classList.add('d-none');
       usVirginIslandsLayerList.classList.add('d-none');
       northernMarianaIslandsLayerList.classList.add('d-none');
+      hawaiiLayerList.classList.add('d-none');
       return null;
     }
 
@@ -346,6 +348,7 @@ export class MapLayersList extends Component {
         puertoRicoLayerList.classList.add('d-none');
         usVirginIslandsLayerList.classList.add('d-none');
         northernMarianaIslandsLayerList.classList.add('d-none');
+        hawaiiLayerList.classList.add('d-none');
         MapLayersList.updateZoomRegionLabel('Contiental U.S.');
         break;
       case 'puerto_rico':
@@ -353,6 +356,7 @@ export class MapLayersList extends Component {
         puertoRicoLayerList.classList.remove('d-none');
         usVirginIslandsLayerList.classList.add('d-none');
         northernMarianaIslandsLayerList.classList.add('d-none');
+        hawaiiLayerList.classList.add('d-none');
         MapLayersList.updateZoomRegionLabel('Puerto Rico');
         break;
       case 'northern_mariana_islands':
@@ -360,6 +364,7 @@ export class MapLayersList extends Component {
         puertoRicoLayerList.classList.add('d-none');
         usVirginIslandsLayerList.classList.add('d-none');
         northernMarianaIslandsLayerList.classList.remove('d-none');
+        hawaiiLayerList.classList.add('d-none');
         MapLayersList.updateZoomRegionLabel('Northern Mariana Islands');
         break;
       case 'us_virgin_islands':
@@ -367,18 +372,29 @@ export class MapLayersList extends Component {
         puertoRicoLayerList.classList.add('d-none');
         usVirginIslandsLayerList.classList.remove('d-none');
         northernMarianaIslandsLayerList.classList.add('d-none');
+        hawaiiLayerList.classList.add('d-none');
         MapLayersList.updateZoomRegionLabel('US Virgin Islands');
         break;
       case 'alaska':
         MapLayersList.updateZoomRegionLabel('Alaska');
         break;
       case 'hawaii':
-        MapLayersList.updateZoomRegionLabel('Hawaii');
+        defaultLayerList.classList.add('d-none');
+        puertoRicoLayerList.classList.add('d-none');
+        usVirginIslandsLayerList.classList.add('d-none');
+        northernMarianaIslandsLayerList.classList.add('d-none');
+        hawaiiLayerList.classList.remove('d-none');
+        MapLayersList.updateZoomRegionLabel('Hawai\'i');
         break;
       case 'guam':
         MapLayersList.updateZoomRegionLabel('Guam');
         break;
       default:
+        defaultLayerList.classList.remove('d-none');
+        puertoRicoLayerList.classList.add('d-none');
+        usVirginIslandsLayerList.classList.add('d-none');
+        northernMarianaIslandsLayerList.classList.add('d-none');
+        hawaiiLayerList.classList.add('d-none');
         MapLayersList.updateZoomRegionLabel('Contiental U.S.');
         break;
     }
