@@ -62,12 +62,25 @@ module.exports = {
         },
         {
           test: /\.css$/,
-          use:  [  'style-loader', MiniCssExtractPlugin.loader, 'css-loader']
+          use:  [  'style-loader',
+          {
+            loader:  MiniCssExtractPlugin.loader,
+            options: { esModule: false}
+          },
+          'css-loader']
         },
-        urlLoader = {
-            test: /.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$/,
-            use: "url-loader?limit=100000"
+        {
+          test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/, /\.svg$/],
+          loader: require.resolve('url-loader'),
+          options: {
+                     limit: 10000,
+                     name: 'static/media/[name].[hash:8].[ext]',
+                   },
         },
+        // urlLoader = {
+        //     test: /.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$/,
+        //     use: "url-loader?limit=1000000"
+        // },
         {
           test: /\.js$/,
           include: path.resolve(__dirname, 'node_modules/webworkify/index.js'),
@@ -75,7 +88,12 @@ module.exports = {
         },
         {
           test: /\.scss$/,
-          use: [ 'style-loader', MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader']
+          use:  [  'style-loader',
+          {
+            loader:  MiniCssExtractPlugin.loader,
+            options: { esModule: false}
+          },
+          'css-loader', 'postcss-loader', 'sass-loader']
         }
       ]
     },
