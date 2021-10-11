@@ -1067,7 +1067,6 @@ function makeDetailDriverCharts(wrapper, data, region, chartName) {
     const HTMLName = makeHTMLName(chartName);
     const driverHolder = wrapper.querySelector(`#name-${HTMLName} #driver-charts-holder`);
 
-
     // make title div to hold chart title
     const NewTitleDiv = makeDiv();
     NewTitleDiv.setAttribute('id', `driver-title-${driverGroupName}`);
@@ -1231,6 +1230,26 @@ function restoreGraphState() {
   return null;
 }
 
+// Draws and configures the entire zonal stats when too many
+// @param data | Object - results of API
+function zonalStatsNotAbleToRender(name, region = 'continental_us') {
+  const HTMLName = makeHTMLName(name);
+
+  if (!document.getElementById('zonal-header')) {
+    document.getElementById('zonal-area-wrapper').innerHTML = ZonalWrapper;
+  }
+  const wrapper = makeDiv();
+  wrapper.classList.add('zonal-stats-wrapper');
+  wrapper.classList.add('h-100');
+  wrapper.classList.add(`region-${region}`);
+  wrapper.setAttribute('id', `zonal-stats-wrapper-${HTMLName}`);
+  wrapper.innerHTML = '<span >The area you drew on the map resulted in too many Resilience Hubs to display. We currently limit the number of Resilience Hubs to 100 to avoid issues with CREST becoming unresponsive. Try drawing a smaller area to limit the number of Resilience Hubs displayed.</span>';
+  // wrapper.appendChild(drawLongZonalStats(data, name, region));
+  document.getElementById('zonal-content').appendChild(wrapper);
+
+  disableMainZonalButton();
+}
+
 // Draws and configures the entire zonal stats
 // @param data | Object - results of API
 function drawZonalStatsFromAPI(data, name, mapComponent, region = 'continental_us') {
@@ -1263,6 +1282,7 @@ function drawZonalStatsFromAPI(data, name, mapComponent, region = 'continental_u
 }
 
 export {
+  zonalStatsNotAbleToRender,
   drawZonalStatsFromAPI,
   restoreGraphState,
   toggleMouseHighLightsOn,

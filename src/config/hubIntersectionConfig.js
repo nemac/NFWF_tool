@@ -152,6 +152,56 @@ const config = [
     agolOutFields: [ 'TARGET_FID','exposure', 'asset', 'threat', 'marine', 'terrestri', 'hub_rnk', 'crit_infra', 'crit_fac', 'pop_dens', 'soc_vuln', 'impermeabl', 'erosion', 'floodprone', 'landslides', 'slr', 'low_areas', 'stormsurge', 'tsunami', 'wildlife'  ]
     // agolOutFields: [ 'TARGET_FID','exposure', 'asset', 'threat', 'marine', 'terrestri', 'hub_rnk', 'crit_infra', 'crit_fac', 'pop_dens', 'soc_vuln', 'impermeabl', 'erosion', 'floodprone', 'slr', 'low_areas', 'wildlife'  ]
   },
+  {
+    fieldMaps: {
+      hub_rnk: 'hubs',
+      exposure: 'exposure',
+      asset: 'asset',
+      marine: 'marine',
+      terrestri: 'terrestrial',
+      crit_infra: 'crit_infra',
+      crit_fac: 'crit_facilities',
+      pop_dens: 'pop_density',
+      soc_vuln: 'social_vuln',
+      impermeabl: 'impermeable',
+      erosion: 'erosion',
+      floodprone: 'floodprone_areas',
+      slr: 'sea_level_rise',
+      slope: 'slope',
+      wildlife: 'wildlife',
+      tsunami: 'tsunami',
+      wave_fld: 'wave_flooding',
+    },
+    region: 'american_samoa',
+    queryUrl: `https://services1.arcgis.com/PwLrOgCfU0cYShcG/ArcGIS/rest/services/CREST_American_Samoa_Hub_Cores_API_100421/FeatureServer/0/query`,
+    agolOutFields: [ 'TARGET_FID','exposure', 'asset', 'threat', 'marine', 'terrestri', 'hub_rnk', 'crit_infra', 'crit_fac', 'pop_dens', 'soc_vuln', 'impermeabl', 'floodprone', 'slr','slope', 'tsunami', 'wildlife', 'wave_fld', 'erosion'  ]
+  },
+  {
+    fieldMaps: {
+      hub_rnk: 'hubs',
+      exposure: 'exposure',
+      asset: 'asset',
+      marine: 'marine',
+      terrestri: 'terrestrial',
+      crit_infra: 'crit_infra',
+      crit_fac: 'crit_facilities',
+      pop_dens: 'pop_density',
+      soc_vuln: 'social_vuln',
+      impermeabl: 'impermeable',
+      erosion: 'erosion',
+      floodprone: 'floodprone_areas',
+      slr: 'sea_level_rise',
+      slope: 'slope',
+      wildlife: 'wildlife',
+      tsunami: 'tsunami',
+      wave_fld: 'wave_flooding',
+      wave_exp: 'wave_exposure',
+      landslides: 'landslides'
+    },
+    region: 'guam',
+    queryUrl: `https://services1.arcgis.com/PwLrOgCfU0cYShcG/ArcGIS/rest/services/CREST_Guam_Hubs_10042021/FeatureServer/0/query`,
+    agolOutFields: [ 'TARGET_FID','exposure', 'asset', 'threat', 'marine', 'terrestri', 'hub_rnk', 'crit_infra', 'crit_fac', 'pop_dens', 'soc_vuln', 'impermeabl', 'floodprone', 'slr','slope', 'tsunami', 'wildlife', 'wave_fld', 'erosion' , 'wave_exp', 'landslides' ]
+  }
 ];
 
   export default config;

@@ -1,20 +1,28 @@
 @import './_customVarriables.scss';
+@import "~leaflet/dist/leaflet.css";
+@import "~esri-leaflet-geocoder/dist/esri-leaflet-geocoder.css";
+@import "~leaflet-draw/dist/leaflet.draw.css";
 
 #map {
   height: inherit;
   width: inherit;
+  image-rendering: unset;
   // min-height: 205px;
+  // image-rendering: crisp-edges;
+  // image-rendering: crisp-edges;
+  // image-rendering: pixelated !important;
+
+  /* Safari seems to support, but seems deprecated and does the same thing as the others. */
+  // image-rendering: -webkit-optimize-contrast;
 }
 
-// .leaflet-pane {
-//   height: inherit;
-//   width: inherit;
-// }
-
-.mapboxgl-map{
-  // height: inherit;
-  // width: inherit;
-}
-.mapboxgl-missing-css{
-  // display: none;
+.leaflet-container .leaflet-overlay-pane svg,
+.leaflet-container .leaflet-marker-pane img,
+.leaflet-container .leaflet-shadow-pane img,
+.leaflet-container .leaflet-tile-pane img,
+.leaflet-container img.leaflet-image-layer {
+  image-rendering: -moz-crisp-edges;          /* Firefox        */
+  image-rendering: -o-crisp-edges;            /* Opera          */
+  image-rendering: -webkit-optimize-contrast; /* Safari         */
+  image-rendering: crisp-edges;
 }

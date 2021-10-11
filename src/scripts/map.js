@@ -28,12 +28,6 @@ import {
   googleAnalyticsEvent
 } from './utilitys';
 
-// Downloaded esri-leaflet-vector to utils directory so the package works with webpack es6
-// Must update manually since there are custom changes to the component!
-// vector layers not used yet will need to uncomment later
-// See github issue https://github.com/Esri/esri-leaflet-vector/issues/31 from tgirgin23
-// import * as vector from '../vendor/esri/esri-leaflet-vector/EsriLeafletVector';
-
 // templates
 import mapTemplate from '../templates/map.html';
 
@@ -83,7 +77,6 @@ export class Map extends Component {
 
     // force map re-render
     this.forceMapReRender();
-    this.forceMapReRender();
 
     this.addWmsLayers();
     this.addTileLayers();
@@ -126,10 +119,38 @@ export class Map extends Component {
 
   // force map render and setup
   forceMapReRender() {
-    // this ensures the map is full setup.
-    // we have issues becuase the map height is 100% and is
-    // explicitly set
-    L.Util.requestAnimFrame(this.map.invalidateSize, this.map, !1, this.map._container);
+    this.map.invalidateSize(true);
+    this.delayedRedraw();
+  }
+
+  delayedRedraw() {
+    setTimeout(() => {
+      const layers = store.getStateItem('mapLayerDisplayStatus');
+      const region = store.getStateItem('region');
+      const { TMSLayers } = mapConfig;
+
+      // filter the layers based on current source
+      Object.keys(layers).forEach((layerName) => {
+        const asource = TMSLayers.filter(TMSlayer => (
+          TMSlayer.id === layerName && TMSlayer.region === region
+        ));
+
+        // force redraw very hacky way to get rid of fuzzy edges may cause some
+        // performance issues.
+        if (layers[layerName] && asource.length > 0) {
+          const layer = this.overlayMaps[layerName];
+          layer.redraw();
+        }
+      });
+      // const elems = document.querySelectorAll('.leaflet-layer');
+      // elems.forEach((elem) => {
+      //   if (elem) {
+      //     elem.classList.add('d-none');
+      //     elem.classList.remove('d-none');
+      //   }
+      // });
+      this.map.invalidateSize(true);
+    }, 5);
   }
 
   // change esri basemap
@@ -260,7 +281,9 @@ export class Map extends Component {
         tileSize: layer.tileSize,
         transparent: layer.transparent,
         zIndex: layer.zIndex,
-        maxNativeZoom: layer.maxNativeZoom
+        maxNativeZoom: layer.maxNativeZoom,
+        modifyScrollWheel: false,
+        detectRetina: true
       });
 
       // Current leaflet layer object
@@ -269,7 +292,7 @@ export class Map extends Component {
       };
 
       // add all tile load handlers
-      Map.handleAlllTileHanlders(tileLayer);
+      Map.handleAlllTileHandlers(tileLayer);
 
       // set inital display status
       const mapDisplayLayersObj = { [layer.id]: false };
@@ -309,7 +332,7 @@ export class Map extends Component {
       };
 
       // add all tile load handlers
-      Map.handleAlllTileHanlders(tileLayer);
+      Map.handleAlllTileHandlers(tileLayer);
 
       // set inital display status
       const mapDisplayLayersObj = { [layer.id]: false };
@@ -375,7 +398,7 @@ export class Map extends Component {
 
   // add handler for loading for tile layer
   // @param { Object } - tileLayer the leaflet tile layer to we adding a handler for
-  static handleAlllTileHanlders(tileLayer) {
+  static handleAlllTileHandlers(tileLayer) {
     // add seperate map layer handlers
     Map.handleWMSLoad(tileLayer);
     Map.handleWMSUnload(tileLayer);
@@ -401,11 +424,28 @@ export class Map extends Component {
 
   // map move end map handler
   // https://leafletjs.com/reference-1.3.0.html#map-moveend
+  mapMoveReadyHandler() {
+    this.map.on('moveend', (event) => {
+      this.saveZoomAndMapPosition();
+      store.saveAction('moveend');
+      this.hideLabelsZooomOut();
+      this.forceMapReRender();
+      // uncomment to get console of center and extent helpful for region extents
+      // console.log('center',  [this.map.getCenter().wrap().lng,
+      //   this.map.getCenter().wrap().lat] )
+      // console.log('mapBBox',
+      //   this.map.wrapLatLngBounds(this.map.getBounds()).toBBoxString().split(',').map(x => +x))
+    });
+  }
+
+  // map move end map handler
+  // https://leafletjs.com/reference-1.3.0.html#map-moveend
   mapMoveEndHandler() {
     this.map.on('moveend', (event) => {
       this.saveZoomAndMapPosition();
       store.saveAction('moveend');
       this.hideLabelsZooomOut();
+      this.forceMapReRender();
       // uncomment to get console of center and extent helpful for region extents
       // console.log('center',  [this.map.getCenter().wrap().lng,
       //   this.map.getCenter().wrap().lat] )
@@ -526,6 +566,25 @@ export class Map extends Component {
       this.saveZoomAndMapPosition();
       store.saveAction('zoomend');
       this.hideLabelsZooomOut();
+      this.forceMapReRender();
+
+      // const layers = store.getStateItem('mapLayerDisplayStatus');
+      // const region = store.getStateItem('region');
+      // const { TMSLayers } = mapConfig;
+      //
+      // // filter the layers based on current source
+      // Object.keys(layers).forEach((layerName) => {
+      //   const asource = TMSLayers.filter(TMSlayer => (
+      //     TMSlayer.id === layerName && TMSlayer.region === region
+      //   ));
+      //
+      //   // force redraw very hacky way to get rid of fuzzy edges may cause some
+      //   // performance issues.
+      //   if (layers[layerName] && asource.length > 0) {
+      //     const layer = this.overlayMaps[layerName];
+      //     layer.redraw();
+      //   }
+      // });
     });
   }
 
@@ -658,7 +717,7 @@ export class Map extends Component {
     if (!checkValidObject(value)) {
       return value;
     }
-    this.map.setZoom(value);
+    this.map.setZoom(Math.round(value));
     return value;
   }
 

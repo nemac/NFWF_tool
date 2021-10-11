@@ -66,14 +66,14 @@ export class HubIntersectionApi {
   }
 
   static simplifyshape(feature) {
-    const options = { tolerance: 0.0009, highQuality: false };
+    const options = { tolerance: 0.0001, highQuality: false };
     const simplified = simplify(feature, options);
     return simplified;
   }
 
   static simplifyGeoJson(geojsonFeatures) {
     return geojsonFeatures.map((feature) => {
-      const options = { tolerance: 0.0009, highQuality: false };
+      const options = { tolerance: 0.00015, highQuality: false };
       const simplified = simplify(feature, options);
       return simplified;
     });
@@ -113,6 +113,7 @@ export class HubIntersectionApi {
       if (Object.prototype.hasOwnProperty.call(response.data, 'error')) {
         throw response.data.message;
       }
+
 
       const esriFeatures = response.data.features;
       const geojsonFeatures = esriFeatures.map(f => HubIntersectionApi.convertAgolHubsFeature(f));
