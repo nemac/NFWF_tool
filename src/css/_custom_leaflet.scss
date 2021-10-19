@@ -16,6 +16,8 @@
   // image-rendering: -webkit-optimize-contrast;
 }
 
+//  try to deal with fuzzy edges in css this is how leaflet renders
+//  zoom levels beyone the maxNativeZoom
 .leaflet-container .leaflet-overlay-pane svg,
 .leaflet-container .leaflet-marker-pane img,
 .leaflet-container .leaflet-shadow-pane img,

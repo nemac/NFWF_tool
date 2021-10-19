@@ -53,6 +53,8 @@ export class Map extends Component {
     this.restoreStateStore = store.getState();
 
     // Initialize Leaflet map
+    // Workaround for detectRetina (https://github.com/Leaflet/Leaflet/issues/6059)
+    mapConfig.maxZoom = L.Browser.retina ? mapConfig.maxZoom - 1 : mapConfig.maxZoom;
     this.map = L.map(this.refs.mapContainer, mapConfig.mapOptions);
 
     // not sure why but something changed and I can no longer use maptions for inital zoom
@@ -119,38 +121,10 @@ export class Map extends Component {
 
   // force map render and setup
   forceMapReRender() {
-    this.map.invalidateSize(true);
-    this.delayedRedraw();
-  }
-
-  delayedRedraw() {
-    setTimeout(() => {
-      const layers = store.getStateItem('mapLayerDisplayStatus');
-      const region = store.getStateItem('region');
-      const { TMSLayers } = mapConfig;
-
-      // filter the layers based on current source
-      Object.keys(layers).forEach((layerName) => {
-        const asource = TMSLayers.filter(TMSlayer => (
-          TMSlayer.id === layerName && TMSlayer.region === region
-        ));
-
-        // force redraw very hacky way to get rid of fuzzy edges may cause some
-        // performance issues.
-        if (layers[layerName] && asource.length > 0) {
-          const layer = this.overlayMaps[layerName];
-          layer.redraw();
-        }
-      });
-      // const elems = document.querySelectorAll('.leaflet-layer');
-      // elems.forEach((elem) => {
-      //   if (elem) {
-      //     elem.classList.add('d-none');
-      //     elem.classList.remove('d-none');
-      //   }
-      // });
-      this.map.invalidateSize(true);
-    }, 5);
+    // this ensures the map is full setup.
+    // we have issues becuase the map height is 100% and is
+    // explicitly set
+    L.Util.requestAnimFrame(this.map.invalidateSize, this.map, !1, this.map._container);
   }
 
   // change esri basemap
@@ -281,8 +255,9 @@ export class Map extends Component {
         tileSize: layer.tileSize,
         transparent: layer.transparent,
         zIndex: layer.zIndex,
-        maxNativeZoom: 13, // layer.maxNativeZoom,
         modifyScrollWheel: false,
+        // See https://github.com/Leaflet/Leaflet/issues/6059
+        maxNativeZoom: L.Browser.retina ? layer.maxNativeZoom - 1 : layer.maxNativeZoom,
         detectRetina: true
       });
 
@@ -564,27 +539,11 @@ export class Map extends Component {
   mapZoomEndHandler() {
     this.map.on('zoomend', (event) => {
       this.saveZoomAndMapPosition();
+      // const value = this.map.getZoom();
+      // console.log('setMapZoom', value)
       store.saveAction('zoomend');
       this.hideLabelsZooomOut();
       this.forceMapReRender();
-
-      // const layers = store.getStateItem('mapLayerDisplayStatus');
-      // const region = store.getStateItem('region');
-      // const { TMSLayers } = mapConfig;
-      //
-      // // filter the layers based on current source
-      // Object.keys(layers).forEach((layerName) => {
-      //   const asource = TMSLayers.filter(TMSlayer => (
-      //     TMSlayer.id === layerName && TMSlayer.region === region
-      //   ));
-      //
-      //   // force redraw very hacky way to get rid of fuzzy edges may cause some
-      //   // performance issues.
-      //   if (layers[layerName] && asource.length > 0) {
-      //     const layer = this.overlayMaps[layerName];
-      //     layer.redraw();
-      //   }
-      // });
     });
   }
 
@@ -717,7 +676,8 @@ export class Map extends Component {
     if (!checkValidObject(value)) {
       return value;
     }
-    this.map.setZoom(Math.round(value));
+    this.map.setZoom(value);
+    // console.log('setMapZoom', value)
     return value;
   }
 
