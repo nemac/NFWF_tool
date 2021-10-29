@@ -862,6 +862,7 @@ export function addDownloadGoogleEvents() {
     'download-northern-mariana-islands-report',
     'download-american_samoa-data',
     'download-guam-data',
+    'download-guam-report',
     'download-american_samoa-report',
     'download-regional-report',
     'download-cape-fear-data',
