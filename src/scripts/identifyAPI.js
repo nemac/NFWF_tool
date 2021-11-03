@@ -8,8 +8,10 @@ const store = new Store({});
 // const identifyPath = 'Dev/';
 
 // const apiEndpoint = 'https://lg0njzoglg.execute-api.us-east-1.amazonaws.com/';
-const apiEndpoint = 'https://rlwk45u34h.execute-api.us-east-1.amazonaws.com/';
-const identifyPath = 'beta/';
+// const apiEndpoint = 'https://rlwk45u34h.execute-api.us-east-1.amazonaws.com/';  //  DEV api
+// const identifyPath = 'beta/'; // - DEV path
+const apiEndpoint = 'https://c5pbxj0fe6.execute-api.us-east-1.amazonaws.com/'; // production API
+const identifyPath = 'prod/'; // - production path
 
 /** API Wrapper Service Class
 * this wrapps the lambda service into axios js calls
