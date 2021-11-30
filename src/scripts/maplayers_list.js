@@ -232,19 +232,19 @@ export class MapLayersList extends Component {
       googleAnalyticsEvent('click', 'zoomregion', 'northern_mariana_islands');
     });
 
-    // document.getElementById('zoomregion-as').addEventListener('click', (e) => {
-    //   const region = zoomRegions.filter(regions => regions.region === 'american_samoa');
-    //   MapLayersList.zoomToRegion(mapComponent, region[0]);
-    //   MapLayersList.updateZoomRegionLabel('American Samoa');
-    //
-    //   // set region to US American Somoa
-    //   store.setStoreItem('region', 'american_samoa');
-    //   const navChangeEvent = new CustomEvent('regionChanged');
-    //   window.dispatchEvent(navChangeEvent);
-    //
-    //   // ga event action, category, label
-    //   googleAnalyticsEvent('click', 'zoomregion', 'american_samoa');
-    // });
+    document.getElementById('zoomregion-as').addEventListener('click', (e) => {
+      const region = zoomRegions.filter(regions => regions.region === 'american_samoa');
+      MapLayersList.zoomToRegion(mapComponent, region[0]);
+      MapLayersList.updateZoomRegionLabel('American Samoa');
+
+      // set region to US American Somoa
+      store.setStoreItem('region', 'american_samoa');
+      const navChangeEvent = new CustomEvent('regionChanged');
+      window.dispatchEvent(navChangeEvent);
+
+      // ga event action, category, label
+      googleAnalyticsEvent('click', 'zoomregion', 'american_samoa');
+    });
 
     document.getElementById('zoomregion-guam').addEventListener('click', (e) => {
       const region = zoomRegions.filter(regions => regions.region === 'guam');
