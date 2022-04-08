@@ -252,7 +252,7 @@ a.nav-link {
     width: 10px;
     height: 10px;
     left: 7px;
-    @include border-radius(50%, 50%)
+    @include border-radius(50%, 50%);
     top: -2px;
     z-index: 1;
     @include box-shadow-mixin(0px 0 0 $body-color-medium);
