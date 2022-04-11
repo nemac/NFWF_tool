@@ -246,6 +246,10 @@ export class Explore extends Component {
       if (regionLimitationsMessage) {
         regionLimitationsHolder.classList.remove('d-none');
         switch (region) {
+          case 'alaska':
+            regionLimitationsHolder.classList.remove('d-none');
+            regionLimitationsMessage.innerHTML = 'Alaska is special and awesome.';
+            break;
           case 'american_samoa':
             regionLimitationsHolder.classList.remove('d-none');
             regionLimitationsMessage.innerHTML = 'Before planning any resilience projects in American Samoa, it is important to first consult local matai, or chiefs, to explore opportunities in areas governed by traditional land-tenure.';

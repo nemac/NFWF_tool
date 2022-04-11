@@ -254,6 +254,38 @@ function addLandingListners() {
     });
   }
 
+  const elemStartUsingCRESTALASKAIMG = document.getElementById('landingpage-btn-alaska-img');
+  if (elemStartUsingCRESTALASKAIMG) {
+    const location = elemStartUsingCRESTALASKAIMG.getAttribute('href');
+    elemStartUsingCRESTALASKAIMG.addEventListener('click', (e) => {
+      e.preventDefault();
+      const elemCREST = document.getElementById('main-nav-map');
+      if (elemCREST) {
+        setRegionsQuikLinkState('alaska');
+        triggerZoomRegionQuikLink();
+        elemCREST.click();
+        setNavBars('main-nav-map');
+        router.navigate(location);
+      }
+    });
+  }
+
+  const elemStartUsingCRESTALASKA = document.getElementById('landingpage-btn-alaska');
+  if (elemStartUsingCRESTALASKA) {
+    const location = elemStartUsingCRESTALASKA.getAttribute('href');
+    elemStartUsingCRESTALASKA.addEventListener('click', (e) => {
+      e.preventDefault();
+      const elemCREST = document.getElementById('main-nav-map');
+      if (elemCREST) {
+        setRegionsQuikLinkState('alaska');
+        triggerZoomRegionQuikLink();
+        elemCREST.click();
+        setNavBars('main-nav-map');
+        router.navigate(location);
+      }
+    });
+  }
+
   const elemStartUsingCRESTCONUSIMG = document.getElementById('landingpage-btn-conus-img');
   if (elemStartUsingCRESTCONUSIMG) {
     const location = elemStartUsingCRESTCONUSIMG.getAttribute('href');
