@@ -444,7 +444,7 @@ function chartDataReformat(allchartdata) {
       // iterate the zonal stats and remap values to mapconfig chart types
       Object.keys(area.statistics).forEach((statisticskey) => {
         let configlayer = grouplayers.filter(layer => layer.apikey === statisticskey);
-
+        console.log('configlayer', configlayer)
         // apikey match could is different for hubs will work on this later to make names consistent
         if (area.source === 'nfwf_hubs' || area.source === 'mapinfo_ns') {
           configlayer = grouplayers.filter(layer => layer.hubsapikey === statisticskey);
