@@ -248,7 +248,7 @@ export class Explore extends Component {
         switch (region) {
           case 'alaska':
             regionLimitationsHolder.classList.remove('d-none');
-            regionLimitationsMessage.innerHTML = 'Alaska is special and awesome.';
+            regionLimitationsMessage.innerHTML = 'The Alaska Coastal Resilience Assessment methods differ from other regional assessments due to differences in flood-related hazards, data availability, and other factors. Please review the Alaska Assessment report for details.';
             break;
           case 'american_samoa':
             regionLimitationsHolder.classList.remove('d-none');
