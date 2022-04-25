@@ -260,20 +260,20 @@ export class MapLayersList extends Component {
       googleAnalyticsEvent('click', 'zoomregion', 'guam');
     });
 
-    // document.getElementById('zoomregion-alaska').addEventListener('click', (e) => {
-    //   const region = zoomRegions.filter(regions => regions.region === 'alaska');
-    //   MapLayersList.zoomToRegion(mapComponent, region[0]);
-    //   MapLayersList.updateZoomRegionLabel('alaska');
-    //   const navChangeEvent = new CustomEvent('regionChanged');
-    //    window.dispatchEvent(navChangeEvent);
-    //
-    // set region to alaska
-    // store.setStoreItem('region', 'alaska');
-    //
-    //   // ga event action, category, label
-    //   googleAnalyticsEvent('click', 'zoomregion', 'alaska');
-    // });
-    //
+    document.getElementById('zoomregion-alaska').addEventListener('click', (e) => {
+      const region = zoomRegions.filter(regions => regions.region === 'alaska');
+      MapLayersList.zoomToRegion(mapComponent, region[0]);
+      MapLayersList.updateZoomRegionLabel('alaska');
+      const navChangeEvent = new CustomEvent('regionChanged');
+      window.dispatchEvent(navChangeEvent);
+
+      // set region to alaska
+      store.setStoreItem('region', 'alaska');
+
+      // ga event action, category, label
+      googleAnalyticsEvent('click', 'zoomregion', 'alaska');
+    });
+
     document.getElementById('zoomregion-hawaii').addEventListener('click', (e) => {
       const region = zoomRegions.filter(regions => regions.region === 'hawaii');
       MapLayersList.zoomToRegion(mapComponent, region[0]);
@@ -347,6 +347,7 @@ export class MapLayersList extends Component {
     const americanSamoaLayerList = document.getElementById('americanSamoaLayerList');
     const guamLayerList = document.getElementById('guamLayerList');
     const hawaiiLayerList = document.getElementById('hawaiiLayerList');
+    const alaskaLayerList = document.getElementById('alaskaLayerList');
 
     // make sure region list are not displaying when targetedwatershed Nature Server data
     // nav is current location
@@ -358,6 +359,7 @@ export class MapLayersList extends Component {
       americanSamoaLayerList.classList.add('d-none');
       hawaiiLayerList.classList.add('d-none');
       guamLayerList.classList.add('d-none');
+      alaskaLayerList.classList.add('d-none');
       return null;
     }
 
@@ -370,6 +372,7 @@ export class MapLayersList extends Component {
         americanSamoaLayerList.classList.add('d-none');
         hawaiiLayerList.classList.add('d-none');
         guamLayerList.classList.add('d-none');
+        alaskaLayerList.classList.add('d-none');
         MapLayersList.updateZoomRegionLabel('Contiental U.S.');
         break;
       case 'puerto_rico':
@@ -380,6 +383,7 @@ export class MapLayersList extends Component {
         americanSamoaLayerList.classList.add('d-none');
         hawaiiLayerList.classList.add('d-none');
         guamLayerList.classList.add('d-none');
+        alaskaLayerList.classList.add('d-none');
         MapLayersList.updateZoomRegionLabel('Puerto Rico');
         break;
       case 'northern_mariana_islands':
@@ -390,6 +394,7 @@ export class MapLayersList extends Component {
         americanSamoaLayerList.classList.add('d-none');
         hawaiiLayerList.classList.add('d-none');
         guamLayerList.classList.add('d-none');
+        alaskaLayerList.classList.add('d-none');
         MapLayersList.updateZoomRegionLabel('Northern Mariana Islands');
         break;
       case 'us_virgin_islands':
@@ -400,6 +405,7 @@ export class MapLayersList extends Component {
         americanSamoaLayerList.classList.add('d-none');
         hawaiiLayerList.classList.add('d-none');
         guamLayerList.classList.add('d-none');
+        alaskaLayerList.classList.add('d-none');
         MapLayersList.updateZoomRegionLabel('US Virgin Islands');
         break;
       case 'american_samoa':
@@ -410,9 +416,18 @@ export class MapLayersList extends Component {
         americanSamoaLayerList.classList.remove('d-none');
         hawaiiLayerList.classList.add('d-none');
         guamLayerList.classList.add('d-none');
+        alaskaLayerList.classList.add('d-none');
         MapLayersList.updateZoomRegionLabel('American Samoa');
         break;
       case 'alaska':
+        defaultLayerList.classList.add('d-none');
+        puertoRicoLayerList.classList.add('d-none');
+        usVirginIslandsLayerList.classList.add('d-none');
+        northernMarianaIslandsLayerList.classList.add('d-none');
+        americanSamoaLayerList.classList.add('d-none');
+        hawaiiLayerList.classList.add('d-none');
+        guamLayerList.classList.add('d-none');
+        alaskaLayerList.classList.remove('d-none');
         MapLayersList.updateZoomRegionLabel('Alaska');
         break;
       case 'hawaii':
@@ -423,6 +438,7 @@ export class MapLayersList extends Component {
         americanSamoaLayerList.classList.add('d-none');
         hawaiiLayerList.classList.remove('d-none');
         guamLayerList.classList.add('d-none');
+        alaskaLayerList.classList.add('d-none');
         MapLayersList.updateZoomRegionLabel('Hawai\'i');
         break;
       case 'guam':
@@ -433,6 +449,7 @@ export class MapLayersList extends Component {
         americanSamoaLayerList.classList.add('d-none');
         hawaiiLayerList.classList.add('d-none');
         guamLayerList.classList.remove('d-none');
+        alaskaLayerList.classList.add('d-none');
         MapLayersList.updateZoomRegionLabel('Guam');
         break;
       default:
@@ -443,6 +460,7 @@ export class MapLayersList extends Component {
         americanSamoaLayerList.classList.add('d-none');
         hawaiiLayerList.classList.add('d-none');
         guamLayerList.classList.add('d-none');
+        alaskaLayerList.classList.add('d-none');
         MapLayersList.updateZoomRegionLabel('Contiental U.S.');
         break;
     }

@@ -246,6 +246,10 @@ export class Explore extends Component {
       if (regionLimitationsMessage) {
         regionLimitationsHolder.classList.remove('d-none');
         switch (region) {
+          case 'alaska':
+            regionLimitationsHolder.classList.remove('d-none');
+            regionLimitationsMessage.innerHTML = 'The Alaska Coastal Resilience Assessment methods differ from other regional assessments due to differences in flood-related hazards, data availability, and other factors. Please review the Alaska Assessment report for details.';
+            break;
           case 'american_samoa':
             regionLimitationsHolder.classList.remove('d-none');
             regionLimitationsMessage.innerHTML = 'Before planning any resilience projects in American Samoa, it is important to first consult local matai, or chiefs, to explore opportunities in areas governed by traditional land-tenure.';
