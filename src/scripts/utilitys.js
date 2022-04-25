@@ -865,7 +865,7 @@ export function addDownloadGoogleEvents() {
     'download-guam-data',
     'download-guam-report',
     'download-american_samoa-report',
-    'download-american_alaska-report',
+    'download-alaska-report',
     'download-regional-report',
     'download-cape-fear-data',
     'download-charleston-harbor-data',
