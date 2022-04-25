@@ -7,7 +7,7 @@ import { checkValidObject } from './utilitys';
 // prod api is having issues some I am switching ot the dev version until its resolved
 // const apiEndpoint = 'https://c5pbxj0fe6.execute-api.us-east-1.amazonaws.com/'; // - production api
 // const zonalStatsPath = 'prod/zonal_stats'; // - production path
-const apiEndpoint = 'https://rlwk45u34h.execute-api.us-east-1.amazonaws.com/';  // - Dev api
+const apiEndpoint = 'https://rlwk45u34h.execute-api.us-east-1.amazonaws.com/'; // - Dev api
 const zonalStatsPath = 'beta/zonal_stats'; // - Dev path
 const store = new Store({});
 

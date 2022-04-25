@@ -1101,7 +1101,7 @@ export function addMissingStateItems() {
       AK_FloodProneTMS: false,
       AK_TsunamiTiles: false,
       AK_PermaFrostTMS: false,
-      AK_LowLyingAreasTMS: false,
+      AK_LowLyingAreasTMS: false
     });
   }
 
