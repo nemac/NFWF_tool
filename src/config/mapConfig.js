@@ -6160,10 +6160,10 @@ export var mapConfig = {
     {
       id: "AK_TransporationInfrastructureTMS",
       layer: "Transporation Infrastructure TMS",
-      label: "Critical Transportation Infrastructure",
+      label: "Critical Transportation",
       apikey: 'transportation',
       hubsapikey: 'transportation',
-      chartLabel: 'Critical Transportation Infrastructure',
+      chartLabel: 'Critical Transportation',
       chartLegendValues: 5,
       chartCSSColor: {
         0: '#E9ECEF',
@@ -6693,8 +6693,8 @@ export var mapConfig = {
    {
      region: 'alaska',
      label: 'Alaska',
-     center: [ 62.72288115028305, 209.90641593933108],
-     extent: [-193.01, 48.63,  -90.08, 73.73],
+     center: [ 62.996, -140.858],
+     extent: [-185.977, 46.073, -95.801, 73.751],
      zoom: 4
    },
    {
