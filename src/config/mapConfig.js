@@ -5699,7 +5699,7 @@ export var mapConfig = {
       maxNativeZoom: 13,
       tms: false,
       legend: "AK_hub",
-      description: "Areas of open lands and protected space that may be suitable for resilience-building efforts. Hubs are ranked by priority, given the level of exposure that nearby assets have to flood-related threats and the presence and abundance of fish and wildlife species within and surrounding the Hub.",
+      description: "Resilience Hub Cores represent contiguous, unfragmented habitat cores proximate to human community assets ranked by combining Community Exposure and Fish and Wildlife Index values. Resilience Hub Cores provide a coarse-scale view of Resilience Hubs, where higher values represent areas with greater potential for dual community flood protection and wildlife benefits.",
       source: 'regional',
       region: 'alaska'
     },
@@ -5746,7 +5746,7 @@ export var mapConfig = {
       maxNativeZoom: 13,
       tms: false,
       legend: "AK_hubhex",
-      description: "Shows variation in Resilience Hub rankings using a 10-acre (4-hectare) hexagonal grid. Highest-ranking hexagons represent areas within Resilience Hub boundaries that may be suitable for resilience-building efforts.",
+      description: "The Resilience Hub Grid applies a 10-acre hexagonal grid to show variation within habitat cores, ranking each hexagon by combining Community Exposure and Fish and Wildlife Index values. The Resilience Hub Grid provides a fine-scale view of Resilience Hubs, where higher values represent areas with greater potential for dual community flood protection and wildlife benefits.",
       source: 'regional',
       region: 'alaska'
     },
@@ -5793,7 +5793,7 @@ export var mapConfig = {
       maxNativeZoom: 13,
       tms: false,
       legend: "AK_exposure",
-      description: "The product of the Asset and Threat Indices, which suggests areas on the landscape where community assets are potentially exposed to flood-related threats.",
+      description: "The product of the Community Asset Index and Threat Index, the Community Exposure Index identifies areas where human community assets are potentially exposed to numerous flood-related threats. Color ramp varies from other regions but displays similar information.",
       source: 'regional',
       region: 'alaska'
     },
@@ -5840,7 +5840,7 @@ export var mapConfig = {
       maxNativeZoom: 13,
       tms: false,
       legend: "AK_asset",
-      description: "Index of community assets critical to the recovery of an area and human population. High values suggest areas with a higher, cumulative prevalence of community assets on the landscape.",
+      description: "ndex of human community assets critical to an area’s recovery following a major flooding event. Higher values represent areas with a higher cumulative presence of community assets.",
       source: 'regional',
       region: 'alaska'
     },
@@ -5887,7 +5887,7 @@ export var mapConfig = {
       maxNativeZoom: 13,
       tms: false,
       legend: "AK_threat",
-      description: "Index of flood-related datasets, including storm surge scenarios and landscape characteristics that exacerbate flood potential. High values in the Index represent those areas on the landscape where there are multiple high values of individual inputs.",
+      description: "Index of flood-related datasets that contribute to or exacerbate flooding potential. High values represent areas with multiple flood-related inputs. Due to data limitations, results present a conservative estimate of the severity and extent of coastal hazards in Alaska.",
       source: 'regional',
       region: 'alaska'
     },
@@ -5935,7 +5935,7 @@ export var mapConfig = {
       maxNativeZoom: 13,
       tms: false,
       legend: "AK_fishandwildlife",
-      description: "Identifies valuable habitat for species of concern in both the terrestrial and marine environments. Higher values indicate more valuable habitat areas for both.",
+      description: "The sum of the Terrestrial Index and Aquatic Index, the Fish and Wildlife Index identifies  habitat and protected areas important for terrestrial and aquatic species of conservation concern and/or subsistence use. Higher values represent areas important for numerous species of concern.",
       source: 'regional',
       region: 'alaska'
     },
@@ -5982,7 +5982,7 @@ export var mapConfig = {
       maxNativeZoom: 13,
       tms: false,
       legend: "AK_aquatic",
-      description: "Higher values identify habitat areas that are most valuable for providing protection to nearby coastal communities and for the protection of marine species.",
+      description: "Identifies habitat suitable for species of conservation concern, species with federally-designated Essential Fish Habitat, and/or subsistence species that utilize riverine, lacustrine, and/or nearshore marine habitats (≤20m in depth). High values represent areas important for numerous species. See Alaska Assessment report for data inputs, sources, and methods.",
       source: 'regional',
       region: 'alaska'
     },
@@ -6029,7 +6029,7 @@ export var mapConfig = {
       maxNativeZoom: 13,
       tms: false,
       legend: "AK_terrestrial",
-      description: "Higher values identify habitat areas that are suitable to the most species of concern for that region, based on habitat preferences and potential threats identified by the IUCN Red List.",
+      description: "Identifies habitat suitable for species of conservation concern, Important Bird Areas, and/or subsistence species that utilize terrestrial habitats. High values represent areas important for numerous species. See Alaska Assessment report for data inputs, sources, and methods.",
       source: 'regional',
       region: 'alaska'
     },
@@ -6069,7 +6069,7 @@ export var mapConfig = {
       maxNativeZoom: 13,
       tms: false,
       legend: "AK_socvuln",
-      description: "Estimates are ranked from low to high, depicting areas of high poverty, vulnerable housing characteristics, and personal disruption due to climate change according to data from the 2010 Decennial Census.",
+      description: "Communities that are socially vulnerable according to data from the 2020 Denali Commission’s annual Distressed Communities report or the U.S. Environmental Protection Agency Environmental Justice Mapping and Screening Tool.",
       source: 'regional',
       region: 'alaska'
     },
@@ -6111,7 +6111,7 @@ export var mapConfig = {
       maxNativeZoom: 13,
       tms: false,
       legend: "AK_critfac",
-      description: "Facilities such as schools, hospitals, and police and fire stations that are important to recovery efforts when a community is faced with a flood-related event. All facilities are given the same presence rank.",
+      description: "Identifies facilities that provide important recovery and operational support during and following flood events (e.g., schools, medical facilities, post offices, emergency service stations). All critical facilities are given the same rank based on presence. See Alaska Assessment report for data inputs, sources, and methods.",
       source: 'regional',
       region: 'alaska'
     },
@@ -6153,7 +6153,7 @@ export var mapConfig = {
       maxNativeZoom: 13,
       tms: false,
       legend: "AK_CommunityInfrastructure",
-      description: "Infrastructure in and around communities that are integral to a community’s ability to recover from a flood event, including primary highways, power plants, and rail lines, among others. High values suggest areas where multiple infrastructure overlap.",
+      description: "Infrastructure integral to a community’s ability to recover from a flood event (e.g., power plants, wastewater treatment facilities, petroleum terminals). All critical infrastructure is given the same rank based on presence. See Alaska Assessment report for data inputs, sources, and methods.",
       source: 'regional',
       region: 'alaska'
     },
@@ -6195,7 +6195,7 @@ export var mapConfig = {
       maxNativeZoom: 13,
       tms: false,
       legend: "AK_TransporationInfrastructure",
-      description: "Infrastructure in and around communities that are integral to a community’s ability to recover from a flood event, including primary highways, power plants, and rail lines, among others. High values suggest areas where multiple infrastructure overlap.",
+      description: "Incorporates critical transportation services that provide access to commodities, evacuation routes, and emergency response (e.g., roads, railways, airports, ferry terminals, ports, harbors). All critical transportation infrastructure is given the same rank based on presence. See Alaska Assessment report for data inputs, sources, and methods.",
       source: 'regional',
       region: 'alaska'
     },
@@ -6237,7 +6237,7 @@ export var mapConfig = {
       maxNativeZoom: 13,
       tms: false,
       legend: "AK_erosion",
-      description: "Those areas that contain soil characteristics that have a high susceptibility of soil particle detachment by water. This may include areas that have high silt content or migratory systems such as beaches and dunes. High values suggest that areas carry an increased potential for erosion due to flooding or heavy precipitation events.",
+      description: "Identifies areas susceptible to erosion using multiple data sources.. High values represent areas with higher potential for erosion from flooding or heavy precipitation. See Alaska Assessment report for data inputs, sources, and methods.",
       source: 'regional',
       region: 'alaska'
     },
@@ -6279,7 +6279,7 @@ export var mapConfig = {
       maxNativeZoom: 13,
       tms: false,
       legend: "AK_floodprone",
-      description: "Areas considered by FEMA to be in the 100- and 500-year flood zones, as well as the floodway. Frequently and occasionally flooded soil designations are used to identify areas outside of FEMA coverage. Highest values suggest areas directly in the floodway, whereas low values suggest occasionally flooded soils outside of the floodplain.",
+      description: "Identifies areas prone to flooding using multiple data sources. Areas greater than 20m in elevation were excluded from this input as they are unlikely to experience flooding. See Alaska Assessment report for data inputs, sources, and methods.",
       source: 'regional',
       region: 'alaska'
     },
@@ -6321,7 +6321,7 @@ export var mapConfig = {
       maxNativeZoom: 13,
       tms: false,
       legend: "AK_tsunami",
-      description: "Represents the maximum extent of inundation due to tsunami.",
+      description: "Communities that have been mapped that may experience tsunami inundation. See Alaska Assessment report for data inputs, sources, and methods.",
       source: 'regional',
       region: 'alaska'
     },
@@ -6362,7 +6362,7 @@ export var mapConfig = {
       maxNativeZoom: 13,
       tms: false,
       legend: "AK_PermaFrost",
-      description: "Represents the maximum extent of inundation due to tsunami.",
+      description: "Identifies areas susceptible to permafrost thaw and degradation. Values are based on results from multiple studies that provide a direct indicator of permafrost-related flooding threats. See Alaska Assessment report for data inputs, sources, and methods.",
       source: 'regional',
       region: 'alaska'
     },
@@ -6403,7 +6403,7 @@ export var mapConfig = {
       maxNativeZoom: 13,
       tms: false,
       legend: "AK_LowLyingAreas",
-      description: "Represents the maximum extent of inundation due to tsunami.",
+      description: "Displays percent rise in elevation. High values represent low-lying areas that are more likely to retain water and flood. See Alaska Assessment report for data inputs, sources, and methods.",
       source: 'regional',
       region: 'alaska'
     },
