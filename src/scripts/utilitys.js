@@ -1085,8 +1085,8 @@ export function addMissingStateItems() {
       GU_WaveExposureTiles: false,
       GU_LandslideIndexTiles: false,
 
-      AK_HubsTMS: true,
-      AK_HubsHexTMS: false,
+      AK_HubsTMS: false,
+      AK_HubsHexTMS: true,
       AK_ExposureTMS: false,
       AK_AssetsTMS: false,
       AK_ThreatsTMS: false,
