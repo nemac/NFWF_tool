@@ -5840,7 +5840,7 @@ export var mapConfig = {
       maxNativeZoom: 13,
       tms: false,
       legend: "AK_asset",
-      description: "ndex of human community assets critical to an area’s recovery following a major flooding event. Higher values represent areas with a higher cumulative presence of community assets.",
+      description: "Index of human community assets critical to an area’s recovery following a major flooding event. Higher values represent areas with a higher cumulative presence of community assets.",
       source: 'regional',
       region: 'alaska'
     },
@@ -5887,7 +5887,7 @@ export var mapConfig = {
       maxNativeZoom: 13,
       tms: false,
       legend: "AK_threat",
-      description: "Index of flood-related datasets that contribute to or exacerbate flooding potential. High values represent areas with multiple flood-related inputs. Due to data limitations, results present a conservative estimate of the severity and extent of coastal hazards in Alaska.",
+      description: "Index of flood-related datasets that contribute to or exacerbate flooding potential. High values represent areas with multiple flood-related inputs. Due to data limitations, results present a conservative estimate of the severity and extent of coastal hazards in Alaska; low Threat Index values may correspond to areas with no or few data inputs.",
       source: 'regional',
       region: 'alaska'
     },
@@ -6237,7 +6237,7 @@ export var mapConfig = {
       maxNativeZoom: 13,
       tms: false,
       legend: "AK_erosion",
-      description: "Identifies areas susceptible to erosion using multiple data sources.. High values represent areas with higher potential for erosion from flooding or heavy precipitation. See Alaska Assessment report for data inputs, sources, and methods.",
+      description: "Identifies areas susceptible to erosion using multiple data sources. High values represent areas with higher potential for erosion from flooding or heavy precipitation. Data are not available for the entire study area; areas without data may or may not have erodible soils. See Alaska Assessment report for data inputs, sources, and methods.",
       source: 'regional',
       region: 'alaska'
     },
@@ -6279,17 +6279,17 @@ export var mapConfig = {
       maxNativeZoom: 13,
       tms: false,
       legend: "AK_floodprone",
-      description: "Identifies areas prone to flooding using multiple data sources. Areas greater than 20m in elevation were excluded from this input as they are unlikely to experience flooding. See Alaska Assessment report for data inputs, sources, and methods.",
+      description: "Identifies areas prone to flooding using multiple data sources. Data are not available for the entire study area; areas without data may or may not be prone to flooding. Areas greater than 20m in elevation were excluded from this input as they are unlikely to experience flooding. See Alaska Assessment report for data inputs, sources, and methods.",
       source: 'regional',
       region: 'alaska'
     },
     {
       id: "AK_TsunamiTilesTMS",
       layer: "Tsunami",
-      label: "Tsunami Evacuation Zones",
+      label: "Tsunami Inundation",
       apikey: 'tsunami',
       hubsapikey: 'tsunami',
-      chartLabel: 'Tsunami Evacuation Zones',
+      chartLabel: 'Tsunami Inundation',
       chartLegendValues: 5,
       chartCSSColor: {
         0: '#E9ECEF',
@@ -6321,7 +6321,7 @@ export var mapConfig = {
       maxNativeZoom: 13,
       tms: false,
       legend: "AK_tsunami",
-      description: "Communities that have been mapped that may experience tsunami inundation. See Alaska Assessment report for data inputs, sources, and methods.",
+      description: "Communities that have been mapped that may experience tsunami inundation. Data are not available for all communities in the study area; areas without data may or may not be susceptible to tsunami inundation. See Alaska Assessment report for data inputs, sources, and methods.",
       source: 'regional',
       region: 'alaska'
     },
@@ -6403,7 +6403,7 @@ export var mapConfig = {
       maxNativeZoom: 13,
       tms: false,
       legend: "AK_LowLyingAreas",
-      description: "Displays percent rise in elevation. High values represent low-lying areas that are more likely to retain water and flood. See Alaska Assessment report for data inputs, sources, and methods.",
+      description: "Displays percent rise in elevation. High values represent low-lying areas that are more likely to retain water and flood. Data are not available for the entire study area; areas without data may or may not have a high likelihood to retain water. See Alaska Assessment report for data inputs, sources, and methods.",
       source: 'regional',
       region: 'alaska'
     },
