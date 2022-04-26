@@ -223,7 +223,7 @@ const config = [
     },
     region: 'alaska',
     queryUrl: `https://services1.arcgis.com/PwLrOgCfU0cYShcG/ArcGIS/rest/services/ak_hubs_core_030722/FeatureServer/0/query`,
-    agolOutFields: [ 'TARGET_FID','aquatic', 'low_areas', 'permafrst', 'trsnpoton', 'terrestri', 'hub_rnk', 'exposure', 'asset', 'threat', 'soc_vuln', 'crit_infra', 'crit_fac', 'soc_vuln','floodprone', 'tsunami', 'terrestri', 'erosion' ]
+    agolOutFields: [ 'TARGET_FID','aquatic', 'low_areas', 'permafrst', 'trsnpoton', 'terrestri', 'hub_rnk', 'exposure', 'asset', 'threat', 'soc_vuln', 'crit_infra', 'crit_fac', 'soc_vuln','floodprone', 'tsunami', 'wildlife', 'terrestri', 'erosion' ]
   }
 ];
 
