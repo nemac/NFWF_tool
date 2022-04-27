@@ -6362,7 +6362,7 @@ export var mapConfig = {
       maxNativeZoom: 13,
       tms: false,
       legend: "AK_PermaFrost",
-      description: "Identifies areas susceptible to permafrost thaw and degradation. Values are based on results from multiple studies that provide a direct indicator of permafrost-related flooding threats. See Alaska Assessment report for data inputs, sources, and methods.",
+      description: "Identifies areas thought to be susceptible to permafrost thaw and degradation. Values are based on results from multiple studies that provide a direct indicator of permafrost-related flooding threats. See Alaska Assessment report for data inputs, sources, and methods.",
       source: 'regional',
       region: 'alaska'
     },
