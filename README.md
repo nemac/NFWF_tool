@@ -1,6 +1,10 @@
-# NFWF_tool [![Build Status](https://travis-ci.com/nemac/NFWF_tool.svg?branch=production)](https://travis-ci.com/nemac/NFWF_tool)
+# NFWF_tool
 
- 
+
+![GH Pages Build Status](https://github.com/nemac/NFWF_tool/actions/workflows/pages/pages-build-deployment/badge.svg)
+![Production Build Status](https://github.com/nemac/NFWF_tool/actions/workflows/deploy-production.yml/badge.svg)
+
+
 ## First iteration of basic viewer
 
 To install
