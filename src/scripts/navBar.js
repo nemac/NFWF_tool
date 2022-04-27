@@ -103,7 +103,7 @@ export class NavBar extends Component {
         this.activeNav = nav.id;
         store.setStoreItem('activeNav', nav.id);
 
-        // leaving this incase we need it, might help with URL changing
+        // leaving this incase we need it, might help with URL changing test
         // const navTab = navConfig.navs.filter((json) => {
         //   const returnValue = json.id === nav.id;
         //   return returnValue;
