@@ -201,6 +201,29 @@ const config = [
     region: 'guam',
     queryUrl: `https://services1.arcgis.com/PwLrOgCfU0cYShcG/ArcGIS/rest/services/CREST_Guam_Hubs_10042021/FeatureServer/0/query`,
     agolOutFields: [ 'TARGET_FID','exposure', 'asset', 'threat', 'marine', 'terrestri', 'hub_rnk', 'crit_infra', 'crit_fac', 'pop_dens', 'soc_vuln', 'impermeabl', 'floodprone', 'slr','slope', 'tsunami', 'wildlife', 'wave_fld', 'erosion' , 'wave_exp', 'landslides' ]
+  },
+  {
+    fieldMaps: {
+      hub_rnk: 'hubs',
+      exposure: 'exposure',
+      asset: 'asset',
+      terrestri: 'terrestrial',
+      crit_infra: 'crit_infra',
+      crit_fac: 'crit_facilities',
+      soc_vuln: 'social_vuln',
+      erosion: 'erosion',
+      floodprone: 'floodprone_areas',
+      wildlife: 'wildlife',
+      tsunami: 'tsunami',
+      trsnpoton: 'transportation',
+      permafrst: 'permafrost',
+      low_areas: 'low_areas',
+      threat: 'threat',
+      aquatic: 'aquatic'
+    },
+    region: 'alaska',
+    queryUrl: `https://services1.arcgis.com/PwLrOgCfU0cYShcG/ArcGIS/rest/services/ak_hubs_core_030722/FeatureServer/0/query`,
+    agolOutFields: [ 'TARGET_FID','aquatic', 'low_areas', 'permafrst', 'trsnpoton', 'terrestri', 'hub_rnk', 'exposure', 'asset', 'threat', 'soc_vuln', 'crit_infra', 'crit_fac', 'soc_vuln','floodprone', 'tsunami', 'wildlife', 'terrestri', 'erosion' ]
   }
 ];
 

@@ -861,9 +861,11 @@ export function addDownloadGoogleEvents() {
     'download-northern-mariana-islands-data',
     'download-northern-mariana-islands-report',
     'download-american_samoa-data',
+    'download-alaska-data',
     'download-guam-data',
     'download-guam-report',
     'download-american_samoa-report',
+    'download-alaska-report',
     'download-regional-report',
     'download-cape-fear-data',
     'download-charleston-harbor-data',
@@ -887,6 +889,7 @@ export function addDownloadGoogleEvents() {
     'landingpage-btn-conus',
     'landingpage-btn-northern_mariana_islands',
     'landingpage-btn-american_samoa',
+    'landingpage-btn-american_alaska',
     'landingpage-btn-guam',
     'landingpage-btn-puerto_rico',
     'landingpage-btn-us_virgin_islands',
@@ -921,7 +924,6 @@ export function addMissingStateItems() {
   if (!checkValidObject(store.getStateItem('uuid'))) {
     store.setStoreItem('uuid', uuid());
   }
-
 
   // check for lastaction default is moveend
   if (!checkValidObject(store.getStateItem('lastaction'))) {
@@ -1081,7 +1083,25 @@ export function addMissingStateItems() {
       GU_TsunamiIndexTiles: false,
       GU_FishAndWildlifeTMS: false,
       GU_WaveExposureTiles: false,
-      GU_LandslideIndexTiles: false
+      GU_LandslideIndexTiles: false,
+
+      AK_HubsTMS: false,
+      AK_HubsHexTMS: true,
+      AK_ExposureTMS: false,
+      AK_AssetsTMS: false,
+      AK_ThreatsTMS: false,
+      AK_WildlifeTMS: false,
+      AK_AquaticTMS: false,
+      AK_TerrestrialTMS: false,
+      AK_SocVulnTMS: false,
+      AK_CriticalFacilitiesTMS: false,
+      AK_CommunityInfrastructureTMS: false,
+      AK_TransporationInfrastructureTMS: false,
+      AK_ErosionTMS: false,
+      AK_FloodProneTMS: false,
+      AK_TsunamiTiles: false,
+      AK_PermaFrostTMS: false,
+      AK_LowLyingAreasTMS: false
     });
   }
 

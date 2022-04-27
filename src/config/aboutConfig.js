@@ -2,7 +2,7 @@ export var navConfig = {
   navs:[{
       name: "about",
       ref: "about-nav-aboutgen",
-      text: "About the CREST Tool",
+      text: "About CREST",
       id: "about-nav-aboutgen",
       href: "./#About/"
     },
