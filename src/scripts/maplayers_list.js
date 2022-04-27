@@ -265,11 +265,10 @@ export class MapLayersList extends Component {
       MapLayersList.zoomToRegion(mapComponent, region[0]);
       MapLayersList.updateZoomRegionLabel('alaska');
       const navChangeEvent = new CustomEvent('regionChanged');
-      window.dispatchEvent(navChangeEvent);
 
       // set region to alaska
       store.setStoreItem('region', 'alaska');
-
+      window.dispatchEvent(navChangeEvent);
       // ga event action, category, label
       googleAnalyticsEvent('click', 'zoomregion', 'alaska');
     });

@@ -103,6 +103,18 @@ export class NavBar extends Component {
         this.activeNav = nav.id;
         store.setStoreItem('activeNav', nav.id);
 
+        // leaving this incase we need it, might help with URL changing
+        // const navTab = navConfig.navs.filter((json) => {
+        //   const returnValue = json.id === nav.id;
+        //   return returnValue;
+        // });
+        //
+        // const aElement = document.createElement('a');
+        // const ev = new MouseEvent('click');
+        // aElement.href = navTab[0].href;
+        // aElement.dispatchEvent(ev);
+        // aElement.remove();
+
         // this is repative with router?
         const navChangeEvent = new CustomEvent('aboutNavChange');
         window.dispatchEvent(navChangeEvent);
