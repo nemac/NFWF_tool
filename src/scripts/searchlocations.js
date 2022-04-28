@@ -243,6 +243,11 @@ export class SearchLocations extends Component {
       SearchLocationsCloseButtonElement.setAttribute('aria-label', 'Close Locations');
       SearchLocationsCloseButtonElement.setAttribute('title', 'Close Locations');
 
+      // bug in production is adding close has in href
+      if (SearchLocationsCloseButtonElement) {
+        SearchLocationsCloseButtonElement.removeAttribute('href');
+      }
+
       // add the click handler to parent element of buttons
       iButtonElement.addEventListener('click', (ev) => {
         // if clicked child or explore buttton

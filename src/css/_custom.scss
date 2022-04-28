@@ -3393,6 +3393,9 @@ p.not-found {
   .leaflet-popup-close-button {
     top: 15px !important;
     z-index: 4000;
+    cursor: pointer;
+    height: 24px;
+    width: 24px;
   }
 }
 

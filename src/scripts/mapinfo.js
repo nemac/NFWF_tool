@@ -74,18 +74,26 @@ export class MapInfo extends Component {
     // $(() => {
     //   $('#mapinfodata [data-toggle="tooltip"]').tooltip({ trigger: 'hover focus' });
     // });
+    // add labels for assessabbility\
+
+    // fixes bug with production trying to got to #close and causing an error
+    window.addEventListener('popupopen', (e) => {
+      setTimeout(() => {
+        const SearchLocationsCloseButtonElement = document.querySelector('.leaflet-popup-close-button');
+
+        // bug in production is adding close has in href
+        if (SearchLocationsCloseButtonElement) {
+          SearchLocationsCloseButtonElement.removeAttribute('href');
+        }
+      }, 50);
+    });
 
     window.addEventListener('aboutNavChange', (e) => {
       // remove from state
       const activeNav = store.getStateItem('activeNav');
       let mapclick = {};
       let mapinfo = {};
-
-      if (activeNav === 'main-nav-map-searchNShubs') {
-        // check the mapclick v
-        mapclick = store.getStateItem('mapClickns');
-        mapinfo = store.getStateItem('mapinfons');
-      } else {
+      if (activeNav !== 'main-nav-map-searchNShubs' && activeNav !== 'main-nav-map-examples') {
         // check the mapclick v
         mapclick = store.getStateItem('mapClick');
         mapinfo = store.getStateItem('mapinfo');
@@ -93,17 +101,14 @@ export class MapInfo extends Component {
 
       this.removeMapMarker();
 
-      if (activeNav === 'main-nav-map-searchNShubs') {
-        // check the mapclick v
-        store.setStoreItem('mapClickns', mapclick);
-        store.setStoreItem('mapinfons', mapinfo);
-      } else {
-        // check the mapclick v
+      if (activeNav !== 'main-nav-map-searchNShubs' && activeNav !== 'main-nav-map-examples') {
+        // check the mapclick
         store.setStoreItem('mapClick', mapclick);
         store.setStoreItem('mapinfo', mapinfo);
+        const SearchLocationsCloseButtonElement = document.querySelector('.map-information-popup');
+        if (SearchLocationsCloseButtonElement) SearchLocationsCloseButtonElement.remove();
+        this.restoreMapInfoState();
       }
-
-      this.restoreMapInfoState();
     });
   }
 
@@ -198,7 +203,7 @@ export class MapInfo extends Component {
       }
       // check if mapinfo data is store use
       // data in store over going to api again
-      this.retreiveMapClick(checkValidObject(IdentifyJsonFromStore));
+      this.retreiveMapClick(checkValidObject(IdentifyJsonFromStore), 'restore');
     }
   }
 
@@ -240,7 +245,7 @@ export class MapInfo extends Component {
       // if there was a point retrieve the information from the
       // lambda api function
       if (ev.containerPoint !== undefined) {
-        this.retreiveMapClick(false);
+        this.retreiveMapClick(false, 'click');
       }
     });
   }
@@ -263,7 +268,7 @@ export class MapInfo extends Component {
   // Load map data from the API
   // todo what else can be seperated out to make functions more
   // testable.
-  async retreiveMapClick(restore) {
+  async retreiveMapClick(restore, from) {
     // toggle spinner css from utility.js
     spinnerOn();
     store.setStoreItem('working_mapinfo', true);
@@ -311,6 +316,7 @@ export class MapInfo extends Component {
       } else {
         RemapedIdentifyJson = store.getStateItem('mapinfo');
       }
+
       // ga event action, category, label
       googleAnalyticsEvent('call', 'store', 'IdentifyAPI');
     } else {
@@ -371,10 +377,10 @@ export class MapInfo extends Component {
 
   // bind popup to marker
   // @param { Object } doc is html document (identify/mapinfo html element)
-  bindPopup(marker, doc) {
+  bindPopup(marker, doc) { // eslint-disable-line
+    // add labels for assessabbility
     const mapinformationel = doc.getElementById('map_info_list');
     const tooltipContent = L.Util.template(mapinformationel.outerHTML);
-
     const popup = marker.bindPopup(
       tooltipContent,
       {
@@ -386,15 +392,19 @@ export class MapInfo extends Component {
       }
     ).openPopup().setLatLng(marker.getLatLng());
 
-    // add labels for assessabbility
     const SearchLocationsCloseButtonElement = document.querySelector('.map-information-popup .leaflet-popup-close-button');
     SearchLocationsCloseButtonElement.setAttribute('aria-label', 'Close Map Information');
     SearchLocationsCloseButtonElement.setAttribute('title', 'Close Map Information');
 
-    this.map.addEventListener('popupopen', (e) => {
-      const removeUserAreaEvent = new CustomEvent('leafletpopupopen');
-      window.dispatchEvent(removeUserAreaEvent);
-    });
+    // bug in production is adding close has in href
+    if (SearchLocationsCloseButtonElement) {
+      SearchLocationsCloseButtonElement.removeAttribute('href');
+    }
+
+    // this.map.addEventListener('popupopen', (e) => {
+    //   const removeUserAreaEvent = new CustomEvent('leafletpopupopen');
+    //   window.dispatchEvent(removeUserAreaEvent);
+    // });
 
     return popup;
   }
