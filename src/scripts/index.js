@@ -174,7 +174,7 @@ function initMapComponent() { // add parameter for type of explore
     mapComponent.restoreMapState();
 
     if (checkValidObject(mapInfoComponent)) {
-      mapInfoComponent.restoreMapInfoState();
+      // mapInfoComponent.restoreMapInfoState();
     }
 
     if (checkValidObject(searchLocationsComponent)) {
