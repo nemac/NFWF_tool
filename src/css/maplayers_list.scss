@@ -61,6 +61,9 @@ $map_right_margin: 10px;
 .map-information-popup a.leaflet-popup-close-button {
   top: 15px !important;
   z-index: 1021;
+  cursor: pointer;
+  height: 24px;
+  width: 24px;
 }
 
 #map_info_list {
