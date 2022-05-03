@@ -131,13 +131,13 @@ export class NavBar extends Component {
     const urlwithoutquery = fullurl.href.replace(urlParams, '');
     const activeNav = store.getStateItem('activeNav');
 
+    // this very hacky need better way to handle
     const navConfigData = navConfig.navs.filter((json) => {
       const returnValue = json.id === activeNav;
       return returnValue;
     });
+    const newURL = urlwithoutquery.replace(`#${hash}`, `#${navConfigData[0].hash}`);
 
-    const newURL = urlwithoutquery.replace(`#${hash}`, `#${navConfigData[0].hash}`)
-    console.log('UpdateRouteURL', urlwithoutquery, newURL)
     // this very hacky need better way to handle
     if (id === 'main-nav-map-searchhubs' || id === 'main-nav-map-searchNShubs' || id === 'main-nav-map-examples') {
       if (window.history && window.history.replaceState) {
@@ -149,8 +149,8 @@ export class NavBar extends Component {
       window.history.replaceState({}, '', `${urlwithoutquery}Home`);
     }
 
+    // this very hacky need better way to handle
     setTimeout(() => { window.history.replaceState(null, null, newURL); }, 50);
-
   }
 
   static tabUpdate(id) {
