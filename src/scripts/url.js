@@ -47,10 +47,8 @@ const SHARE_URL_IGNORE_KEYS = [
  */
 export class URL {
   constructor() {
-    // const urlParams = new URLSearchParams(window.location.search);
-    // this.hasShareURL = urlParams.get('shareurl');
-    // // const activeNav = store.getStateItem('activeNav');
-    // console.log('this.hasShareURL', this.hasShareURL);
+    const urlParams = new URLSearchParams(window.location.search);
+    this.hasShareURL = urlParams.get('shareurl');
 
     this.url = new StorageAPI();
     const handler = URL.setUrl.bind(this);
@@ -69,8 +67,7 @@ export class URL {
   static updateURL(url) {
     if (window.history && window.history.replaceState) {
       // commented to fix issues with tab and URL not updating properly
-      // console.log('updateURL', url)
-      window.history.pushState({}, '', url);
+      window.history.replaceState({}, '', url);
     }
   }
 
@@ -105,7 +102,6 @@ export class URL {
 
   static setUrl() {
     const hash = window.location.hash.substr(1);
-    // console.log('setUrl', hash)
     URL.updateURL(`#${hash}`);
   }
 
