@@ -69,7 +69,7 @@ export class URL {
   static updateURL(url) {
     if (window.history && window.history.replaceState) {
       // commented to fix issues with tab and URL not updating properly
-      console.log('updateURL', url)
+      // console.log('updateURL', url)
       window.history.pushState({}, '', url);
     }
   }
@@ -105,7 +105,7 @@ export class URL {
 
   static setUrl() {
     const hash = window.location.hash.substr(1);
-    console.log('setUrl', hash)
+    // console.log('setUrl', hash)
     URL.updateURL(`#${hash}`);
   }
 
