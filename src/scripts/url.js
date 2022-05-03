@@ -65,9 +65,13 @@ export class URL {
   }
 
   static updateURL(url) {
+    const urlParams = new URLSearchParams(window.location.search);
+    const hasShareURL = urlParams.get('shareurl');
+
     if (window.history && window.history.replaceState) {
-      // commented to fix issues with tab and URL not updating properly
-      window.history.replaceState({}, '', url);
+      if (hasShareURL) {
+        window.history.replaceState({}, '', url);
+      }
     }
   }
 
@@ -102,6 +106,7 @@ export class URL {
 
   static setUrl() {
     const hash = window.location.hash.substr(1);
+
     URL.updateURL(`#${hash}`);
   }
 

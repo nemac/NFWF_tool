@@ -129,14 +129,6 @@ export class NavBar extends Component {
     const urlParams = window.location.search;
     const hash = window.location.hash.substr(1);
     const urlwithoutquery = fullurl.href.replace(urlParams, '');
-    const activeNav = store.getStateItem('activeNav');
-
-    // this very hacky need better way to handle
-    const navConfigData = navConfig.navs.filter((json) => {
-      const returnValue = json.id === activeNav;
-      return returnValue;
-    });
-    const newURL = urlwithoutquery.replace(`#${hash}`, `#${navConfigData[0].hash}`);
 
     // this very hacky need better way to handle
     if (id === 'main-nav-map-searchhubs' || id === 'main-nav-map-searchNShubs' || id === 'main-nav-map-examples') {
@@ -148,9 +140,6 @@ export class NavBar extends Component {
     } else if (!hash) {
       window.history.replaceState({}, '', `${urlwithoutquery}Home`);
     }
-
-    // this very hacky need better way to handle
-    setTimeout(() => { window.history.replaceState(null, null, newURL); }, 50);
   }
 
   static tabUpdate(id) {
