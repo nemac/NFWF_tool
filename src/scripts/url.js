@@ -67,7 +67,7 @@ export class URL {
   static updateURL(url) {
     if (window.history && window.history.replaceState) {
       // commented to fix issues with tab and URL not updating properly
-      // window.history.replaceState({}, '', url);
+      window.history.replaceState({}, '', url);
     }
   }
 
