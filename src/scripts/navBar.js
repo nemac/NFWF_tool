@@ -129,16 +129,21 @@ export class NavBar extends Component {
     const urlParams = window.location.search;
     const hash = window.location.hash.substr(1);
     const urlwithoutquery = fullurl.href.replace(urlParams, '');
+    const activeNav = store.getStateItem('activeNav');
+
+    console.log('UpdateRouteURL not in', `${urlwithoutquery}Home`, hash, activeNav)
 
     // this very hacky need better way to handle
     if (id === 'main-nav-map-searchhubs' || id === 'main-nav-map-searchNShubs' || id === 'main-nav-map-examples') {
       if (window.history && window.history.replaceState) {
         if (!hash) {
           window.history.replaceState({}, '', `${urlwithoutquery}SearchHubs`);
+          console.log('UpdateRouteURL if', `${urlwithoutquery}Home`, activeNav)
         }
       }
     } else if (!hash) {
       window.history.replaceState({}, '', `${urlwithoutquery}Home`);
+      console.log('UpdateRouteURL else if', `${urlwithoutquery}Home`, activeNav)
     }
   }
 
