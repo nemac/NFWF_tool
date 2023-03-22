@@ -235,7 +235,7 @@ export var mapConfig = {
       maxNativeZoom: 13,
       tms: false,
       legend: "fishandwildlife",
-      description: "Fish and wildlife needs a description currently this text is just a placeholder.",
+      description: "The sum of the Terrestrial Index and Aquatic Index, the Fish and Wildlife Index identifies  habitat and protected areas important for terrestrial and aquatic species of conservation concern and/or subsistence use. Higher values represent areas important for numerous species of concern.",
       source: 'fishandwildlife',
       region: 'continental_us'
     },
