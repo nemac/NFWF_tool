@@ -4,10 +4,10 @@ import { Store } from './store';
 // import { postData } from '../config/testpost';
 import { checkValidObject } from './utilitys';
 
-const apiEndpoint = 'https://c5pbxj0fe6.execute-api.us-east-1.amazonaws.com/'; // - production api
-const zonalStatsPath = 'prod/zonal_stats'; // - production path
-// const apiEndpoint = 'https://rlwk45u34h.execute-api.us-east-1.amazonaws.com/'; // - Dev api
-// const zonalStatsPath = 'beta/zonal_stats'; // - Dev path
+// const apiEndpoint = 'https://c5pbxj0fe6.execute-api.us-east-1.amazonaws.com/'; // - production api
+// const zonalStatsPath = 'prod/zonal_stats'; // - production path
+const apiEndpoint = 'https://rlwk45u34h.execute-api.us-east-1.amazonaws.com/'; // - Dev api
+const zonalStatsPath = 'beta/zonal_stats'; // - Dev path
 const store = new Store({});
 
 // const apiEndpoint = 'https://ktj0thaws0.execute-api.us-east-1.amazonaws.com/';

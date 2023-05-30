@@ -1057,6 +1057,9 @@ function makeDetailDriverCharts(wrapper, data, region, chartName) {
     const driverGroupName = driver[0].chartInputName;
     const driverGroupLabel = driver[0].chartInpuLabel;
 
+    console.log('driverGroupName', driverGroupName)
+    if (driverGroupName === 'VisualizationOverlays') return
+
     // filter data fro the group
     const configchartdata = store.getStateItem('configchartdata');
     const chartdata = configchartdata.filter(configdata => configdata.name === chartName &&
