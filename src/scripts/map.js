@@ -114,7 +114,7 @@ export class Map extends Component {
   }
 
   // saves the current map center and zoom level to state in locat storage
-  saveZoomAndMapPosition() {    
+  saveZoomAndMapPosition() {
     store.setStoreItem('mapCenter', this.map.getCenter());
     store.setStoreItem('mapZoom', this.map.getZoom());
   }
