@@ -735,48 +735,46 @@ export class MapLayersList extends Component {
 
     if (layerElem) {
       if (MapLayersList.getLegendWrapper(layerElem) !== null) {
-      // get the legend html based on the number of breaks supports 1-10 breaks
-      MapLayersList.getLegendWrapper(layerElem).innerHTML =
-          getLegendHtml(layerProps.chartLegendValues);
+        // get the legend html based on the number of breaks supports 1-10 breaks
+        MapLayersList.getLegendWrapper(layerElem).innerHTML =
+        getLegendHtml(layerProps.chartLegendValues);
 
-      // get the color palette for layer, each layer can have its own
-      const colorPalette = layerProps.chartCSSColor;
+        // get the color palette for layer, each layer can have its own
+        const colorPalette = layerProps.chartCSSColor;
 
-      // iterate the color palette for layer so we can assing apporaite css color to element
-      Object.keys(colorPalette).forEach((color) => {
-        // convert the color number to number word 2 - two
-        // this is how html elments are named.
-        const colorlueWord = numberToWord(Number(color));
+        // iterate the color palette for layer so we can assing apporaite css color to element
+        Object.keys(colorPalette).forEach((color) => {
+          // convert the color number to number word 2 - two
+          // this is how html elments are named.
+          const colorlueWord = numberToWord(Number(color));
 
-        // get the element based on the color word
-        const valueELem = layerElem.querySelector(`.value-${colorlueWord}`);
+          // get the element based on the color word
+          const valueELem = layerElem.querySelector(`.value-${colorlueWord}`);
 
-        // if the element exists add css color values
-        if (valueELem) {
-          // set background based on mapconfig values
-          valueELem.style.background = colorPalette[color];
+          // if the element exists add css color values
+          if (valueELem) {
+            // set background based on mapconfig values
+            valueELem.style.background = colorPalette[color];
 
-          // set font color
-          valueELem.style.color = '#000';
+            // set font color
+            valueELem.style.color = '#000';
 
-          // // last color tends to be to dark for dark font
-          // if (parseInt(color) >= layerProps.chartLegendValues ) {
-          //   valueELem.style.color = '#fff';
-          // }
-          // hide legend numbers for now will anyone notice?
-          valueELem.style.color = 'transparent';
+            // // last color tends to be to dark for dark font
+            // if (parseInt(color) >= layerProps.chartLegendValues ) {
+            //   valueELem.style.color = '#fff';
+            // }
+            // hide legend numbers for now will anyone notice?
+            valueELem.style.color = 'transparent';
 
-          // add classes for region, chartCSSSelector, and source in case we want to find it later
-          valueELem.classList.add(layerProps.chartCSSSelector);
-          valueELem.classList.add(layerProps.region);
-          valueELem.classList.add(layerProps.source);
-        }
+            // add classes for region, chartCSSSelector, and source in case we want to find it later
+            valueELem.classList.add(layerProps.chartCSSSelector);
+            valueELem.classList.add(layerProps.region);
+            valueELem.classList.add(layerProps.source);
+          }
 
-        // set attributes for popups
-        MapLayersList.setInitialLegendStatus(layerElem.getElementsByClassName('layer-legend-toggler')[0]);
-      });
-
-      }
+          // set attributes for popups
+          MapLayersList.setInitialLegendStatus(layerElem.getElementsByClassName('layer-legend-toggler')[0]);
+        });      
       // set attributes for description
       MapLayersList.getDescriptionWrapper(layerElem).setAttribute('data-content', layerProps.description);
       MapLayersList.getDescriptionWrapper(layerElem).setAttribute('title', layerProps.label);
