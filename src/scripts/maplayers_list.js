@@ -774,7 +774,8 @@ export class MapLayersList extends Component {
 
           // set attributes for popups
           MapLayersList.setInitialLegendStatus(layerElem.getElementsByClassName('layer-legend-toggler')[0]);
-        });      
+        });
+      }
       // set attributes for description
       MapLayersList.getDescriptionWrapper(layerElem).setAttribute('data-content', layerProps.description);
       MapLayersList.getDescriptionWrapper(layerElem).setAttribute('title', layerProps.label);
