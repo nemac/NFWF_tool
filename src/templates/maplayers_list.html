@@ -76,6 +76,10 @@
               <img src="../images/zoomregion-cus.png" alt="Zoom to a region Continental U.S" class="zoomregion-img  align-self-center" />
               <span class="list-label-name align-self-center">Continental U.S</span>
             </button>
+            <button title="Zoom to a region Great Lakes" aria-label="Zoom to a region Great Lakes" id="zoomregion-great_lakes" type="button" class="list-group-item list-group-item-action">
+              <img src="../images/zoomregion-great_lakes.png" alt="Zoom to a region Great Lakes" class="zoomregion-img align-self-center" />
+              <span class="list-label-name align-self-center">Great Lakes</span>
+            </button>
             <button title="Zoom to a region Guam" aria-label="Zoom to a region Guam" id="zoomregion-guam" type="button" class="list-group-item list-group-item-action">
               <img src="../images/zoomregion-guam.png" alt="Zoom to a region Guam" class="zoomregion-img align-self-center" />
               <span class="list-label-name align-self-center">Guam</span>
@@ -2855,6 +2859,573 @@
               </div>
             </div>
 
+          </span>
+
+          <span id="great_lakesLayerList" class="nfwf-region-great_lakes d-none" >
+            <div class="LayerList-spacer" id="GL_ExposureLayers-Header"></div>
+
+            <div class="LayerList-Group" id="LayerList-Group-Header">
+              <div class="LayerInput-header" id="GL_HubsLayers-Header">Resilience Hubs</div>
+
+              <div ref="LayerInput" id="GL_HubsTMS-layerToggle" class="custom-control custom-checkbox">
+                <div class="layer-toggle-wrapper">
+                  <input title="Toggle HubsTMS" aria-label="Toggle HubsTMS" ref="GL_HubsTMS-toggle" type="checkbox" class="custom-control-input" id="GL_HubsTMS-toggle">
+                  <label title="Toggle HubsTMS" aria-label="Toggle HubsTMS" ref="GL_HubsTMS-label" class="custom-control-label" for="GL_HubsTMS-toggle" id="GL_HubsTMS-label">Resilience Hubs</label>
+                  <span title="" aria-label="Show layer description" class="float-right text-center layer-description-text" data-trigger="focus hover" data-toggle="popover" data-placement="bottom" role="button" tabindex="-1"  >
+                    <i title="" aria-label="Show layer description" class="fas fa-info"></i>
+                  </span>
+                  <span title="View Legend" aria-label="View Legend" id="legend-GL_HubsTMS" class="float-right text-center layer-legend-toggler closed">
+                    <i title="Show Legend" aria-label="Show Legend" id="show-legend-GL_HubsTMS" class="fas fa-angle-down d-none"></i>
+                    <i title="Hide Legend" aria-label="Hide Legend" id="hide-legend-GL_HubsTMS" class="fas fa-angle-up d-none"></i>
+                  </span>
+
+                </div>
+                <div class="layer-legend-wrapper closed">
+                  <div class="layer-legend"></div>
+                </div>
+              </div>
+
+              <div ref="LayerInput" id="GL_HubsHexTMS-layerToggle" class="custom-control custom-checkbox">
+                <div class="layer-toggle-wrapper">
+                  <input title="Toggle Resilience Hexagonal Grid (Great Lakes)" aria-label="Toggle Resilience Hexagonal Grid (Great Lakes)" ref="GL_HubsHexTMS-toggle" type="checkbox" class="custom-control-input" id="GL_HubsHexTMS-toggle">
+                  <label title="Toggle Resilience Hexagonal Grid (Great Lakes)" aria-label="Toggle Resilience Hexagonal Grid (Great Lakes)" ref="GL_HubsHexTMS-label" class="custom-control-label" for="GL_HubsHexTMS-toggle" id="GL_HubsHexTMS-label">Resilience Hexagonal Grid</label>
+                  <span title="" aria-label="Show layer description" class="float-right text-center layer-description-text" data-trigger="focus hover" data-toggle="popover" data-placement="bottom" role="button" tabindex="-1"  >
+                    <i title="" aria-label="Show layer description" class="fas fa-info"></i>
+                  </span>
+                  <span title="View Legend" aria-label="View Legend" id="legend-GL_HubsHexTMS" class="float-right text-center layer-legend-toggler closed">
+                    <i title="Show Legend" aria-label="Show Legend" id="show-legend-GL_HubsHexTMS" class="fas fa-angle-down d-none"></i>
+                    <i title="Hide Legend" aria-label="Hide Legend" id="hide-legend-GL_HubsHexTMS" class="fas fa-angle-up d-none"></i>
+                  </span>
+
+                </div>
+                <div class="layer-legend-wrapper closed">
+                  <div class="layer-legend"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="LayerList-spacer" id="GL_ExposureLayers-Header"></div>
+
+            <div class="LayerList-Group" id="LayerList-Group-Header">
+
+              <div class="LayerInput-header" id="GL_ExposureLayers-Header">Community Exposure Index</div>
+              <div ref="LayerInput" id="GL_ExposureTMS-layerToggle" class="custom-control custom-checkbox">
+                <div class="layer-toggle-wrapper">
+                  <input title="Community Exposure Index Layer" aria-label="Toggle Community Exposure Index Layer" ref="GL_ExposureTMS-toggle" type="checkbox" class="custom-control-input" id="GL_ExposureTMS-toggle">
+                  <label title="Community Exposure Index Layer" aria-label="Toggle Community Explore Index Layer" ref="GL_ExposureTMS-label" class="custom-control-label" for="GL_ExposureTMS-toggle" id="GL_ExposureTMS-label">Community Exposure Index</label>
+                  <span title="" aria-label="Show layer description" class="float-right text-center layer-description-text" data-trigger="focus hover" data-toggle="popover" data-placement="bottom" role="button" tabindex="-1"  >
+                    <i title="" aria-label="Show layer description" class="fas fa-info"></i>
+                  </span>
+                  <span title="View Legend" aria-label="View Legend" id="legend-GL_ExposureTMS" class="float-right text-center layer-legend-toggler closed">
+                    <i title="Show Legend" aria-label="Show Legend" id="show-legend-GL_ExposureTMS" class="fas fa-angle-down d-none"></i>
+                    <i title="Hide Legend" aria-label="Hide Legend" id="hide-legend-GL_ExposureTMS" class="fas fa-angle-up d-none"></i>
+                  </span>
+                </div>
+                <div class="layer-legend-wrapper closed">
+                  <div class="layer-legend"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="LayerList-spacer" id="GL_ExposureLayers-Header"></div>
+
+            <div class="LayerList-Group" id="LayerList-Group-Header">
+
+              <div class="LayerInput-header" id="GL_ExposureLayers-Header">Community Asset and Threat Indices</div>
+              <div ref="LayerInput" id="GL_AssetsTMS-layerToggle" class="custom-control custom-checkbox">
+                <div class="layer-toggle-wrapper">
+                  <input title="Toggle Asset Layer" aria-label="Toggle Asset Layer" ref="GL_AssetsTMS-toggle" type="checkbox" class="custom-control-input" id="GL_AssetsTMS-toggle">
+                  <label title="Toggle Asset Layer" aria-label="Toggle Asset Layer" ref="GL_AssetsTMS-label" class="custom-control-label" for="GL_AssetsTMS-toggle" id="GL_AssetsTMS-label">Community Asset Index</label>
+                  <span title="" aria-label="Show layer description" class="float-right text-center layer-description-text" data-trigger="focus hover" data-toggle="popover" data-placement="bottom" role="button" tabindex="-1"  >
+                    <i title="" aria-label="Show layer description" class="fas fa-info"></i>
+                  </span>
+                  <span title="View Legend" aria-label="View Legend" id="legend-GL_AssetsTMS" class="float-right text-center layer-legend-toggler closed">
+                    <i title="Show Legend" aria-label="Show Legend" id="show-legend-GL_AssetsTMS" class="fas fa-angle-down d-none"></i>
+                    <i title="Hide Legend" aria-label="Hide Legend" id="hide-legend-GL_AssetsTMS" class="fas fa-angle-up d-none"></i>
+                  </span>
+                </div>
+                <div class="layer-legend-wrapper closed">
+                  <div class="layer-legend"></div>
+                </div>
+              </div>
+              <div ref="LayerInput" id="GL_ThreatsTMS-layerToggle" class="custom-control custom-checkbox">
+                <div class="layer-toggle-wrapper">
+                  <input title="Toggle Threat Layer" aria-label="Toggle Threat Layer" ref="GL_ThreatsTMS-toggle" type="checkbox" class="custom-control-input" id="GL_ThreatsTMS-toggle">
+                  <label title="Toggle Threat Layer" aria-label="Toggle Threat Layer" ref="GL_ThreatsTMS-label" class="custom-control-label" for="GL_ThreatsTMS-toggle" id="GL_ThreatsTMS-label">Threat Index</label>
+                  <span title="" aria-label="Show layer description" class="float-right text-center layer-description-text" data-trigger="focus hover" data-toggle="popover" data-placement="bottom" role="button" tabindex="-1"  >
+                    <i title="" aria-label="Show layer description" class="fas fa-info"></i>
+                  </span>
+                  <span title="View Legend" aria-label="View Legend" id="legend-GL_ThreatsTMS" class="float-right text-center layer-legend-toggler closed">
+                    <i title="Show Legend" aria-label="Show Legend" id="show-legend-GL_ThreatsTMS" class="fas fa-angle-down d-none"></i>
+                    <i title="Hide Legend" aria-label="Hide Legend" id="hide-legend-GL_ThreatsTMS" class="fas fa-angle-up d-none"></i>
+                  </span>
+                </div>
+                <div class="layer-legend-wrapper closed">
+                  <div class="layer-legend"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="LayerList-spacer" id="GL_ExposureLayers-Header"></div>
+
+            <div class="LayerList-Group" id="LayerList-Group-Header">
+
+              <div class="LayerInput-header" id="GL_FishnWildlife-Header">Fish and Wildlife</div>
+
+              <div ref="LayerInput" id="GL_FishAndWildlifeTMS-layerToggle" class="custom-control custom-checkbox">
+                <div class="layer-toggle-wrapper">
+                  <input title="FishAndWildlife Index Layer" aria-label="Toggle Fish and Wildlife Layer" ref="GL_FishAndWildlifeTMS-toggle" type="checkbox" class="custom-control-input" id="GL_FishAndWildlifeTMS-toggle">
+                  <label title="FishAndWildlife Index Layer" aria-label="Toggle Fish and Wildlife Layer" ref="GL_FishAndWildlifeTMS-label" class="custom-control-label" for="GL_FishAndWildlifeTMS-toggle" id="GL_FishAndWildlifeTMS-label">Fish and Wildlife</label>
+                  <span title="" aria-label="Show layer description" class="float-right text-center layer-description-text" data-trigger="focus hover" data-toggle="popover" data-placement="bottom" role="button" tabindex="-1"  >
+                    <i title="" aria-label="Show layer description" class="fas fa-info"></i>
+                  </span>
+                  <span title="View Legend" aria-label="View Legend" id="legend-GL_FishAndWildlifeTMS" class="float-right text-center layer-legend-toggler closed">
+                    <i title="Show Legend" aria-label="Show Legend" id="show-legend-GL_FishAndWildlifeTMS" class="fas fa-angle-down d-none"></i>
+                    <i title="Hide Legend" aria-label="Hide Legend" id="hide-legend-GL_FishAndWildlifeTMS" class="fas fa-angle-up d-none"></i>
+                  </span>
+                </div>
+                <div class="layer-legend-wrapper closed">
+                  <div class="layer-legend"></div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="LayerList-spacer" id="GL_AssetInputs-Header"></div>
+
+            <div class="LayerList-Group inputs-collapser" id="LayerList-Group-Header">
+
+              <div class="LayerInput-header inputs-collapser-header" id="AssetInputs-Header" data-toggle="collapse" data-target="#CollapseCommunityAssetIndexInputs" aria-expanded="false" aria-controls="CollapseCommunityAssetIndexInputs">
+                Community Asset Inputs
+                <i class="fa fa-caret-up icon-right d-none" aria-hidden="false"></i>
+                <i class="fa fa-caret-down icon-right d-none" aria-hidden="false"></i>
+              </div>
+              <div class="collapse" id="CollapseCommunityAssetIndexInputs">
+
+                <div class="inputs-layer-list">
+
+                  <div ref="LayerInput" id="GL_CriticalFacilitiesTMS-layerToggle" class="custom-control custom-checkbox">
+                    <div class="layer-toggle-wrapper">
+                      <input title="Critical Facilities Index Layer" aria-label="Toggle Critical Facilities Index Layer" ref="GL_CriticalFacilitiesTMS-toggle" type="checkbox" class="custom-control-input" id="GL_CriticalFacilitiesTMS-toggle">
+                      <label title="Critical Facilities Index Layer" aria-label="Toggle Critical Facilities Index Layer" ref="GL_CriticalFacilitiesTMS-label" class="custom-control-label" for="GL_CriticalFacilitiesTMS-toggle" id="GL_CriticalFacilitiesTMS-label">Critical Facilities</label>
+                      <span title="" aria-label="Show layer description" class="float-right text-center layer-description-text" data-trigger="focus hover" data-toggle="popover" data-placement="bottom" role="button" tabindex="-1"  >
+                        <i title="" aria-label="Show layer description" class="fas fa-info"></i>
+                      </span>
+                      <span title="View Legend" aria-label="View Legend" id="legend-GL_CriticalFacilitiesTMS" class="float-right text-center layer-legend-toggler closed">
+                        <i title="Show Legend" aria-label="Show Legend" id="show-legend-GL_CriticalFacilitiesTMS" class="fas fa-angle-down"></i>
+                        <i title="Hide Legend" aria-label="Hide Legend" id="hide-legend-GL_CriticalFacilitiesTMS" class="fas fa-angle-up d-none"></i>
+                      </span>
+                    </div>
+                    <div class="layer-legend-wrapper closed">
+                      <div class="layer-legend"></div>
+                    </div>
+                  </div>
+
+                  <div ref="LayerInput" id="GL_CommunityInfrastructureTMS-layerToggle" class="custom-control custom-checkbox">
+                    <div class="layer-toggle-wrapper">
+                      <input title="Critical Infrastructure Index Layer" aria-label="Toggle Critical Infrastructure Index Layer" ref="GL_CommunityInfrastructureTMS-toggle" type="checkbox" class="custom-control-input" id="GL_CommunityInfrastructureTMS-toggle">
+                      <label title="Critical Infrastructure Index Layer" aria-label="Toggle Critical Infrastructure Index Layer" ref="GL_CommunityInfrastructureTMS-label" class="custom-control-label" for="GL_CommunityInfrastructureTMS-toggle" id="GL_CommunityInfrastructureTMS-label">Critical Infrastructure</label>
+                      <span title="" aria-label="Show layer description" class="float-right text-center layer-description-text" data-trigger="focus hover" data-toggle="popover" data-placement="bottom" role="button" tabindex="-1"  >
+                        <i title="" aria-label="Show layer description" class="fas fa-info"></i>
+                      </span>
+                      <span title="View Legend" aria-label="View Legend" id="legend-GL_CommunityInfrastructureTMS" class="float-right text-center layer-legend-toggler closed">
+                        <i title="Show Legend" aria-label="Show Legend" id="show-legend-GL_CommunityInfrastructureTMS" class="fas fa-angle-down"></i>
+                        <i title="Hide Legend" aria-label="Hide Legend" id="hide-legend-GL_CommunityInfrastructureTMS" class="fas fa-angle-up d-none"></i>
+                      </span>
+                    </div>
+                    <div class="layer-legend-wrapper closed">
+                      <div class="layer-legend"></div>
+                    </div>
+                  </div>
+
+                  <div ref="LayerInput" id="GL_PopDensityTMS-layerToggle" class="custom-control custom-checkbox">
+                    <div class="layer-toggle-wrapper">
+                      <input title="Population Density Layer" aria-label="Toggle Population Density Layer" ref="GL_PopDensityTMS-toggle" type="checkbox" class="custom-control-input" id="GL_PopDensityTMS-toggle">
+                      <label title="Population Density Layer" aria-label="Toggle Population Density Layer" ref="GL_PopDensityTMS-label" class="custom-control-label" for="GL_PopDensityTMS-toggle" id="GL_PopDensityTMS-label">Population Density</label>
+                      <span title="" aria-label="Show layer description" class="float-right text-center layer-description-text" data-trigger="focus hover" data-toggle="popover" data-placement="bottom" role="button" tabindex="-1"  >
+                        <i title="" aria-label="Show layer description" class="fas fa-info"></i>
+                      </span>
+                      <span title="View Legend" aria-label="View Legend" id="legend-GL_PopDensityTMS" class="float-right text-center layer-legend-toggler closed">
+                        <i title="Show Legend" aria-label="Show Legend" id="show-legend-GL_PopDensityTMS" class="fas fa-angle-down"></i>
+                        <i title="Hide Legend" aria-label="Hide Legend" id="hide-legend-GL_PopDensityTMS" class="fas fa-angle-up d-none"></i>
+                      </span>
+                    </div>
+                    <div class="layer-legend-wrapper closed">
+                      <div class="layer-legend"></div>
+                    </div>
+                  </div>
+
+                  <div ref="LayerInput" id="GL_SocVulnTMS-layerToggle" class="custom-control custom-checkbox">
+                    <div class="layer-toggle-wrapper">
+                      <input title="Social Vulnerability Index Layer" aria-label="Toggle Social Vulnerability Index Layer" ref="GL_SocVulnTMS-toggle" type="checkbox" class="custom-control-input" id="GL_SocVulnTMS-toggle">
+                      <label title="Social Vulnerability Index Layer" aria-label="Toggle Social Vulnerability Index Layer" ref="GL_SocVulnTMS-label" class="custom-control-label" for="GL_SocVulnTMS-toggle" id="GL_SocVulnTMS-label">Social Vulnerability</label>
+                      <span title="" aria-label="Show layer description" class="float-right text-center layer-description-text" data-trigger="focus hover" data-toggle="popover" data-placement="bottom" role="button" tabindex="-1"  >
+                        <i title="" aria-label="Show layer description" class="fas fa-info"></i>
+                      </span>
+                      <span title="View Legend" aria-label="View Legend" id="legend-GL_SocVulnTMS" class="float-right text-center layer-legend-toggler closed">
+                        <i title="Show Legend" aria-label="Show Legend" id="show-legend-GL_SocVulnTMS" class="fas fa-angle-down"></i>
+                        <i title="Hide Legend" aria-label="Hide Legend" id="hide-legend-GL_SocVulnTMS" class="fas fa-angle-up d-none"></i>
+                      </span>
+                    </div>
+                    <div class="layer-legend-wrapper closed">
+                      <div class="layer-legend"></div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="LayerList-spacer" id="GL_ThreatsInputs-Header"></div>
+
+            <div class="LayerList-Group inputs-collapser" id="LayerList-Group-Header">
+
+              <div class="LayerInput-header inputs-collapser-header" id="ThreatsInputs-Header" data-toggle="collapse" data-target="#CollapseCommunityThreatIndexInputs" aria-expanded="false" aria-controls="CollapseCommunityThreatIndexInputs">
+                Threat Inputs
+                <i class="fa fa-caret-up icon-right d-none" aria-hidden="false"></i>
+                <i class="fa fa-caret-down icon-right d-none" aria-hidden="false"></i>
+              </div>
+              <div class="collapse" id="CollapseCommunityThreatIndexInputs">
+
+                <div class="inputs-layer-list">
+                  <div ref="LayerInput" id="GL_SlopeTMS-layerToggle" class="custom-control custom-checkbox">
+                    <div class="layer-toggle-wrapper">
+                      <input title="Slope Index Layer" aria-label="Toggle Slope Index Layer" ref="GL_SlopeTMS-toggle" type="checkbox" class="custom-control-input" id="GL_SlopeTMS-toggle">
+                      <label title="Slope Index Layer" aria-label="Toggle Slope Index Layer" ref="GL_SlopeTMS-label" class="custom-control-label" for="GL_SlopeTMS-toggle" id="GL_SlopeTMS-label">Areas of Low Slope</label>
+                      <span title="" aria-label="Show layer description" class="float-right text-center layer-description-text" data-trigger="focus hover" data-toggle="popover" data-placement="bottom" role="button" tabindex="-1"  >
+                        <i title="" aria-label="Show layer description" class="fas fa-info"></i>
+                      </span>
+                      <span title="View Legend" aria-label="View Legend" id="legend-GL_SlopeTMS" class="float-right text-center layer-legend-toggler closed">
+                        <i title="Show Legend" aria-label="Show Legend" id="show-legend-GL_SlopeTMS" class="fas fa-angle-down"></i>
+                        <i title="Hide Legend" aria-label="Hide Legend" id="hide-legend-GL_SlopeTMS" class="fas fa-angle-up d-none"></i>
+                      </span>
+                    </div>
+                    <div class="layer-legend-wrapper closed">
+                      <div class="layer-legend"></div>
+                    </div>
+                  </div> <!-- end slope inputs -->
+
+                  <div ref="LayerInput" id="GL_FloodProneAreasTMS-layerToggle" class="custom-control custom-checkbox">
+                    <div class="layer-toggle-wrapper">
+                      <input title="Flood-Prone Areas Index Layer" aria-label="Toggle CONUS Flood-Prone Areas Index Layer" ref="GL_FloodProneAreasTMS-toggle" type="checkbox" class="custom-control-input" id="GL_FloodProneAreasTMS-toggle">
+                      <label title="Flood-Prone Areas Index Layer" aria-label="Toggle CONUS Flood-Prone Areas Index Layer" ref="GL_FloodProneAreasTMS-label" class="custom-control-label" for="GL_FloodProneAreasTMS-toggle" id="GL_FloodProneAreasTMS-label">Flood-Prone Areas</label>
+                      <span title="" aria-label="Show layer description" class="float-right text-center layer-description-text" data-trigger="focus hover" data-toggle="popover" data-placement="bottom" role="button" tabindex="-1"  >
+                        <i title="" aria-label="Show layer description" class="fas fa-info"></i>
+                      </span>
+                      <span title="View Legend" aria-label="View Legend" id="legend-GL_FloodProneAreasTMS" class="float-right text-center layer-legend-toggler closed">
+                        <i title="Show Legend" aria-label="Show Legend" id="show-legend-GL_FloodProneAreasTMS" class="fas fa-angle-down"></i>
+                        <i title="Hide Legend" aria-label="Hide Legend" id="hide-legend-GL_FloodProneAreasTMS" class="fas fa-angle-up d-none"></i>
+                      </span>
+                    </div>
+                    <div class="layer-legend-wrapper closed">
+                      <div class="layer-legend"></div>
+                    </div>
+                  </div>
+
+                  <div ref="LayerInput" id="GL_DrainageTMS-layerToggle" class="custom-control custom-checkbox">
+                    <div class="layer-toggle-wrapper">
+                      <input title="Impermeable Soils Density Layer" aria-label="Toggle Impermeable Soils Layer" ref="GL_DrainageTMS-toggle" type="checkbox" class="custom-control-input" id="GL_DrainageTMS-toggle">
+                      <label title="Impermeable Soils Density Layer" aria-label="Toggle Impermeable Soils Layer" ref="GL_DrainageTMS-label" class="custom-control-label" for="GL_DrainageTMS-toggle" id="GL_DrainageTMS-label">Impermeable Soils</label>
+                      <span title="" aria-label="Show layer description" class="float-right text-center layer-description-text" data-trigger="focus hover" data-toggle="popover" data-placement="bottom" role="button" tabindex="-1"  >
+                        <i title="" aria-label="Show layer description" class="fas fa-info"></i>
+                      </span>
+                      <span title="View Legend" aria-label="View Legend" id="legend-GL_DrainageTMS" class="float-right text-center layer-legend-toggler closed">
+                        <i title="Show Legend" aria-label="Show Legend" id="show-legend-GL_DrainageTMS" class="fas fa-angle-down"></i>
+                        <i title="Hide Legend" aria-label="Hide Legend" id="hide-legend-GL_DrainageTMS" class="fas fa-angle-up d-none"></i>
+                      </span>
+                    </div>
+                    <div class="layer-legend-wrapper closed">
+                      <div class="layer-legend"></div>
+                    </div>
+                  </div>
+
+                  <div ref="LayerInput" id="GL_MaxWaterLevelTMS-layerToggle" class="custom-control custom-checkbox">
+                    <div class="layer-toggle-wrapper">
+                      <input title="Sea Level Rise Index Layer" aria-label="Toggle Sea Level Rise Index Layer" ref="GL_MaxWaterLevelTMS-toggle" type="checkbox" class="custom-control-input" id="GL_MaxWaterLevelTMS-toggle">
+                      <label title="Sea Level Rise Index Layer" aria-label="Toggle Sea Level Rise Index Layer" ref="GL_MaxWaterLevelTMS-label" class="custom-control-label" for="GL_MaxWaterLevelTMS-toggle" id="GL_MaxWaterLevelTMS-label">Max Water Lev</label>
+                      <span title="" aria-label="Show layer description" class="float-right text-center layer-description-text" data-trigger="focus hover" data-toggle="popover" data-placement="bottom" role="button" tabindex="-1"  >
+                        <i title="" aria-label="Show layer description" class="fas fa-info"></i>
+                      </span>
+                      <span title="View Legend" aria-label="View Legend" id="legend-GL_MaxWaterLevelTMS" class="float-right text-center layer-legend-toggler closed">
+                        <i title="Show Legend" aria-label="Show Legend" id="show-legend-GL_MaxWaterLevelTMS" class="fas fa-angle-down"></i>
+                        <i title="Hide Legend" aria-label="Hide Legend" id="hide-legend-GL_MaxWaterLevelTMS" class="fas fa-angle-up d-none"></i>
+                      </span>
+                    </div>
+                    <div class="layer-legend-wrapper closed">
+                      <div class="layer-legend"></div>
+                    </div>
+                  </div>
+
+                  <div ref="LayerInput" id="GL_ErosionTMS-layerToggle" class="custom-control custom-checkbox">
+                    <div class="layer-toggle-wrapper">
+                      <input title="Soil Erodibility Index Layer" aria-label="Toggle Soil Erodibility Index Layer" ref="GL_ErosionTMS-toggle" type="checkbox" class="custom-control-input" id="GL_ErosionTMS-toggle">
+                      <label title="Soil Erodibility Index Layer" aria-label="Toggle Soil Erodibility Index Layer" ref="GL_ErosionTMS-label" class="custom-control-label" for="GL_ErosionTMS-toggle" id="GL_ErosionTMS-label">Soil Erodibility</label>
+                      <span title="" aria-label="Show layer description" class="float-right text-center layer-description-text" data-trigger="focus hover" data-toggle="popover" data-placement="bottom" role="button" tabindex="-1"  >
+                        <i title="" aria-label="Show layer description" class="fas fa-info"></i>
+                      </span>
+                      <span title="View Legend" aria-label="View Legend" id="legend-GL_ErosionTMS" class="float-right text-center layer-legend-toggler closed">
+                        <i title="Show Legend" aria-label="Show Legend" id="show-legend-GL_ErosionTMS" class="fas fa-angle-down"></i>
+                        <i title="Hide Legend" aria-label="Hide Legend" id="hide-legend-GL_ErosionTMS" class="fas fa-angle-up d-none"></i>
+                      </span>
+                    </div>
+                    <div class="layer-legend-wrapper closed">
+                      <div class="layer-legend"></div>
+                    </div>
+                  </div>
+
+
+                </div>
+              </div>  <!-- end group of threat inputs -->
+            </div>
+
+            <div class="LayerList-spacer" id="GL_AssetInputs-Header"></div>
+
+            <div class="LayerList-Group inputs-collapser" id="LayerList-Group-Header">
+
+              <div class="LayerInput-header inputs-collapser-header" id="AssetInputs-Header" data-toggle="collapse" data-target="#CollapseFishAndWildlifeInputs" aria-expanded="false" aria-controls="CollapseFishAndWildlifeInputs">
+                Fish and Wildlife Inputs
+                <i class="fa fa-caret-up icon-right d-none" aria-hidden="false"></i>
+                <i class="fa fa-caret-down icon-right d-none" aria-hidden="false"></i>
+              </div>
+              <div class="collapse" id="CollapseFishAndWildlifeInputs">
+
+                <div class="inputs-layer-list">
+
+                  <div ref="LayerInput" id="GL_AquaticTMS-layerToggle" class="custom-control custom-checkbox">
+                    <div class="layer-toggle-wrapper">
+                      <input title="Aquatic Index Layer" aria-label="Toggle Aquatic Index Layer" ref="GL_AquaticTMS-toggle" type="checkbox" class="custom-control-input" id="GL_AquaticTMS-toggle">
+                      <label title="Aquatic Index Layer" aria-label="Toggle Aquatic Index Layer" ref="GL_AquaticTMS-label" class="custom-control-label" for="GL_AquaticTMS-toggle" id="GL_AquaticTMS-label">Aquatic Index</label>
+                      <span title="" aria-label="Show layer description" class="float-right text-center layer-description-text" data-trigger="focus hover" data-toggle="popover" data-placement="bottom" role="button" tabindex="-1"  >
+                        <i title="" aria-label="Show layer description" class="fas fa-info"></i>
+                      </span>
+                      <span title="View Legend" aria-label="View Legend" id="legend-GL_AquaticTMS" class="float-right text-center layer-legend-toggler closed">
+                        <i title="Show Legend" aria-label="Show Legend" id="show-legend-GL_AquaticTMS" class="fas fa-angle-down d-none"></i>
+                        <i title="Hide Legend" aria-label="Hide Legend" id="hide-legend-GL_AquaticTMS" class="fas fa-angle-up d-none"></i>
+                      </span>
+                    </div>
+                    <div class="layer-legend-wrapper closed">
+                      <div class="layer-legend"></div>
+                    </div>
+                  </div>
+
+                  <div ref="LayerInput" id="GL_TerrestrialTMS-layerToggle" class="custom-control custom-checkbox">
+                    <div class="layer-toggle-wrapper">
+                      <input title="Terrestrial Index Layer" aria-label="Toggle Terrestrial Index Layer" ref="GL_TerrestrialTMS-toggle" type="checkbox" class="custom-control-input" id="GL_TerrestrialTMS-toggle">
+                      <label title="Terrestrial Index Layer" aria-label="Toggle Terrestrial Index Layer" ref="GL_TerrestrialTMS-label" class="custom-control-label" for="GL_TerrestrialTMS-toggle" id="GL_TerrestrialTMS-label">Terrestrial Index</label>
+                      <span title="" aria-label="Show layer description" class="float-right text-center layer-description-text" data-trigger="focus hover" data-toggle="popover" data-placement="bottom" role="button" tabindex="-1"  >
+                        <i title="" aria-label="Show layer description" class="fas fa-info"></i>
+                      </span>
+                      <span title="View Legend" aria-label="View Legend" id="legend-GL_TerrestrialTMS" class="float-right text-center layer-legend-toggler closed">
+                        <i title="Show Legend" aria-label="Show Legend" id="show-legend-GL_TerrestrialTMS" class="fas fa-angle-down"></i>
+                        <i title="Hide Legend" aria-label="Hide Legend" id="hide-legend-GL_TerrestrialTMS" class="fas fa-angle-up d-none"></i>
+                      </span>
+                    </div>
+                    <div class="layer-legend-wrapper closed">
+                      <div class="layer-legend"></div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="LayerList-spacer" id="GL_ThreatsInputs-Header"></div>
+
+            <div class="LayerList-Group inputs-collapser" id="LayerList-Group-Header">
+
+              <div class="LayerInput-header inputs-collapser-header" id="AssetInputs-Header" data-toggle="collapse" data-target="#CollapseVisualizationOverlays" aria-expanded="false" aria-controls="CollapseVisualizationOverlays">
+                Additional Overlays
+                <i class="fa fa-caret-up icon-right d-none" aria-hidden="false"></i>
+                <i class="fa fa-caret-down icon-right d-none" aria-hidden="false"></i>
+              </div>
+              <div class="collapse" id="CollapseVisualizationOverlays">
+
+                <div class="inputs-layer-list">
+
+                  <div ref="LayerInput" id="GL_VisualizationOverlay1TMS-layerToggle" class="custom-control custom-checkbox">
+                    <div class="layer-toggle-wrapper">
+                      <input title="Aquatic Index Layer" aria-label="Toggle Aquatic Index Layer" ref="GL_VisualizationOverlay1TMS-toggle" type="checkbox" class="custom-control-input" id="GL_VisualizationOverlay1TMS-toggle">
+                      <label title="Aquatic Index Layer" aria-label="Toggle Aquatic Index Layer" ref="GL_VisualizationOverlay1TMS-label" class="custom-control-label" for="GL_VisualizationOverlay1TMS-toggle" id="GL_VisualizationOverlay1TMS-label">American Indian, Alaska Native, and Native Hawaiian Areas</label>
+                      <span title="" aria-label="Show layer description" class="float-right text-center layer-description-text" data-trigger="focus hover" data-toggle="popover" data-placement="bottom" role="button" tabindex="-1"  >
+                        <i title="" aria-label="Show layer description" class="fas fa-info"></i>
+                      </span>
+                      <span title="View Legend" aria-label="View Legend" id="legend-GL_VisualizationOverlay1TMS" class="float-right text-center layer-legend-toggler closed">
+                        <i title="Show Legend" aria-label="Show Legend" id="show-legend-GL_VisualizationOverlay1TMS" class="fas fa-angle-down d-none"></i>
+                        <i title="Hide Legend" aria-label="Hide Legend" id="hide-legend-GL_VisualizationOverlay1TMS" class="fas fa-angle-up d-none"></i>
+                      </span>
+                    </div>
+                    <div class="layer-legend-wrapper closed">
+                      <div class="layer-legend-custom">
+
+                        <div class="zonal-long-table zonal-long-table-onebreaks">
+                          <div class="d-flex row mx-2">
+                            <div class="col-12 pb-2 d-flex align-items-center">
+                              <div class="custom-legend-symbol-box" style="background-color: rgb(2, 197, 254);"></div>
+                              <span class="custom-legend-symbol-text">All areas</span>  
+                            </div>                                                        
+                          </div>
+                        </div>
+                        
+                      </div>
+                    </div>
+                  </div>
+
+                  <div ref="LayerInput" id="GL_VisualizationOverlay2TMS-layerToggle" class="custom-control custom-checkbox">
+                    <div class="layer-toggle-wrapper">
+                      <input title="Terrestrial Index Layer" aria-label="Toggle Terrestrial Index Layer" ref="GL_VisualizationOverlay2TMS-toggle" type="checkbox" class="custom-control-input" id="GL_VisualizationOverlay2TMS-toggle">
+                      <label title="Terrestrial Index Layer" aria-label="Toggle Terrestrial Index Layer" ref="GL_VisualizationOverlay2TMS-label" class="custom-control-label" for="GL_VisualizationOverlay2TMS-toggle" id="GL_VisualizationOverlay2TMS-label">Ceded Territories</label>
+                      <span title="" aria-label="Show layer description" class="float-right text-center layer-description-text" data-trigger="focus hover" data-toggle="popover" data-placement="bottom" role="button" tabindex="-1"  >
+                        <i title="" aria-label="Show layer description" class="fas fa-info"></i>
+                      </span>
+                      <span title="View Legend" aria-label="View Legend" id="legend-GL_VisualizationOverlay2TMS" class="float-right text-center layer-legend-toggler closed">
+                        <i title="Show Legend" aria-label="Show Legend" id="show-legend-GL_VisualizationOverlay2TMS" class="fas fa-angle-down"></i>
+                        <i title="Hide Legend" aria-label="Hide Legend" id="hide-legend-GL_VisualizationOverlay2TMS" class="fas fa-angle-up d-none"></i>
+                      </span>
+                    </div>
+                    <div class="layer-legend-wrapper closed">
+                      <div class="layer-legend-custom">
+
+                        <div class="zonal-long-table zonal-long-table-onebreaks">
+                          <div class="d-flex row mx-2">
+                            <div class="col-12 pb-2 d-flex align-items-center">
+                              <div class="custom-legend-symbol-box"style="background-color: transparent; border: 2px solid rgb(151, 54, 60)"></div>
+                              <span class="custom-legend-symbol-text">Ceded Territory</span>  
+                            </div>
+                            <div class="col-12 pb-2 d-flex align-items-center">
+                              <div class="custom-legend-symbol-box" style="background-color: rgb(252, 183, 188); border: 2px solid rgb(151, 54, 60)"></div>
+                              <span class="custom-legend-symbol-text">Ceded Territory - Disputed</span>  
+                            </div>
+                          </div>
+                        </div>
+                        
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div ref="LayerInput" id="GL_VisualizationOverlay3TMS-layerToggle" class="custom-control custom-checkbox">
+                    <div class="layer-toggle-wrapper">
+                      <input title="Terrestrial Index Layer" aria-label="Toggle Terrestrial Index Layer" ref="GL_VisualizationOverlay3TMS-toggle" type="checkbox" class="custom-control-input" id="GL_VisualizationOverlay3TMS-toggle">
+                      <label title="Terrestrial Index Layer" aria-label="Toggle Terrestrial Index Layer" ref="GL_VisualizationOverlay3TMS-label" class="custom-control-label" for="GL_VisualizationOverlay3TMS-toggle" id="GL_VisualizationOverlay3TMS-label">Department of Defense Lands</label>
+                      <span title="" aria-label="Show layer description" class="float-right text-center layer-description-text" data-trigger="focus hover" data-toggle="popover" data-placement="bottom" role="button" tabindex="-1"  >
+                        <i title="" aria-label="Show layer description" class="fas fa-info"></i>
+                      </span>
+                      <span title="View Legend" aria-label="View Legend" id="legend-GL_VisualizationOverlay3TMS" class="float-right text-center layer-legend-toggler closed">
+                        <i title="Show Legend" aria-label="Show Legend" id="show-legend-GL_VisualizationOverlay3TMS" class="fas fa-angle-down"></i>
+                        <i title="Hide Legend" aria-label="Hide Legend" id="hide-legend-GL_VisualizationOverlay3TMS" class="fas fa-angle-up d-none"></i>
+                      </span>
+                    </div>
+                    <div class="layer-legend-wrapper closed">
+                      <div class="layer-legend-custom">
+
+                        <div class="zonal-long-table zonal-long-table-onebreaks">
+                          <div class="d-flex row mx-2">
+                            <div class="col-12 pb-2 d-flex align-items-center">
+                              <div class="custom-legend-symbol-box" style="background-color: rgb(252, 228, 121);"></div>
+                              <span class="custom-legend-symbol-text">Bureau of Land Management</span>  
+                            </div>
+                            <div class="col-12 pb-2 d-flex align-items-center">
+                              <div class="custom-legend-symbol-box" style="background-color: rgb(255, 255, 181);"></div>
+                              <span class="custom-legend-symbol-text">Bureau of Reclamation</span>  
+                            </div>
+                            <div class="col-12 pb-2 d-flex align-items-center">
+                              <div class="custom-legend-symbol-box" style="background-color: rgb(250, 180, 206);"></div>
+                              <span class="custom-legend-symbol-text">Department of Defense</span>  
+                            </div>
+                            <div class="col-12 pb-2 d-flex align-items-center">
+                              <div class="custom-legend-symbol-box" style="background-color: rgb(129, 204, 168);"></div>
+                              <span class="custom-legend-symbol-text">Fish and Wildlife Service</span>  
+                            </div>
+                            <div class="col-12 pb-2 d-flex align-items-center">
+                              <div class="custom-legend-symbol-box"style="background-color: rgb(205, 235, 197);"></div>
+                              <span class="custom-legend-symbol-text">Forest Service</span>  
+                            </div>
+                            <div class="col-12 pb-2 d-flex align-items-center">
+                              <div class="custom-legend-symbol-box" style="background-color: rgb(201, 189, 219);"></div>
+                              <span class="custom-legend-symbol-text">National Park Service</span>  
+                            </div>                                                        
+                          </div>
+                        </div>
+                        
+                      </div>
+                    </div>
+                  </div>
+
+                  <div ref="LayerInput" id="GL_VisualizationOverlay4TMS-layerToggle" class="custom-control custom-checkbox">
+                    <div class="layer-toggle-wrapper">
+                      <input title="Aquatic Index Layer" aria-label="Toggle Aquatic Index Layer" ref="GL_VisualizationOverlay4TMS-toggle" type="checkbox" class="custom-control-input" id="GL_VisualizationOverlay4TMS-toggle">
+                      <label title="Aquatic Index Layer" aria-label="Toggle Aquatic Index Layer" ref="GL_VisualizationOverlay4TMS-label" class="custom-control-label" for="GL_VisualizationOverlay4TMS-toggle" id="GL_VisualizationOverlay4TMS-label">Fetch</label>
+                      <span title="" aria-label="Show layer description" class="float-right text-center layer-description-text" data-trigger="focus hover" data-toggle="popover" data-placement="bottom" role="button" tabindex="-1"  >
+                        <i title="" aria-label="Show layer description" class="fas fa-info"></i>
+                      </span>
+                      <span title="View Legend" aria-label="View Legend" id="legend-GL_VisualizationOverlay4TMS" class="float-right text-center layer-legend-toggler closed">
+                        <i title="Show Legend" aria-label="Show Legend" id="show-legend-GL_VisualizationOverlay4TMS" class="fas fa-angle-down d-none"></i>
+                        <i title="Hide Legend" aria-label="Hide Legend" id="hide-legend-GL_VisualizationOverlay4TMS" class="fas fa-angle-up d-none"></i>
+                      </span>
+                    </div>
+                    <div class="layer-legend-wrapper closed">
+                      <div class="layer-legend-custom">
+                        
+                        <div class="zonal-long-table zonal-long-table-onebreaks">
+                          <div class="d-flex row mx-2">
+                            <div class="col-12 pb-2 d-flex align-items-center">
+                              <div class="custom-legend-symbol-box" style="background-color: rgb(199, 233, 180);"></div>
+                              <span class="custom-legend-symbol-text">1</span>  
+                            </div>
+                            <div class="col-12 pb-2 d-flex align-items-center">
+                              <div class="custom-legend-symbol-box" style="background-color: rgb(127, 205, 187);"></div>
+                              <span class="custom-legend-symbol-text">2</span>  
+                            </div>
+                            <div class="col-12 pb-2 d-flex align-items-center">
+                              <div class="custom-legend-symbol-box" style="background-color: rgb(65, 182, 196);"></div>
+                              <span class="custom-legend-symbol-text">3</span>  
+                            </div>
+                            <div class="col-12 pb-2 d-flex align-items-center">
+                              <div class="custom-legend-symbol-box" style="background-color: rgb(43, 127, 184);"></div>
+                              <span class="custom-legend-symbol-text">4</span>  
+                            </div>
+                            <div class="col-12 pb-2 d-flex align-items-center">
+                              <div class="custom-legend-symbol-box"style="background-color: rgb(37, 52, 147);"></div>
+                              <span class="custom-legend-symbol-text">5</span>  
+                            </div>                                                     
+                          </div>
+                        </div>
+                        
+                      </div>
+                    </div>
+                  </div>
+
+                  <div ref="LayerInput" id="GL_VisualizationOverlay5TMS-layerToggle" class="custom-control custom-checkbox">
+                    <div class="layer-toggle-wrapper">
+                      <input title="Aquatic Index Layer" aria-label="Toggle Aquatic Index Layer" ref="GL_VisualizationOverlay5TMS-toggle" type="checkbox" class="custom-control-input" id="GL_VisualizationOverlay5TMS-toggle">
+                      <label title="Aquatic Index Layer" aria-label="Toggle Aquatic Index Layer" ref="GL_VisualizationOverlay5TMS-label" class="custom-control-label" for="GL_VisualizationOverlay5TMS-toggle" id="GL_VisualizationOverlay5TMS-label" >Lake Level Fluctuation Zone</label>
+                      <span title="" aria-label="Show layer description" class="float-right text-center layer-description-text" data-trigger="focus hover" data-toggle="popover" data-placement="bottom" role="button" tabindex="-1"  >
+                        <i title="" aria-label="Show layer description" class="fas fa-info"></i>
+                      </span>
+                      <span title="View Legend" aria-label="View Legend" id="legend-GL_VisualizationOverlay5TMS" class="float-right text-center layer-legend-toggler closed">
+                        <i title="Show Legend" aria-label="Show Legend" id="show-legend-GL_VisualizationOverlay5TMS" class="fas fa-angle-down d-none"></i>
+                        <i title="Hide Legend" aria-label="Hide Legend" id="hide-legend-GL_VisualizationOverlay5TMS" class="fas fa-angle-up d-none"></i>
+                      </span>
+                    </div>
+                    <div class="layer-legend-wrapper closed">
+                      <div class="layer-legend-custom">
+                        
+                        <div class="zonal-long-table zonal-long-table-onebreaks">
+                          <div class="d-flex row mx-2">
+                            <div class="col-12 pb-2 d-flex align-items-center">
+                              <div class="custom-legend-symbol-box" style="background-color: rgb(0, 92, 230);"></div>
+                              <span class="custom-legend-symbol-text">All areas</span>  
+                            </div>                                                        
+                          </div>
+                        </div>
+                        
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div> 
           </span>
 
           <span id="guamLayerList" class="nfwf-region-guam d-none" >

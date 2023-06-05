@@ -2716,6 +2716,13 @@ p.not-found {
   background-color:  $body-bg;
 }
 
+.custom-control-label {
+  max-width: 200px;
+  @media screen and (max-width: 1600px) {
+    max-width: 150px;
+  }
+}
+
 .custom-control-input:focus ~ .custom-control-label::before {
   box-shadow: none;
 }

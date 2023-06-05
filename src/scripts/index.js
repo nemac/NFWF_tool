@@ -286,6 +286,38 @@ function addLandingListners() {
     });
   }
 
+  const elemStartUsingCRESTGREATLAKESIMG = document.getElementById('landingpage-btn-alaska-img');
+  if (elemStartUsingCRESTGREATLAKESIMG) {
+    const location = elemStartUsingCRESTGREATLAKESIMG.getAttribute('href');
+    elemStartUsingCRESTGREATLAKESIMG.addEventListener('click', (e) => {
+      e.preventDefault();
+      const elemCREST = document.getElementById('main-nav-map');
+      if (elemCREST) {
+        setRegionsQuikLinkState('great_lakes');
+        triggerZoomRegionQuikLink();
+        elemCREST.click();
+        setNavBars('main-nav-map');
+        router.navigate(location);
+      }
+    });
+  }
+
+  const elemStartUsingCRESTGREATLAKES = document.getElementById('landingpage-btn-alaska');
+  if (elemStartUsingCRESTGREATLAKES) {
+    const location = elemStartUsingCRESTGREATLAKES.getAttribute('href');
+    elemStartUsingCRESTGREATLAKES.addEventListener('click', (e) => {
+      e.preventDefault();
+      const elemCREST = document.getElementById('main-nav-map');
+      if (elemCREST) {
+        setRegionsQuikLinkState('alaska');
+        triggerZoomRegionQuikLink();
+        elemCREST.click();
+        setNavBars('main-nav-map');
+        router.navigate(location);
+      }
+    });
+  }
+
   const elemStartUsingCRESTCONUSIMG = document.getElementById('landingpage-btn-conus-img');
   if (elemStartUsingCRESTCONUSIMG) {
     const location = elemStartUsingCRESTCONUSIMG.getAttribute('href');
@@ -470,6 +502,38 @@ function addLandingListners() {
       const elemCREST = document.getElementById('main-nav-map');
       if (elemCREST) {
         setRegionsQuikLinkState('american_samoa');
+        triggerZoomRegionQuikLink();
+        elemCREST.click();
+        setNavBars('main-nav-map');
+        router.navigate(location);
+      }
+    });
+  }
+
+  const elemStartUsingCRESTGreatLakes = document.getElementById('landingpage-btn-great_lakes');
+  if (elemStartUsingCRESTGreatLakes) {
+    const location = elemStartUsingCRESTGreatLakes.getAttribute('href');
+    elemStartUsingCRESTGreatLakes.addEventListener('click', (e) => {
+      e.preventDefault();
+      const elemCREST = document.getElementById('main-nav-map');
+      if (elemCREST) {
+        setRegionsQuikLinkState('great_lakes');
+        triggerZoomRegionQuikLink();
+        elemCREST.click();
+        setNavBars('main-nav-map');
+        router.navigate(location);
+      }
+    });
+  }
+
+  const elemStartUsingCRESTGreatLakesIMG = document.getElementById('landingpage-btn-great_lakes-img');
+  if (elemStartUsingCRESTGreatLakesIMG) {
+    const location = elemStartUsingCRESTGreatLakesIMG.getAttribute('href');
+    elemStartUsingCRESTGreatLakesIMG.addEventListener('click', (e) => {
+      e.preventDefault();
+      const elemCREST = document.getElementById('main-nav-map');
+      if (elemCREST) {
+        setRegionsQuikLinkState('great_lakes');
         triggerZoomRegionQuikLink();
         elemCREST.click();
         setNavBars('main-nav-map');
