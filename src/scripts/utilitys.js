@@ -1106,8 +1106,8 @@ export function addMissingStateItems() {
       AK_PermaFrostTMS: false,
       AK_LowLyingAreasTMS: false,
 
-      GL_HubsTMS: false,
-      GL_HubsHexTMS: true,
+      GL_HubsTMS: true,
+      GL_HubsHexTMS: false,
       GL_ExposureTMS: false,
       GL_AssetsTMS: false,
       GL_ThreatsTMS: false,
