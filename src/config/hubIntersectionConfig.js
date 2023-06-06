@@ -245,8 +245,8 @@ const config = [
       pop_dens: 'pop_density'
     },
     region: 'great_lakes',
-    queryUrl: `https://services1.arcgis.com/PwLrOgCfU0cYShcG/arcgis/rest/services/gl_hubs_cores_052323_CREST_3857/FeatureServer/0`,
-    agolOutFields: [ 'TARGET_FID','aquatic', 'wildlife', 'hub_rnk', 'exposure', 'asset', 'threat', 'threat', 'crit_infra', 'crit_fac', 'soc_vuln', 'floodprone', 'floodprone', 'terrestri', 'slope', 'erosion', 'highwater', 'impermeabl' ]
+    queryUrl: `https://services1.arcgis.com/PwLrOgCfU0cYShcG/ArcGIS/rest/services/gl_hubs_cores_052323_CREST_3857_sean_2/FeatureServer/0/query`,
+    agolOutFields: [ 'TARGET_FID','aquatic', 'pop_dens', 'highwater',  'wildlife', 'hub_rnk', 'exposure', 'asset', 'threat', 'threat', 'crit_infra', 'crit_fac', 'soc_vuln', 'floodprone', 'floodprone', 'terrestri', 'slope', 'erosion', 'highwater', 'impermeabl' ]
   }
 ];
 
