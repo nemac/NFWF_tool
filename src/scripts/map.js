@@ -421,6 +421,7 @@ export class Map extends Component {
       store.saveAction('moveend');
       this.hideLabelsZooomOut();
       this.forceMapReRender();
+      // console.log('mapCenter', this.map.getCenter());
       // uncomment to get console of center and extent helpful for region extents
       // console.log('center',  [this.map.getCenter().wrap().lng,
       //   this.map.getCenter().wrap().lat] )

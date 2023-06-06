@@ -7660,9 +7660,9 @@ export var mapConfig = {
    {
      region: 'great_lakes',
      label: 'U.S. Great Lakes',
-     center: [ 45.74344, -76.92978],
+     center: [ 45.77237, -80.28415],
      extent: [ -99.07773, 38.24559, -50.78183, 52.35453],
-     zoom: 5
+     zoom: 6
     }  
  ],
   //leaflet optoins expand as needed
