@@ -6422,7 +6422,7 @@ export var mapConfig = {
     {
       id: "GL_VisualizationOverlay1TMS",
       layer: "Visualization Overlay 1 TMS",
-      label: "American Indian, Alaska Native, and Native Hawaiian Areas",
+      label: "American Indian/Alaska Native/Native Hawaiian (AIANNH) Areas",
       apikey: 'GL_AIANNHA',
       hubsapikey: 'GL_AIANNHA',
       chartLabel: 'AIANNHA',
