@@ -5707,7 +5707,7 @@ export var mapConfig = {
       maxNativeZoom: 13,
       tms: false,
       legend: "GL_hub",
-      description: "Resilience Hub Cores represent contiguous, unfragmented habitat cores proximate to human community assets ranked by combining Community Exposure and Fish and Wildlife Index values. Resilience Hub Cores provide a coarse-scale view of Resilience Hubs, where higher values represent areas with greater potential for dual community flood protection and wildlife benefits.",
+      description: "Resilience Hub Cores represent contiguous, unfragmented habitat cores proximate to human community assets ranked by combining Community Exposure and Fish and Wildlife Index values with other key inputs. Resilience Hub Cores provide a coarse-scale view of Resilience Hubs, where higher values represent areas with greater potential for dual community flood protection and wildlife benefits. See the U.S. Great Lakes Assessment report for details.",
       source: 'regional',
       region: 'great_lakes'
     },
@@ -5754,7 +5754,7 @@ export var mapConfig = {
       maxNativeZoom: 13,
       tms: false,
       legend: "GL_hubhex",
-      description: "The Resilience Hub Grid applies a 10-acre hexagonal grid to show variation within habitat cores, ranking each hexagon by combining Community Exposure and Fish and Wildlife Index values. The Resilience Hub Grid provides a fine-scale view of Resilience Hubs, where higher values represent areas with greater potential for dual community flood protection and wildlife benefits.",
+      description: "The Resilience Hub Grid applies a 10-acre hexagonal grid to show variation within habitat cores, ranking each hexagon by combining Community Exposure and Fish and Wildlife Index values with other key inputs. The Resilience Hub Grid provides a fine-scale view of Resilience Hubs, where higher values represent areas with greater potential for dual community flood protection and wildlife benefits. See the U.S. Great Lakes Assessment report for details.",
       source: 'regional',
       region: 'great_lakes'
     },
@@ -5801,7 +5801,7 @@ export var mapConfig = {
       maxNativeZoom: 13,
       tms: false,
       legend: "GL_exposure",
-      description: "The product of the Community Asset Index and Threat Index, the Community Exposure Index identifies areas where human community assets are potentially exposed to numerous flood-related threats. Color ramp varies from other regions but displays similar information.",
+      description: "The product of the Community Asset Index and Threat Index, the Community Exposure Index identifies areas where human community assets are potentially exposed to numerous flood-related threats. Color ramp varies from other regions but displays similar information. See the U.S. Great Lakes Assessment report for details.",
       source: 'regional',
       region: 'great_lakes'
     },
@@ -5848,7 +5848,7 @@ export var mapConfig = {
       maxNativeZoom: 13,
       tms: false,
       legend: "GL_asset",
-      description: "Index of community assets critical to the recovery of an area and human population. High values suggest areas with higher, cumulative prevalence of community assets on the landscape.",
+      description: "Index of human community assets that are important to help a community respond to and recover from a flooding event. High values represent areas with dense concentration of critical facilities, infrastructure, and population and social vulnerability. See the U.S. Great Lakes Assessment report for details.",
       source: 'regional',
       region: 'great_lakes'
     },
@@ -5895,7 +5895,7 @@ export var mapConfig = {
       maxNativeZoom: 13,
       tms: false,
       legend: "GL_threat",
-      description: "Index of flood-related datasets, including storm surge scenarios and landscape characteristics that exacerbate flood potential. High values in the Index represent those areas on the landscape where there are multiple values of individual inputs.",
+      description: "Index of flood-related datasets, including high lake levels and landscape characteristics that exacerbate flood potential. High values represent areas with multiple flood-related threat inputs. See the U.S. Great Lakes Assessment report for details.",
       source: 'regional',
       region: 'great_lakes'
     },
@@ -5943,7 +5943,7 @@ export var mapConfig = {
       maxNativeZoom: 13,
       tms: false,
       legend: "GL_fishandwildlife",
-      description: "The sum of the Terrestrial Index and Aquatic Index, the Fish and Wildlife Index identifies  habitat and protected areas important for terrestrial and aquatic species of conservation concern and/or subsistence use. Higher values represent areas important for numerous species of concern.",
+      description: "The sum of the Terrestrial Index, Aquatic Index, and Protected and Managed Areas for Biodiversity, the Fish and Wildlife Index identifies habitat and protected areas important for terrestrial and aquatic species of conservation concern and/or off-reservation harvest regulations. Higher values represent areas important for numerous species of concern. See the U.S. Great Lakes Assessment report for details.",
       source: 'regional',
       region: 'great_lakes'
     },
@@ -5990,7 +5990,7 @@ export var mapConfig = {
       maxNativeZoom: 13,
       tms: false,
       legend: "GL_aquatic",
-      description: "Identifies habitat suitable for species of conservation concern, species with federally-designated Essential Fish Habitat, and/or subsistence species that utilize riverine, lacustrine, and/or nearshore marine habitats (≤20m in depth). High values represent areas important for numerous species.",
+      description: "Index of habitat suitable for species of conservation concern and/or species with off-reservation harvest regulations that utilize riverine and lacustrine habitats. The Index also considers designated critical habitat, nearshore reefs and fish spawning locations, and Great Lakes Brook Trout Conservation Portfolio habitat patches, which served as a proxy for cool and cold-water habitat. High values represent areas important for numerous aquatic species of concern. See the U.S. Great Lakes Assessment report for details.",
       source: 'regional',
       region: 'great_lakes'
     },
@@ -6037,7 +6037,7 @@ export var mapConfig = {
       maxNativeZoom: 13,
       tms: false,
       legend: "GL_terrestrial",
-      description: "Identifies habitat suitable for species of conservation concern, Important Bird Areas, and/or subsistence species that utilize terrestrial habitats. High values represent areas important for numerous species.",
+      description: "Index of habitat suitable for species of conservation concern and/or species with off-reservation harvest regulations that utilize terrestrial habitats. The Index also considers designated critical habitat, Important Bird Areas, and Key Biodiversity Areas. High values represent areas important for numerous terrestrial species of concern. See the U.S. Great Lakes Assessment report for details.",
       source: 'regional',
       region: 'great_lakes'
     },
@@ -6079,7 +6079,7 @@ export var mapConfig = {
       maxNativeZoom: 13,
       tms: false,
       legend: "GL_socvuln",
-      description: "Used to identify census blocks that are socially vulnerable using the Demographic Index in EPA’s EJSCREEN data. Census blocks above the 80th percentile are ranked from low to high, which indicates those census blocks that have the highest low income and minority populations.",
+      description: "Identifies census blocks that are socially vulnerable using the Demographic Index in EPA’s EJSCREEN data. Census blocks above the 50th percentile nationally are ranked from low to high, which indicates census blocks with low income and minority populations. See the U.S. Great Lakes Assessment report for details.",
       source: 'regional',
       region: 'great_lakes'
     },
@@ -6121,7 +6121,7 @@ export var mapConfig = {
       maxNativeZoom: 13,
       tms: false,
       legend: "HI_popdensity",
-      description: "A ranking of population density by census blocks based on the 2016 American Community Survey. Areas are ranked from low to high using the ratio of people per square kilometer.",
+      description: "A ranking of population density by census blocks based on the 2020 Decennial Census. Areas are ranked from low to high using the ratio of people per square kilometer relative to the most densely populated census block in the study area. See the U.S. Great Lakes Assessment report for details.",
       source: 'regional',
       region: 'great_lakes'
     }, 
@@ -6163,7 +6163,7 @@ export var mapConfig = {
       maxNativeZoom: 13,
       tms: false,
       legend: "GL_critfac",
-      description: "Those facilities, such as schools, hospitals, police and fire stations, that are important to a community in recovering from a flood event. Facilities are given a presence or absence score.",
+      description: "Facilities that provide important recovery and operational support during and following flood events such as schools, emergency response and law enforcement facilities, health and medical facilities, and government and military buildings. All critical facilities are given the same rank based on presence. See the U.S. Great Lakes Assessment report for details.",
       source: 'regional',
       region: 'great_lakes'
     },
@@ -6205,7 +6205,7 @@ export var mapConfig = {
       maxNativeZoom: 13,
       tms: false,
       legend: "GL_CommunityInfrastructure",
-      description: "Infrastructure in and around communities that is integral to a community’s ability to recover from a flood event, including primary highways, power plants, and rail lines. Each type is given a presence or absence score and all infrastructure is added together; highest values indicate areas where infrastructure is nearby or pieces overlap with one another.",
+      description: "Infrastructure integral to a community’s ability to mitigate damages and recover from a flood event, including transportation, waterways, water treatment, communications, energy, and hazardous site infrastructure. All critical infrastructure is given the same rank based on presence. High values indicate areas where one or more infrastructure types are nearby or overlap. See the U.S. Great Lakes Assessment report for details.",
       source: 'regional',
       region: 'great_lakes'
     },
@@ -6247,7 +6247,7 @@ export var mapConfig = {
       maxNativeZoom: 13,
       tms: false,
       legend: "GL_erosion",
-      description: "Those soils identified as having a high probability of erodibility by the USDA Natural Resources Conservation Services. High values suggest that the area contains soils with a high erodibility factor.",
+      description: "Soils identified as having a high probability of erodibility including coastal bluffs, beaches, and dunes. High values suggest that the area contains soils with a high erodibility factor. See the U.S. Great Lakes Assessment report for details.",
       source: 'regional',
       region: 'great_lakes'
     },
@@ -6289,7 +6289,7 @@ export var mapConfig = {
       maxNativeZoom: 13,
       tms: false,
       legend: "GL_floodprone",
-      description: "Areas of the landscape that are considered by FEMA to be in the 100- and 500-year flood zones, as well as the floodway. Frequently and occasionally flooded soil designations are used to identify areas outside of FEMA coverage. A high value indicates the floodway, while a low value indicates occasionally flooded soils outside of the floodplain.",
+      description: "Areas classified by FEMA to be in the 100-year flood zone, 500-year flood zones, or a floodway. Frequently and occasionally flooded soil designations are used to identify additional areas. A high value indicates the floodplain, while a low value indicates occasionally flooded soils outside of the floodplain. See the U.S. Great Lakes Assessment report for details.",
       source: 'regional',
       region: 'great_lakes'
     },
@@ -6331,7 +6331,7 @@ export var mapConfig = {
       maxNativeZoom: 13,
       tms: false,
       legend: "slope",
-      description: "The percent rise of the elevation of the landscape, given values from low to high. High values indicate those areas that are very low lying and more likely to retain water and flood.",
+      description: "The percent rise in elevation. High values indicate those areas that are very low lying and more likely to retain water and flood. See the U.S. Great Lakes Assessment report for details.",
       source: 'regional',
       region: 'great_lakes'
     },
@@ -6373,7 +6373,7 @@ export var mapConfig = {
       maxNativeZoom: 13,
       tms: false,
       legend: "drainage",
-      description: "Used to identify areas of the landscape with poor drainage potential, including both soils and areas with high intensity development that do not readily drain and have runoff potential. A high value indicates areas that have soils with poor drainage potential and an intensity of developed impervious surfaces.",
+      description: "Areas with poor drainage potential, including both soils and areas with low to high intensity development that do not readily drain and have runoff potential. A high value indicates areas that have soils with poor drainage potential and/or an intensity of developed impervious surfaces. A correction factor has been applied to account for poorly drained soils in row crop agricultural areas using tile drainage. See the U.S. Great Lakes Assessment report for details.",
       source: 'regional',
       region: 'great_lakes'
     },
@@ -6388,7 +6388,7 @@ export var mapConfig = {
       chartCSSColor: {
         0: '#E9ECEF',
         1: '#DBD8EA',
-        2: '#77D66F',
+        2: '#99B9D9',
         3: '#4095C3',
         4: '#027976',
         5: '#014636',
@@ -6415,7 +6415,7 @@ export var mapConfig = {
       maxNativeZoom: 13,
       tms: false,
       legend: "maxwaterlevel",
-      description: "High water needs description",
+      description: "Used to identify high lake levels estimated from global satellite imagery. Data show the distribution of surface water from 1984-2020 and represent intra- and inter-annual variation based on observed lake level changes. High values indicate areas that are more likely to have experienced higher lake levels. See the U.S. Great Lakes Assessment report for details.",
       source: 'regional',
       region: 'great_lakes'
     },
@@ -6452,7 +6452,7 @@ export var mapConfig = {
       maxNativeZoom: 13,
       tms: false,
       legend: "VisualizationOverlay1",
-      description: "Visualization Overlay One, needs a description",
+      description: "Boundaries of Federal American Indian Reservations, Off-Reservation Trust Lands (ORTL), State American Indian Reservations, Hawaiian Home Lands (HHL), Alaska Native Village Statistical Areas (ANVSA), Oklahoma Tribal Statistical Areas (OTSA), State Designated Tribal Statistical Areas (SDTSA), Tribal Designated Statistical Areas (TDSA), American Indian Joint-Use Areas (AIJUA), Joint-Use Oklahoma Tribal Statistical Areas.",
       source: 'regional',
       region: 'great_lakes'
     },
@@ -6489,7 +6489,7 @@ export var mapConfig = {
       maxNativeZoom: 13,
       tms: false,
       legend: "VisualizationOverlay2",
-      description: "The purpose of these data are to provide a spatial representation of the ceded territory boundaries of the treaties of 1836, 1837, 1842 and 1854 as delineated in Treaty with the Chippewa, art. 1, Oct. 4, 1842, 7 Stat. 591, Grand Portage v. Minnesota, No. 4-85-1090 (D. Minn. 1988), LCO v. Wisconsin, 775 F.Supp. 321 (W.D. Wis. 1991), 2000 Great Lakes Consent Decree, and 2007 Inland Consent Decree",
+      description: "Great Lakes Indian Fish and Wildlife Commission representation of the boundaries of the 1836, 1837, 1842 and 1854 treaty areas of the Ojibwe ceded territories in Michigan, Minnesota and Wisconsin.",
       source: 'regional',
       region: 'great_lakes'
     },
@@ -6564,7 +6564,7 @@ export var mapConfig = {
       maxNativeZoom: 13,
       tms: false,
       legend: "VisualizationOverlay4",
-      description: "Visualization Overlay Two, needs a description",
+      description: "Regional quantile distribution of Great Lakes Aquatic Habitat Framework composite fetch data layer where wind fetch calculations were performed for each of the Great Lakes using wind data averaged from 2006-2014 during open-water months (April-Nov.).",
       source: 'regional',
       region: 'great_lakes'
     },
@@ -6601,7 +6601,7 @@ export var mapConfig = {
       maxNativeZoom: 13,
       tms: false,
       legend: "VisualizationOverlay5",
-      description: "Visualization Overlay Two, needs a description",
+      description: "Shows the spatial and temporal distribution of where non-permanent surface water occurred between 1984 and 2020. The layer captures both the intra and inter-annual variability and changes known as surface water occurrence.",
       source: 'regional',
       region: 'great_lakes'
     },
@@ -7603,7 +7603,7 @@ export var mapConfig = {
  zoomRegions: [
    {
      region: 'continental_us',
-     label: 'Continental U.S',
+     label: 'Atlantic, Gulf of Mexico, and Pacific Coasts',
      center: [ 40.979898, -81.474609 ],
      extent: [ -132.97, 25.16, -62.49, 50.00],
      zoom: 4
@@ -7659,7 +7659,7 @@ export var mapConfig = {
    },
    {
      region: 'great_lakes',
-     label: 'Great Lakes',
+     label: 'U.S. Great Lakes',
      center: [ 45.74344, -76.92978],
      extent: [ -99.07773, 38.24559, -50.78183, 52.35453],
      zoom: 5

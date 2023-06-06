@@ -179,7 +179,7 @@ export class MapLayersList extends Component {
     document.getElementById('zoomregion-cus').addEventListener('click', (e) => {
       const region = zoomRegions.filter(regions => regions.region === 'continental_us');
       MapLayersList.zoomToRegion(mapComponent, region[0]);
-      MapLayersList.updateZoomRegionLabel('Contiental U.S.');
+      MapLayersList.updateZoomRegionLabel('Atlantic, Gulf of Mexico, and Pacific Coasts');
 
       // set region to conus
       store.setStoreItem('region', 'continental_us');
@@ -263,7 +263,7 @@ export class MapLayersList extends Component {
     document.getElementById('zoomregion-great_lakes').addEventListener('click', (e) => {
       const region = zoomRegions.filter(regions => regions.region === 'great_lakes');
       MapLayersList.zoomToRegion(mapComponent, region[0]);
-      MapLayersList.updateZoomRegionLabel('Great Lakes');
+      MapLayersList.updateZoomRegionLabel('U.S. Great Lakes');
 
       // set region to great_lakes
       store.setStoreItem('region', 'great_lakes');
@@ -389,7 +389,7 @@ export class MapLayersList extends Component {
         greatLakesLayerList.classList.add('d-none');
         guamLayerList.classList.add('d-none');
         alaskaLayerList.classList.add('d-none');
-        MapLayersList.updateZoomRegionLabel('Contiental U.S.');
+        MapLayersList.updateZoomRegionLabel('Atlantic, Gulf of Mexico, and Pacific Coasts');
         break;
       case 'great_lakes':
         defaultLayerList.classList.add('d-none');
@@ -401,7 +401,7 @@ export class MapLayersList extends Component {
         greatLakesLayerList.classList.remove('d-none');
         guamLayerList.classList.add('d-none');
         alaskaLayerList.classList.add('d-none');
-        MapLayersList.updateZoomRegionLabel('Great Lakes');
+        MapLayersList.updateZoomRegionLabel('U.S. Great Lakes');
         break;
       case 'puerto_rico':
         defaultLayerList.classList.add('d-none');
@@ -497,7 +497,7 @@ export class MapLayersList extends Component {
         greatLakesLayerList.classList.add('d-none');
         guamLayerList.classList.add('d-none');
         alaskaLayerList.classList.add('d-none');
-        MapLayersList.updateZoomRegionLabel('Contiental U.S.');
+        MapLayersList.updateZoomRegionLabel('Atlantic, Gulf of Mexico, and Pacific Coasts');
         break;
     }
 
