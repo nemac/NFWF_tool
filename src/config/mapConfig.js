@@ -6459,10 +6459,10 @@ export var mapConfig = {
     {
       id: "GL_VisualizationOverlay2TMS",
       layer: "Visualization Overlay2 TMS",
-      label: "Ceded Territories",
+      label: "Ceded Territory",
       apikey: 'GL_CededTerritory',
       hubsapikey: 'GL_CededTerritory',
-      chartLabel: 'Ceded Territories',
+      chartLabel: 'Ceded Territory',
       chartLegendValues: 1,
       chartCSSColor: {
         0: '#E9ECEF',
@@ -6571,10 +6571,10 @@ export var mapConfig = {
     {
       id: "GL_VisualizationOverlay5TMS",
       layer: "Visualization Overlay5 TMS",
-      label: "Lake Level Fluctuation Zones",
+      label: "Lake Level Fluctuation Zone",
       apikey: 'GL_LakeFluctuationZone',
       hubsapikey: 'GL_LakeFluctuationZone',
-      chartLabel: 'Lake Level Fluctuation Zones',
+      chartLabel: 'Lake Level Fluctuation Zone',
       chartLegendValues: 1,
       chartCSSColor: {
         0: '#E9ECEF',
