@@ -495,7 +495,7 @@ export class Map extends Component {
 
     // only trigger the an event if there are regions on the map that are not the current region
     if (mapRegions.length > 0) {
-      const regionnotdisplayedEvent = new CustomEvent('regionnotdisplayed', { detail: mapRegions.join() });
+      const regionnotdisplayedEvent = new CustomEvent('regionnotdisplayed', { detail: mapRegions.join('; or the CREST region ') });
       window.dispatchEvent(regionnotdisplayedEvent);
     }
   }
