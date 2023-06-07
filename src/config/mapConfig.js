@@ -7617,7 +7617,7 @@ export var mapConfig = {
    },
    {
      region: 'us_virgin_islands',
-     label: 'US Virgin Islands',
+     label: 'U.S. Virgin Islands',
      center: [ 18.01530387941711, -64.49111938476564],
      extent: [-65.13508888306899, 17.627008270947076, -64.25480934205336, 18.46267598832466],
      zoom: 10

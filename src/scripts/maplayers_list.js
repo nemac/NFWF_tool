@@ -207,9 +207,9 @@ export class MapLayersList extends Component {
     document.getElementById('zoomregion-uvi').addEventListener('click', (e) => {
       const region = zoomRegions.filter(regions => regions.region === 'us_virgin_islands');
       MapLayersList.zoomToRegion(mapComponent, region[0]);
-      MapLayersList.updateZoomRegionLabel('US Virgin Islands');
+      MapLayersList.updateZoomRegionLabel('U.S. Virgin Islands');
 
-      // set region to US Virgin Islands
+      // set region to U.S. Virgin Islands
       store.setStoreItem('region', 'us_virgin_islands');
       const navChangeEvent = new CustomEvent('regionChanged');
       window.dispatchEvent(navChangeEvent);
@@ -437,7 +437,7 @@ export class MapLayersList extends Component {
         greatLakesLayerList.classList.add('d-none');
         guamLayerList.classList.add('d-none');
         alaskaLayerList.classList.add('d-none');
-        MapLayersList.updateZoomRegionLabel('US Virgin Islands');
+        MapLayersList.updateZoomRegionLabel('U.S. Virgin Islands');
         break;
       case 'american_samoa':
         defaultLayerList.classList.add('d-none');
