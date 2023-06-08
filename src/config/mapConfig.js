@@ -6564,7 +6564,7 @@ export var mapConfig = {
       maxNativeZoom: 14,
       tms: false,
       legend: "VisualizationOverlay4",
-      description: "Regional quantile distribution of Great Lakes Aquatic Habitat Framework composite fetch data layer where wind fetch calculations were performed for each of the Great Lakes using wind data averaged from 2006-2014 during open-water months (April-Nov.).",
+      description: "Great Lakes Aquatic Habitat Framework composite fetch data layer where wind fetch calculations were performed for each of the Great Lakes using wind data averaged from 2006-2014 during open-water months (April-Nov.). Wind fetches in this model were calculated as effective fetch at a 30 m grid cell resolution resulting from the directional frequency method where each grid cell is the distance to shore along each input direction weighted by the percent frequency that the wind blew from that direction and summed, resulting in a continuous layer ranked from low (1) to high (5) using a regional quantile distribution.",
       source: 'regional',
       region: 'great_lakes'
     },
