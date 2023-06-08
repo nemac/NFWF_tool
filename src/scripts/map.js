@@ -88,7 +88,7 @@ export class Map extends Component {
     // add spinner element
     Map.addSpinnerElement();
 
-    Map.addRegionNotDisplayedListner();
+    // Map.addRegionNotDisplayedListner();
   }
 
   // add spinner element to leftlet map panes
