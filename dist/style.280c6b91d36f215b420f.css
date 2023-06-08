@@ -1,0 +1,1248 @@
+#map {
+  height: inherit;
+  width: inherit;
+  image-rendering: unset;
+  /* Safari seems to support, but seems deprecated and does the same thing as the others. */
+}
+
+.leaflet-container .leaflet-overlay-pane svg,
+.leaflet-container .leaflet-marker-pane img,
+.leaflet-container .leaflet-shadow-pane img,
+.leaflet-container .leaflet-tile-pane img,
+.leaflet-container img.leaflet-image-layer {
+  image-rendering: -moz-crisp-edges;
+  /* Firefox        */
+  image-rendering: -o-crisp-edges;
+  /* Opera          */
+  image-rendering: -webkit-optimize-contrast;
+  /* Safari         */
+  image-rendering: crisp-edges;
+}
+@media print {
+  @page {
+    padding: 1in !important;
+    margin: 1cm !important;
+    width: 8.5in !important;
+  }
+  body {
+    display: block !important;
+    height: auto !important;
+    overflow: visible !important;
+    color: black !important;
+    background-color: white !important;
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  a {
+    break-inside: avoid-page !important;
+    page-break-inside: avoid !important;
+  }
+
+  a[href^=http]:after {
+    content: " < " attr(href) "> " !important;
+  }
+
+  .page-break {
+    display: block !important;
+    page-break-before: always !important;
+    -webkit-region-break-after: always !important;
+  }
+
+  #main {
+    display: block !important;
+    float: none !important;
+    width: auto !important;
+    height: auto !important;
+    background-color: white !important;
+    color: black !important;
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  .bg-dark {
+    background-color: white !important;
+    color: black !important;
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  #main > span {
+    background-color: white !important;
+    color: black !important;
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  #exlpore-directions {
+    background-color: white !important;
+    color: black !important;
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  #exlpore-directions .bg-dark {
+    background-color: white !important;
+    color: black !important;
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  #exlpore-directions .navbar-explore-shapes.bg-dark {
+    background-color: white !important;
+    color: black !important;
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  .sticky-top.sideheading {
+    background-color: white !important;
+    color: black !important;
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  .nfwf-header {
+    display: block !important;
+    float: none !important;
+    padding: 15px !important;
+    background-color: white !important;
+    color: black !important;
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  .nfwf-header h2 {
+    display: block !important;
+    float: none !important;
+    padding: 15px !important;
+    background-color: white !important;
+    color: black !important;
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  #main-content, #tab-main-nav-map, .container {
+    display: block !important;
+    float: none !important;
+    background-color: white !important;
+    color: black !important;
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  #map-holder {
+    display: block !important;
+    float: none !important;
+    padding: 1in !important;
+    height: 10.5in !important;
+    width: 10.5in !important;
+    background-color: white !important;
+    color: black !important;
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+    page-break-after: always !important;
+    -webkit-column-break-after: always !important;
+       -moz-column-break-after: always !important;
+            break-after: always !important;
+    page-break-before: always !important;
+    -webkit-column-break-before: always !important;
+       -moz-column-break-before: always !important;
+            break-before: always !important;
+    break-inside: avoid-page !important;
+    page-break-inside: avoid !important;
+  }
+  #map-holder #map {
+    display: block !important;
+    float: none !important;
+    height: 100% !important;
+    width: 100% !important;
+    background-color: white !important;
+    color: black !important;
+    break-inside: avoid-page !important;
+    page-break-inside: avoid !important;
+    page-break-after: always !important;
+    -webkit-column-break-after: always !important;
+       -moz-column-break-after: always !important;
+            break-after: always !important;
+    page-break-before: always !important;
+    -webkit-column-break-before: always !important;
+       -moz-column-break-before: always !important;
+            break-before: always !important;
+  }
+
+  .map-list-column {
+    display: block !important;
+    float: none !important;
+    position: unset !important;
+    height: auto !important;
+    width: 100% !important;
+    background-color: white !important;
+    color: black !important;
+    border: unset !important;
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+    page-break-after: always !important;
+    -webkit-column-break-after: always !important;
+       -moz-column-break-after: always !important;
+            break-after: always !important;
+    -webkit-column-break-before: always !important;
+       -moz-column-break-before: always !important;
+            break-before: always !important;
+    page-break-before: always !important;
+  }
+
+  .map-list-column.flex-fill {
+    flex: unset !important;
+  }
+
+  #maplayers_list-holder {
+    display: block !important;
+    float: none !important;
+    position: unset !important;
+    z-index: unset !important;
+    border: unset !important;
+    background-color: white !important;
+    color: black !important;
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-height: 11in !important;
+    page-break-after: always !important;
+    -webkit-column-break-after: always !important;
+       -moz-column-break-after: always !important;
+            break-after: always !important;
+  }
+
+  #NFWF-Logo-Title {
+    display: none !important;
+  }
+
+  .LayerList-Group {
+    display: block !important;
+    float: none !important;
+    position: unset !important;
+    background-color: white !important;
+    color: black !important;
+    border: unset !important;
+    outline: unset !important;
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+    box-shadow: unset !important;
+  }
+  .LayerList-Group svg {
+    display: none !important;
+  }
+
+  .inputs-collapser [aria-expanded=true] svg.fa-caret-down {
+    display: none !important;
+  }
+
+  .inputs-collapser [aria-expanded=true] svg.fa-caret-up {
+    display: none !important;
+  }
+
+  .inputs-collapser [aria-expanded=false] svg.fa-caret-down {
+    display: none !important;
+  }
+
+  .inputs-collapser [aria-expanded=false] svg.fa-caret-up {
+    display: none !important;
+  }
+
+  .zoomLinks-Group {
+    display: none !important;
+  }
+
+  .inputs-layer-list {
+    display: block !important;
+    float: none !important;
+    position: unset !important;
+    background-color: white !important;
+    color: black !important;
+    border: unset !important;
+    outline: unset !important;
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+    box-shadow: unset !important;
+  }
+  .inputs-layer-list svg {
+    display: none !important;
+  }
+
+  .LayerInput-header {
+    display: block !important;
+    float: none !important;
+    position: unset !important;
+    background-color: white !important;
+    color: black !important;
+    border: unset !important;
+    outline: unset !important;
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+    box-shadow: unset !important;
+  }
+  .LayerInput-header svg {
+    display: none !important;
+  }
+
+  .map_responsive {
+    display: block !important;
+    float: none !important;
+    position: unset !important;
+    overflow-y: unset !important;
+    overflow-x: unset !important;
+    min-width: unset !important;
+    max-width: unset !important;
+    max-height: 11in !important;
+    margin-right: unset !important;
+    width: 100% !important;
+    height: auto !important;
+    border: unset !important;
+    background-color: white !important;
+    color: black !important;
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  .maplayerslisttoggle-collapse {
+    display: block !important;
+    float: none !important;
+    position: unset !important;
+    overflow-y: unset !important;
+    overflow-x: unset !important;
+    padding: unset !important;
+    padding-left: 100px !important;
+    padding-right: 100px !important;
+    flex-wrap: unset !important;
+    justify-content: unset !important;
+    width: 100% !important;
+    height: 100% !important;
+    background-color: white !important;
+    color: black !important;
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+    max-height: 11in !important;
+  }
+  .maplayerslisttoggle-collapse.bg-dark {
+    background-color: white !important;
+    color: black !important;
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  #mapListToggle {
+    display: block !important;
+    float: none !important;
+    position: unset !important;
+    width: 100% !important;
+    height: auto !important;
+    border: unset !important;
+    background-color: white !important;
+    color: black !important;
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+    flex: unset !important;
+    flex-basis: unset !important;
+    flex-grow: unset !important;
+  }
+  #mapListToggle #main-nav {
+    display: block !important;
+    float: none !important;
+    position: unset !important;
+    width: 100% !important;
+    height: auto !important;
+    border: unset !important;
+    color: black !important;
+    background-color: white !important;
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  #ToggleLayerList, #ToggleLayerList.closed {
+    position: unset !important;
+    display: block !important;
+    float: none !important;
+    overflow: unset !important;
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0px !important;
+    border: unset !important;
+    background-color: white !important;
+    color: black !important;
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+    max-height: 11in !important;
+  }
+
+  #mapListToggle .navbar-nav {
+    flex: unset !important;
+    flex-basis: unset !important;
+    flex-grow: unset !important;
+    flex: unset !important;
+    flex-basis: unset !important;
+    flex-direction: unset !important;
+  }
+  #mapListToggle .navbar-nav #ToggleLayerList, #mapListToggle .navbar-nav #ToggleLayerList.closed {
+    flex: unset !important;
+    flex-basis: unset !important;
+    flex-grow: unset !important;
+    flex: unset !important;
+    flex-basis: unset !important;
+    flex-direction: unset !important;
+  }
+
+  .brand-maplist-holder, .nav-brand-maplayerlist {
+    position: unset !important;
+    float: none !important;
+    display: block !important;
+    overflow: unset !important;
+    top: unset !important;
+    width: 100% !important;
+    background-color: white !important;
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  .LayerList-Group {
+    padding-top: 0px !important;
+  }
+
+  .LayerInput-header, .custom-control.custom-checkbox {
+    padding: unset !important;
+    margin: unset !important;
+  }
+
+  .custom-control.custom-checkbox {
+    min-height: 50px !important;
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+  }
+
+  .collapse:not(.show) {
+    display: block !important;
+    float: none !important;
+  }
+
+  .h-0 {
+    display: block !important;
+    float: none !important;
+    height: 100% !important;
+  }
+
+  #explore-title, #exlpore-directions,
+#navbar-explore-shapes, #zonal-stats-short-title-holder, #hasshape-button-holder,
+.zonal-label-remove, .zonal-label-zoom,
+.zonal-long-button-wrapper.d-none, #btn-basemap,
+#basemaplist, .list-basemap, .layer-description-text,
+.custom-control-label::after, .custom-control-label::before,
+.bnt-MapLayersListToggle, .list-group-item-action,
+.zonal-long-button-wrapper.d-none, .zonal-stats-wrapper.d-none, .zonal-long-button,
+#zonal-header-f, #zonal-header {
+    display: none !important;
+    float: none !important;
+  }
+
+  .zonal-long-button-wrapper .d-flex.col-xl-6.col-lg-6.col-med-6.col-sm-6.col-6 {
+    float: none !important;
+    width: 100% !important;
+    flex: unset !important;
+  }
+
+  .layer-legend-toggler, #legend-assets {
+    display: none !important;
+    float: none !important;
+    width: 0px !important;
+    height: 0px !important;
+  }
+  .layer-legend-toggler svg, #legend-assets svg {
+    display: none !important;
+    float: none !important;
+    width: 0px !important;
+    height: 0px !important;
+  }
+
+  .zonal-long-name {
+    color: black !important;
+  }
+
+  .zonal-long-graphs h5, .zonal-long-graphs h6, .zonal-long-graphs .zonal-long-table-header-simple {
+    color: black !important;
+  }
+
+  .leaflet-control-container .leaflet-top.leaflet-left {
+    display: none !important;
+  }
+  .leaflet-control-container .leaflet-bottom.leaflet-left {
+    display: none !important;
+  }
+  .leaflet-control-container .leaflet-top.leaflet-right {
+    display: none !important;
+  }
+
+  .leaflet-control-attribution {
+    color: #333 !important;
+    text-shadow: none !important;
+    -webkit-text-stroke: 0px #333 !important;
+  }
+
+  .leaflet-tile {
+    mix-blend-mode: difference;
+  }
+
+  .user-shape, .btn-light {
+    background-color: white !important;
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+    color: black !important;
+    border: unset !important;
+    font-size: 1.5rem !important;
+  }
+  .user-shape svg, .btn-light svg {
+    display: none !important;
+  }
+
+  .layer-legend {
+    margin: unset !important;
+  }
+
+  .layer-legend-wrapper.open, .layer-legend-wrapper.closed {
+    display: block !important;
+    float: none !important;
+    padding: unset !important;
+    margin: unset !important;
+    border: unset !important;
+    overflow: hidden !important;
+    transition: unset !important;
+    will-change: unset !important;
+    background-color: white !important;
+    color: black !important;
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+    min-height: 40px !important;
+  }
+
+  .layer-legend .zonal-long-table-item {
+    display: inline !important;
+    width: 8in !important;
+    height: 15px !important;
+    line-height: 15px !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+  }
+
+  #explore-holder .zonal-long-table-item {
+    display: inline !important;
+    width: 8in !important;
+    height: 18px !important;
+    line-height: 18px !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+  }
+
+  .zonal-long-table-item {
+    -webkit-text-stroke: #000 !important;
+    text-shadow: 0 0 0 #000 !important;
+  }
+
+  .zonal-long-raw-values {
+    margin-top: 80px !important;
+    background-color: white !important;
+    color: black !important;
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  .zonal-long-raw-values .table {
+    background-color: white !important;
+    color: black !important;
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  .zonal-long-raw-values .table-responsive,
+.zonal-long-raw-values .table-responsive tr,
+.zonal-long-raw-values .table-responsive th,
+.zonal-long-raw-values .table-responsive td {
+    background-color: white !important;
+    color: black !important;
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  #explore-holder .selected-cell {
+    position: relative !important;
+    border: 2.5px solid #ffc107 !important;
+    width: 100% !important;
+    height: 100% !important;
+    top: -5px !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    padding-bottom: 5px !important;
+    padding-top: 5px !important;
+  }
+
+  .zonal-long-fish-wildlife-wrapper,
+.zonal-long-exposure-wrapper {
+    margin-top: 10px !important;
+  }
+
+  .zonal-long-hub-wrapper {
+    margin-top: 50px !important;
+  }
+
+  .layer-legend .zonal-long-table-row-header-simple {
+    position: relative !important;
+    height: 20px !important;
+  }
+
+  .layer-legend, .zonal-long-table, .zonal-long-table-row,
+.custom-control.custom-checkbox, .layer-toggle-wrapper,
+.LayerInput-header, .LayerList-spacer,
+.zonal-long-asset-threat {
+    background-color: white !important;
+    color: black !important;
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+    border: unset !important;
+    float: none !important;
+    break-inside: avoid-page !important;
+    page-break-inside: avoid !important;
+  }
+
+  .zonal-long-wrapper {
+    background-color: white !important;
+    color: black !important;
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  #explore-holder.zonal-long-wrapper {
+    background-color: white !important;
+    color: black !important;
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  #explore-holder .zonal-long-graph-wrapper, #explore-holder .zonal-long-table-wrapper {
+    margin-top: 2.5px !important;
+    margin-bottom: 2.5px !important;
+  }
+  #explore-holder .zonal-long-graph-bars {
+    max-height: 75px !important;
+  }
+  #explore-holder .zonal-long-table-row {
+    min-height: 30px !important;
+    max-height: 30px !important;
+    margin-top: 5px !important;
+  }
+  #explore-holder .zonal-long-graph-label-text {
+    color: black !important;
+    position: relative !important;
+    top: 0px !important;
+    left: 0px !important;
+  }
+  #explore-holder .zonal-long-table-row-header-simple {
+    position: relative !important;
+    min-height: 20px !important;
+    max-height: 20px !important;
+  }
+  #explore-holder .zonal-long-asset-threat,
+#explore-holder .zonal-long-exposure-box,
+#explore-holder .zonal-long-asset-threat {
+    margin-top: 5px !important;
+  }
+  #explore-holder h5 {
+    font-size: 1rem !important;
+  }
+  #explore-holder .zonal-long-graph-labels {
+    color: black !important;
+    max-height: 40px !important;
+  }
+  #explore-holder .sticky-top {
+    position: absolute !important;
+  }
+  #explore-holder .flex-column {
+    display: inline !important;
+    flex-direction: unset !important;
+  }
+
+  .LayerList-spacer {
+    padding-top: unset !important;
+    height: 5px !important;
+    line-height: 5px !important;
+    min-height: 5px !important;
+  }
+
+  #has-shape-holder {
+    display: none !important;
+  }
+
+  .data-row {
+    display: block !important;
+    float: none !important;
+    overflow: visible !important;
+    background-color: white !important;
+    color: black !important;
+    height: auto !important;
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+    page-break-after: always !important;
+    -webkit-column-break-after: always !important;
+       -moz-column-break-after: always !important;
+            break-after: always !important;
+  }
+  .data-row #zonal-area-wrapper {
+    display: block !important;
+    overflow: visible !important;
+  }
+  .data-row #zonal-content {
+    display: block !important;
+    overflow: visible !important;
+  }
+  .data-row #zonal-content.zonal-long-wrapper {
+    background-color: white !important;
+    color: black !important;
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  .data-row.flex-fill {
+    flex-grow: unset !important;
+    flex-shrink: unset !important;
+    flex-basis: unset !important;
+  }
+
+  #explore-holder {
+    position: unset !important;
+    display: inline !important;
+    width: auto !important;
+    height: 100% !important;
+    overflow: visible !important;
+    background-color: white !important;
+    color: black !important;
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+    page-break-after: always !important;
+    -webkit-column-break-after: always !important;
+       -moz-column-break-after: always !important;
+            break-after: always !important;
+  }
+  #explore-holder.flex-fill {
+    flex-grow: unset !important;
+    flex-shrink: unset !important;
+    flex-basis: unset !important;
+  }
+
+  .explore-row, .explore-row-container {
+    display: inline !important;
+    height: 100% !important;
+    overflow: visible !important;
+    background-color: white !important;
+    color: black !important;
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  .explore-row.d-flex, .explore-row-container.d-flex {
+    display: inline !important;
+  }
+  .explore-row.row, .explore-row-container.row {
+    flex-wrap: unset !important;
+  }
+
+  .explore-row-container {
+    display: inline !important;
+    background-color: white !important;
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  .explore-row-container hr {
+    display: none !important;
+  }
+
+  .zonal-stats-wrapper, .zonal-summary-wrapper, .zonal-long-graph-steps,
+.zonal-long-graph-content, .zonal-long-graph-wrapper-short-chart {
+    display: block !important;
+    float: none !important;
+    break-inside: avoid-page !important;
+    page-break-inside: avoid !important;
+  }
+
+  #zonal-stats-button-holder, .zonal-stats-button-holder,
+.zonal-long-button-wrapper, .bg-dark {
+    margin-top: 5px !important;
+    background-color: white !important;
+    color: black !important;
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  .layer-toggle-wrapper {
+    float: left !important;
+    width: 25% !important;
+    margin-top: 10px !important;
+    min-height: 40px !important;
+  }
+
+  .layer-legend-wrapper, .layer-legend-wrapper.closed {
+    float: left !important;
+    width: 75% !important;
+  }
+
+  .zonal-long-table-index {
+    margin-top: 5px !important;
+    display: block !important;
+    min-height: 80px !important;
+  }
+  .zonal-long-table-index h6 {
+    float: left !important;
+    width: 20% !important;
+    margin-top: 30px !important;
+    max-height: 20px !important;
+    height: 20px !important;
+    text-align: left !important;
+    padding-left: 0px !important;
+    font-size: 0.9rem !important;
+  }
+
+  .zonal-long-table-wrapper {
+    float: left !important;
+    width: 80% !important;
+  }
+
+  .userarealabel {
+    color: black !important;
+  }
+
+  .layer-legend .zonal-long-table-cell-hub-none {
+    display: none !important;
+  }
+  .layer-legend .zonal-long-table-cell-hub-zero {
+    display: none !important;
+  }
+  .layer-legend .zonal-long-table-cell-asset-none {
+    display: none !important;
+  }
+  .layer-legend .zonal-long-table-cell-asset-zero {
+    display: none !important;
+  }
+  .layer-legend .zonal-long-table-cell-threat-none {
+    display: none !important;
+  }
+  .layer-legend .zonal-long-table-cell-threat-zero {
+    display: none !important;
+  }
+  .layer-legend .zonal-long-table-cell-exposure-box-none {
+    display: none !important;
+  }
+  .layer-legend .zonal-long-table-cell-exposure-box-zero {
+    display: none !important;
+  }
+  .layer-legend .zonal-long-table-cell-fish-none {
+    display: none !important;
+  }
+  .layer-legend .zonal-long-table-cell-fish-zero {
+    display: none !important;
+  }
+  .layer-legend .zonal-long-table-cell-wildlife-none {
+    display: none !important;
+  }
+  .layer-legend .zonal-long-table-cell-wildlife-zero {
+    display: none !important;
+  }
+  .layer-legend .zonal-long-table-cell-popdensity-none {
+    display: none !important;
+  }
+  .layer-legend .zonal-long-table-cell-popdensity-zero {
+    display: none !important;
+  }
+  .layer-legend .zonal-long-table-cell-socvuln-none {
+    display: none !important;
+  }
+  .layer-legend .zonal-long-table-cell-socvuln-zero {
+    display: none !important;
+  }
+  .layer-legend .zonal-long-table-cell-critfac-none {
+    display: none !important;
+  }
+  .layer-legend .zonal-long-table-cell-critfac-zero {
+    display: none !important;
+  }
+  .layer-legend .zonal-long-table-cell-critinfra-none {
+    display: none !important;
+  }
+  .layer-legend .zonal-long-table-cell-critinfra-zero {
+    display: none !important;
+  }
+  .layer-legend .zonal-long-table-cell-drainage-none {
+    display: none !important;
+  }
+  .layer-legend .zonal-long-table-cell-drainage-zero {
+    display: none !important;
+  }
+  .layer-legend .zonal-long-table-cell-erosion-none {
+    display: none !important;
+  }
+  .layer-legend .zonal-long-table-cell-erosion-zero {
+    display: none !important;
+  }
+  .layer-legend .zonal-long-table-cell-floodprone-none {
+    display: none !important;
+  }
+  .layer-legend .zonal-long-table-cell-floodprone-zero {
+    display: none !important;
+  }
+  .layer-legend .zonal-long-table-cell-slr-none {
+    display: none !important;
+  }
+  .layer-legend .zonal-long-table-cell-slr-zero {
+    display: none !important;
+  }
+  .layer-legend .zonal-long-table-cell-stormsurge-none {
+    display: none !important;
+  }
+  .layer-legend .zonal-long-table-cell-stormsurge-zero {
+    display: none !important;
+  }
+  .layer-legend .zonal-long-table-cell-geostress-none {
+    display: none !important;
+  }
+  .layer-legend .zonal-long-table-cell-geostress-zero {
+    display: none !important;
+  }
+  .layer-legend .zonal-long-table-cell-slope-none {
+    display: none !important;
+  }
+  .layer-legend .zonal-long-table-cell-slope-zero {
+    display: none !important;
+  }
+
+  .col-xl-1 {
+    display: block !important;
+    width: 100% !important;
+    float: none !important;
+    min-height: 1px !important;
+    max-width: 100% !important;
+  }
+
+  .col-xl-2 {
+    display: block !important;
+    width: 100% !important;
+    float: none !important;
+    min-height: 1px !important;
+    max-width: 100% !important;
+  }
+
+  .col-xl-3 {
+    display: block !important;
+    width: 100% !important;
+    float: none !important;
+    min-height: 1px !important;
+    max-width: 100% !important;
+  }
+
+  .col-xl-4 {
+    display: block !important;
+    width: 100% !important;
+    float: none !important;
+    min-height: 1px !important;
+    max-width: 100% !important;
+  }
+
+  .col-xl-5 {
+    display: block !important;
+    width: 100% !important;
+    float: none !important;
+    min-height: 1px !important;
+    max-width: 100% !important;
+  }
+
+  .col-xl-6 {
+    display: block !important;
+    width: 100% !important;
+    float: none !important;
+    min-height: 1px !important;
+    max-width: 100% !important;
+  }
+
+  .col-xl-7 {
+    display: block !important;
+    width: 100% !important;
+    float: none !important;
+    min-height: 1px !important;
+    max-width: 100% !important;
+  }
+
+  .col-xl-8 {
+    display: block !important;
+    width: 100% !important;
+    float: none !important;
+    min-height: 1px !important;
+    max-width: 100% !important;
+  }
+
+  .col-xl-9 {
+    display: block !important;
+    width: 100% !important;
+    float: none !important;
+    min-height: 1px !important;
+    max-width: 100% !important;
+  }
+
+  .col-xl-10 {
+    display: block !important;
+    width: 100% !important;
+    float: none !important;
+    min-height: 1px !important;
+    max-width: 100% !important;
+  }
+
+  .col-xl-11 {
+    display: block !important;
+    width: 100% !important;
+    float: none !important;
+    min-height: 1px !important;
+    max-width: 100% !important;
+  }
+
+  .col-xl-12 {
+    display: block !important;
+    width: 100% !important;
+    float: none !important;
+    min-height: 1px !important;
+    max-width: 100% !important;
+  }
+
+  .col-lg-1 {
+    display: block !important;
+    width: 100% !important;
+    float: none !important;
+    min-height: 1px;
+    max-width: 100%;
+  }
+
+  .col-lg-2 {
+    display: block !important;
+    width: 100% !important;
+    float: none !important;
+    min-height: 1px;
+    max-width: 100%;
+  }
+
+  .col-lg-3 {
+    display: block !important;
+    width: 100% !important;
+    float: none !important;
+    min-height: 1px;
+    max-width: 100%;
+  }
+
+  .col-lg-4 {
+    display: block !important;
+    width: 100% !important;
+    float: none !important;
+    min-height: 1px;
+    max-width: 100%;
+  }
+
+  .col-lg-5 {
+    display: block !important;
+    width: 100% !important;
+    float: none !important;
+    min-height: 1px;
+    max-width: 100%;
+  }
+
+  .col-lg-6 {
+    display: block !important;
+    width: 100% !important;
+    float: none !important;
+    min-height: 1px;
+    max-width: 100%;
+  }
+
+  .col-lg-7 {
+    display: block !important;
+    width: 100% !important;
+    float: none !important;
+    min-height: 1px;
+    max-width: 100%;
+  }
+
+  .col-lg-8 {
+    display: block !important;
+    width: 100% !important;
+    float: none !important;
+    min-height: 1px;
+    max-width: 100%;
+  }
+
+  .col-lg-9 {
+    display: block !important;
+    width: 100% !important;
+    float: none !important;
+    min-height: 1px;
+    max-width: 100%;
+  }
+
+  .col-lg-10 {
+    display: block !important;
+    width: 100% !important;
+    float: none !important;
+    min-height: 1px;
+    max-width: 100%;
+  }
+
+  .col-lg-11 {
+    display: block !important;
+    width: 100% !important;
+    float: none !important;
+    min-height: 1px;
+    max-width: 100%;
+  }
+
+  .col-lg-12 {
+    display: block !important;
+    width: 100% !important;
+    float: none !important;
+    min-height: 1px;
+    max-width: 100%;
+  }
+
+  .col-md-1 {
+    display: block !important;
+    width: 100% !important;
+    float: none !important;
+    min-height: 1px;
+    max-width: 100%;
+  }
+
+  .col-md-2 {
+    display: block !important;
+    width: 100% !important;
+    float: none !important;
+    min-height: 1px;
+    max-width: 100%;
+  }
+
+  .col-md-3 {
+    display: block !important;
+    width: 100% !important;
+    float: none !important;
+    min-height: 1px;
+    max-width: 100%;
+  }
+
+  .col-md-4 {
+    display: block !important;
+    width: 100% !important;
+    float: none !important;
+    min-height: 1px;
+    max-width: 100%;
+  }
+
+  .col-md-5 {
+    display: block !important;
+    width: 100% !important;
+    float: none !important;
+    min-height: 1px;
+    max-width: 100%;
+  }
+
+  .col-md-6 {
+    display: block !important;
+    width: 100% !important;
+    float: none !important;
+    min-height: 1px;
+    max-width: 100%;
+  }
+
+  .col-md-7 {
+    display: block !important;
+    width: 100% !important;
+    float: none !important;
+    min-height: 1px;
+    max-width: 100%;
+  }
+
+  .col-md-8 {
+    display: block !important;
+    width: 100% !important;
+    float: none !important;
+    min-height: 1px;
+    max-width: 100%;
+  }
+
+  .col-md-9 {
+    display: block !important;
+    width: 100% !important;
+    float: none !important;
+    min-height: 1px;
+    max-width: 100%;
+  }
+
+  .col-md-10 {
+    display: block !important;
+    width: 100% !important;
+    float: none !important;
+    min-height: 1px;
+    max-width: 100%;
+  }
+
+  .col-md-11 {
+    display: block !important;
+    width: 100% !important;
+    float: none !important;
+    min-height: 1px;
+    max-width: 100%;
+  }
+
+  .col-md-12 {
+    display: block !important;
+    width: 100% !important;
+    float: none !important;
+    min-height: 1px;
+    max-width: 100%;
+  }
+
+  .order-1 {
+    order: 1;
+  }
+
+  .order-2 {
+    order: 2;
+  }
+
+  .order-sm-1 {
+    order: 1;
+  }
+
+  .order-sm-2 {
+    order: 3;
+  }
+
+  .order-sm-3 {
+    order: 2;
+  }
+
+  .order-md-1 {
+    order: 1;
+  }
+
+  .order-md-2 {
+    order: 2;
+  }
+
+  .order-lg-1 {
+    order: 2;
+  }
+
+  .order-lg-2 {
+    order: 1;
+  }
+
+  .order-xl-2 {
+    order: 1;
+  }
+
+  .order-xl-1 {
+    order: 2;
+  }
+}
+
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzdHlsZS4yODBjNmI5MWQzNmYyMTViNDIwZi5jc3MiLCJzb3VyY2VSb290IjoiIn0=*/

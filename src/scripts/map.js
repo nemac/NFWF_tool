@@ -88,7 +88,7 @@ export class Map extends Component {
     // add spinner element
     Map.addSpinnerElement();
 
-    Map.addRegionNotDisplayedListner();
+    // Map.addRegionNotDisplayedListner();
   }
 
   // add spinner element to leftlet map panes
@@ -421,6 +421,7 @@ export class Map extends Component {
       store.saveAction('moveend');
       this.hideLabelsZooomOut();
       this.forceMapReRender();
+      // console.log('mapCenter', this.map.getCenter());
       // uncomment to get console of center and extent helpful for region extents
       // console.log('center',  [this.map.getCenter().wrap().lng,
       //   this.map.getCenter().wrap().lat] )
@@ -494,7 +495,7 @@ export class Map extends Component {
 
     // only trigger the an event if there are regions on the map that are not the current region
     if (mapRegions.length > 0) {
-      const regionnotdisplayedEvent = new CustomEvent('regionnotdisplayed', { detail: mapRegions.join() });
+      const regionnotdisplayedEvent = new CustomEvent('regionnotdisplayed', { detail: mapRegions.join('; or the CREST region ') });
       window.dispatchEvent(regionnotdisplayedEvent);
     }
   }

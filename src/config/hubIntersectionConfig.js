@@ -224,6 +224,29 @@ const config = [
     region: 'alaska',
     queryUrl: `https://services1.arcgis.com/PwLrOgCfU0cYShcG/ArcGIS/rest/services/ak_hubs_core_030722/FeatureServer/0/query`,
     agolOutFields: [ 'TARGET_FID','aquatic', 'low_areas', 'permafrst', 'trsnpoton', 'terrestri', 'hub_rnk', 'exposure', 'asset', 'threat', 'soc_vuln', 'crit_infra', 'crit_fac', 'soc_vuln','floodprone', 'tsunami', 'wildlife', 'terrestri', 'erosion' ]
+  },
+  {
+    fieldMaps: {
+      aquatic: 'aquatic',
+      wildlife: 'wildlife',
+      hub_rnk: 'hubs',
+      exposure: 'exposure',
+      asset: 'asset',
+      threat: 'threat',
+      crit_infra: 'crit_infra',
+      crit_fac: 'crit_facilities',
+      soc_vuln: 'social_vuln',
+      floodprone: 'floodprone_areas',
+      terrestri: 'terrestrial',
+      slope: 'slope',
+      erosion: 'erosion',
+      highwater: 'highwater',
+      impermeabl: 'impermeable',
+      pop_dens: 'pop_density'
+    },
+    region: 'great_lakes',
+    queryUrl: `https://services1.arcgis.com/PwLrOgCfU0cYShcG/ArcGIS/rest/services/gl_hubs_cores_052323_CREST_3857_sean_2/FeatureServer/0/query`,
+    agolOutFields: [ 'TARGET_FID','aquatic', 'pop_dens', 'highwater',  'wildlife', 'hub_rnk', 'exposure', 'asset', 'threat', 'threat', 'crit_infra', 'crit_fac', 'soc_vuln', 'floodprone', 'floodprone', 'terrestri', 'slope', 'erosion', 'highwater', 'impermeabl' ]
   }
 ];
 

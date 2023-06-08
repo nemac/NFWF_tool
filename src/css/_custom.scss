@@ -2716,6 +2716,13 @@ p.not-found {
   background-color:  $body-bg;
 }
 
+.custom-control-label-layerlist {
+  max-width: 200px;
+  @media screen and (max-width: 1600px) {
+    max-width: 150px;
+  }
+}
+
 .custom-control-input:focus ~ .custom-control-label::before {
   box-shadow: none;
 }
@@ -2733,8 +2740,6 @@ p.not-found {
   border: 0px solid $body-color;
   @include border-radius(0.25rem, 0.25rem);
 }
-
-
 
 .tooltip {
     z-index: 10000;
@@ -3114,7 +3119,7 @@ p.not-found {
   }
 }
 
-.btn-mapshareurl-holder a, .btn-mapshareurl-holder a:hover, .btn-mapreset-holder a, .btn-mapreset-holder a:hover,{
+.btn-mapshareurl-holder a, .btn-mapshareurl-holder a:hover, .btn-mapreset-holder a, .btn-mapreset-holder a:hover {
   width: 100% !important;
   height: 100% !important;
   line-height: 50px !important;

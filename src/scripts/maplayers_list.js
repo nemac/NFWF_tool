@@ -179,7 +179,7 @@ export class MapLayersList extends Component {
     document.getElementById('zoomregion-cus').addEventListener('click', (e) => {
       const region = zoomRegions.filter(regions => regions.region === 'continental_us');
       MapLayersList.zoomToRegion(mapComponent, region[0]);
-      MapLayersList.updateZoomRegionLabel('Contiental U.S.');
+      MapLayersList.updateZoomRegionLabel('Atlantic, Gulf of Mexico, and Pacific Coasts');
 
       // set region to conus
       store.setStoreItem('region', 'continental_us');
@@ -207,9 +207,9 @@ export class MapLayersList extends Component {
     document.getElementById('zoomregion-uvi').addEventListener('click', (e) => {
       const region = zoomRegions.filter(regions => regions.region === 'us_virgin_islands');
       MapLayersList.zoomToRegion(mapComponent, region[0]);
-      MapLayersList.updateZoomRegionLabel('US Virgin Islands');
+      MapLayersList.updateZoomRegionLabel('U.S. Virgin Islands');
 
-      // set region to US Virgin Islands
+      // set region to U.S. Virgin Islands
       store.setStoreItem('region', 'us_virgin_islands');
       const navChangeEvent = new CustomEvent('regionChanged');
       window.dispatchEvent(navChangeEvent);
@@ -258,6 +258,20 @@ export class MapLayersList extends Component {
 
       // ga event action, category, label
       googleAnalyticsEvent('click', 'zoomregion', 'guam');
+    });
+
+    document.getElementById('zoomregion-great_lakes').addEventListener('click', (e) => {
+      const region = zoomRegions.filter(regions => regions.region === 'great_lakes');
+      MapLayersList.zoomToRegion(mapComponent, region[0]);
+      MapLayersList.updateZoomRegionLabel('U.S. Great Lakes');
+
+      // set region to great_lakes
+      store.setStoreItem('region', 'great_lakes');
+      const navChangeEvent = new CustomEvent('regionChanged');
+      window.dispatchEvent(navChangeEvent);
+
+      // ga event action, category, label
+      googleAnalyticsEvent('click', 'zoomregion', 'great_lakes');
     });
 
     document.getElementById('zoomregion-alaska').addEventListener('click', (e) => {
@@ -345,6 +359,7 @@ export class MapLayersList extends Component {
     const northernMarianaIslandsLayerList = document.getElementById('northernMarianaIslandsLayerList');
     const americanSamoaLayerList = document.getElementById('americanSamoaLayerList');
     const guamLayerList = document.getElementById('guamLayerList');
+    const greatLakesLayerList = document.getElementById('great_lakesLayerList');
     const hawaiiLayerList = document.getElementById('hawaiiLayerList');
     const alaskaLayerList = document.getElementById('alaskaLayerList');
 
@@ -358,6 +373,7 @@ export class MapLayersList extends Component {
       americanSamoaLayerList.classList.add('d-none');
       hawaiiLayerList.classList.add('d-none');
       guamLayerList.classList.add('d-none');
+      greatLakesLayerList.classList.add('d-none');
       alaskaLayerList.classList.add('d-none');
       return null;
     }
@@ -370,9 +386,22 @@ export class MapLayersList extends Component {
         northernMarianaIslandsLayerList.classList.add('d-none');
         americanSamoaLayerList.classList.add('d-none');
         hawaiiLayerList.classList.add('d-none');
+        greatLakesLayerList.classList.add('d-none');
         guamLayerList.classList.add('d-none');
         alaskaLayerList.classList.add('d-none');
-        MapLayersList.updateZoomRegionLabel('Contiental U.S.');
+        MapLayersList.updateZoomRegionLabel('Atlantic, Gulf of Mexico, and Pacific Coasts');
+        break;
+      case 'great_lakes':
+        defaultLayerList.classList.add('d-none');
+        puertoRicoLayerList.classList.add('d-none');
+        usVirginIslandsLayerList.classList.add('d-none');
+        northernMarianaIslandsLayerList.classList.add('d-none');
+        americanSamoaLayerList.classList.add('d-none');
+        hawaiiLayerList.classList.add('d-none');
+        greatLakesLayerList.classList.remove('d-none');
+        guamLayerList.classList.add('d-none');
+        alaskaLayerList.classList.add('d-none');
+        MapLayersList.updateZoomRegionLabel('U.S. Great Lakes');
         break;
       case 'puerto_rico':
         defaultLayerList.classList.add('d-none');
@@ -381,6 +410,7 @@ export class MapLayersList extends Component {
         northernMarianaIslandsLayerList.classList.add('d-none');
         americanSamoaLayerList.classList.add('d-none');
         hawaiiLayerList.classList.add('d-none');
+        greatLakesLayerList.classList.add('d-none');
         guamLayerList.classList.add('d-none');
         alaskaLayerList.classList.add('d-none');
         MapLayersList.updateZoomRegionLabel('Puerto Rico');
@@ -392,6 +422,7 @@ export class MapLayersList extends Component {
         northernMarianaIslandsLayerList.classList.remove('d-none');
         americanSamoaLayerList.classList.add('d-none');
         hawaiiLayerList.classList.add('d-none');
+        greatLakesLayerList.classList.add('d-none');
         guamLayerList.classList.add('d-none');
         alaskaLayerList.classList.add('d-none');
         MapLayersList.updateZoomRegionLabel('Northern Mariana Islands');
@@ -403,9 +434,10 @@ export class MapLayersList extends Component {
         northernMarianaIslandsLayerList.classList.add('d-none');
         americanSamoaLayerList.classList.add('d-none');
         hawaiiLayerList.classList.add('d-none');
+        greatLakesLayerList.classList.add('d-none');
         guamLayerList.classList.add('d-none');
         alaskaLayerList.classList.add('d-none');
-        MapLayersList.updateZoomRegionLabel('US Virgin Islands');
+        MapLayersList.updateZoomRegionLabel('U.S. Virgin Islands');
         break;
       case 'american_samoa':
         defaultLayerList.classList.add('d-none');
@@ -414,6 +446,7 @@ export class MapLayersList extends Component {
         northernMarianaIslandsLayerList.classList.add('d-none');
         americanSamoaLayerList.classList.remove('d-none');
         hawaiiLayerList.classList.add('d-none');
+        greatLakesLayerList.classList.add('d-none');
         guamLayerList.classList.add('d-none');
         alaskaLayerList.classList.add('d-none');
         MapLayersList.updateZoomRegionLabel('American Samoa');
@@ -425,6 +458,7 @@ export class MapLayersList extends Component {
         northernMarianaIslandsLayerList.classList.add('d-none');
         americanSamoaLayerList.classList.add('d-none');
         hawaiiLayerList.classList.add('d-none');
+        greatLakesLayerList.classList.add('d-none');
         guamLayerList.classList.add('d-none');
         alaskaLayerList.classList.remove('d-none');
         MapLayersList.updateZoomRegionLabel('Alaska');
@@ -436,6 +470,7 @@ export class MapLayersList extends Component {
         northernMarianaIslandsLayerList.classList.add('d-none');
         americanSamoaLayerList.classList.add('d-none');
         hawaiiLayerList.classList.remove('d-none');
+        greatLakesLayerList.classList.add('d-none');
         guamLayerList.classList.add('d-none');
         alaskaLayerList.classList.add('d-none');
         MapLayersList.updateZoomRegionLabel('Hawai\'i');
@@ -447,6 +482,7 @@ export class MapLayersList extends Component {
         northernMarianaIslandsLayerList.classList.add('d-none');
         americanSamoaLayerList.classList.add('d-none');
         hawaiiLayerList.classList.add('d-none');
+        greatLakesLayerList.classList.add('d-none');
         guamLayerList.classList.remove('d-none');
         alaskaLayerList.classList.add('d-none');
         MapLayersList.updateZoomRegionLabel('Guam');
@@ -458,9 +494,10 @@ export class MapLayersList extends Component {
         northernMarianaIslandsLayerList.classList.add('d-none');
         americanSamoaLayerList.classList.add('d-none');
         hawaiiLayerList.classList.add('d-none');
+        greatLakesLayerList.classList.add('d-none');
         guamLayerList.classList.add('d-none');
         alaskaLayerList.classList.add('d-none');
-        MapLayersList.updateZoomRegionLabel('Contiental U.S.');
+        MapLayersList.updateZoomRegionLabel('Atlantic, Gulf of Mexico, and Pacific Coasts');
         break;
     }
 
@@ -697,48 +734,51 @@ export class MapLayersList extends Component {
     const layerElem = MapLayersList.getLayerWrapper(layerProps.id);
 
     if (layerElem) {
-      // get the legend html based on the number of breaks supports 1-10 breaks
-      MapLayersList.getLegendWrapper(layerElem).innerHTML =
-          getLegendHtml(layerProps.chartLegendValues);
+      if (MapLayersList.getLegendWrapper(layerElem) !== null) {
+        // get the legend html based on the number of breaks supports 1-10 breaks
+        MapLayersList.getLegendWrapper(layerElem).innerHTML =
+        getLegendHtml(layerProps.chartLegendValues);
 
-      // get the color palette for layer, each layer can have its own
-      const colorPalette = layerProps.chartCSSColor;
+        // get the color palette for layer, each layer can have its own
+        const colorPalette = layerProps.chartCSSColor;
 
-      // iterate the color palette for layer so we can assing apporaite css color to element
-      Object.keys(colorPalette).forEach((color) => {
-        // convert the color number to number word 2 - two
-        // this is how html elments are named.
-        const colorlueWord = numberToWord(Number(color));
+        // iterate the color palette for layer so we can assing apporaite css color to element
+        Object.keys(colorPalette).forEach((color) => {
+          // convert the color number to number word 2 - two
+          // this is how html elments are named.
+          const colorlueWord = numberToWord(Number(color));
 
-        // get the element based on the color word
-        const valueELem = layerElem.querySelector(`.value-${colorlueWord}`);
+          // get the element based on the color word
+          const valueELem = layerElem.querySelector(`.value-${colorlueWord}`);
 
-        // if the element exists add css color values
-        if (valueELem) {
-          // set background based on mapconfig values
-          valueELem.style.background = colorPalette[color];
+          // if the element exists add css color values
+          if (valueELem) {
+            // set background based on mapconfig values
+            valueELem.style.background = colorPalette[color];
 
-          // set font color
-          valueELem.style.color = '#000';
+            // set font color
+            valueELem.style.color = '#000';
 
-          // // last color tends to be to dark for dark font
-          // if (parseInt(color) >= layerProps.chartLegendValues ) {
-          //   valueELem.style.color = '#fff';
-          // }
-          // hide legend numbers for now will anyone notice?
-          valueELem.style.color = 'transparent';
+            // // last color tends to be to dark for dark font
+            // if (parseInt(color) >= layerProps.chartLegendValues ) {
+            //   valueELem.style.color = '#fff';
+            // }
+            // hide legend numbers for now will anyone notice?
+            valueELem.style.color = 'transparent';
 
-          // add classes for region, chartCSSSelector, and source in case we want to find it later
-          valueELem.classList.add(layerProps.chartCSSSelector);
-          valueELem.classList.add(layerProps.region);
-          valueELem.classList.add(layerProps.source);
-        }
+            // add classes for region, chartCSSSelector, and source in case we want to find it later
+            valueELem.classList.add(layerProps.chartCSSSelector);
+            valueELem.classList.add(layerProps.region);
+            valueELem.classList.add(layerProps.source);
+          }
 
-        // set attributes for popups
-        MapLayersList.getDescriptionWrapper(layerElem).setAttribute('data-content', layerProps.description);
-        MapLayersList.getDescriptionWrapper(layerElem).setAttribute('title', layerProps.label);
-        MapLayersList.setInitialLegendStatus(layerElem.getElementsByClassName('layer-legend-toggler')[0]);
-      });
+          // set attributes for popups
+          MapLayersList.setInitialLegendStatus(layerElem.getElementsByClassName('layer-legend-toggler')[0]);
+        });
+      }
+      // set attributes for description
+      MapLayersList.getDescriptionWrapper(layerElem).setAttribute('data-content', layerProps.description);
+      MapLayersList.getDescriptionWrapper(layerElem).setAttribute('title', layerProps.label);
     }
     const legendElem = document.getElementById(`legend-${layerProps.id}`);
     if (legendElem) {
